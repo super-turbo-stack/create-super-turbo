@@ -2,6 +2,9 @@
   "name": "cli",
   "version": "1.0.0",
   "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "bin": {
     "create-super-turbo": "bin/create-expo-stack.js"
   },
@@ -11,10 +14,12 @@
     "build": "tsup",
     "clean": "rm -rf dist"
   },
-  "devDependencies": {
-    "tsup": "^8.1.0"
+  "dependencies": {
+    "commander": "^12.1.0",
+    "fs-extra": "^11.2.0"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "tsup": "^8.1.0"
+  }
 }
