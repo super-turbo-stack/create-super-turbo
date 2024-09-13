@@ -1,0 +1,20 @@
+{
+  "name": "cli",
+  "version": "1.0.0",
+  "main": "index.js",
+  "bin": {
+    "create-super-turbo": "bin/create-expo-stack.js"
+  },
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "tsup --watch --onSuccess \"node dist/index.js\"",
+    "build": "tsup",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "tsup": "^8.1.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
