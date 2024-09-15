@@ -1,8 +1,13 @@
-import { defineConfig, type Options } from "tsup";
+import { defineConfig } from "tsup";
 
-export default defineConfig((options: Options) => ({
-  entryPoints: ["src/index.ts"],
+const isDev = process.env.npm_lifecycle_event === "dev";
+
+export default defineConfig({
   clean: true,
-  format: ["cjs"],
-  ...options,
-}));
+  entry: ["src/index.ts"],
+  format: ["esm"],
+  minify: !isDev,
+  target: "esnext",
+  outDir: "dist",
+  onSuccess: isDev ? "node dist/index.js" : undefined,
+});
