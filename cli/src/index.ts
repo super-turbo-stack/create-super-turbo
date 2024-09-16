@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-import { Command } from "commander";
-import * as p from "@clack/prompts";
-import fs from "fs-extra";
-import path from "path";
-import { reactApp, nextApp, expressApp } from "./types/packageTypes";
-import { getVersion } from "./utils/getCSTVersion";
-import { validateAppName } from "./utils/validateAppName";
+import { Command } from 'commander';
+import * as p from '@clack/prompts';
+import fs from 'fs-extra';
+import path from 'path';
+import { reactApp, nextApp, expressApp } from '@/types/packageTypes';
+import { getVersion } from '@/';
+import { validateAppName } from './utils/validateAppName';
 
 interface CliFlags {
   noGit: boolean;
@@ -15,7 +15,7 @@ interface CliFlags {
 
 interface CliResults {
   turboRepoName: string;
-  packageManager: "yarn" | "npm" | "pnpm";
+  packageManager: 'yarn' | 'npm' | 'pnpm';
   isTS: boolean;
   react: reactApp;
   next: nextApp;
@@ -24,11 +24,11 @@ interface CliResults {
 }
 
 const defaultOptions: CliResults = {
-  turboRepoName: "my-super-turbo",
-  packageManager: "pnpm",
+  turboRepoName: 'my-super-turbo',
+  packageManager: 'pnpm',
   isTS: true,
   react: {
-    name: "react-app",
+    name: 'react-app',
     dependencies: {
       reactRouter: true,
       recoil: true,
@@ -37,7 +37,7 @@ const defaultOptions: CliResults = {
     },
   },
   next: {
-    name: "next-app",
+    name: 'next-app',
     dependencies: {
       tanstackQuery: true,
       recoil: true,
@@ -47,7 +47,7 @@ const defaultOptions: CliResults = {
     },
   },
   express: {
-    name: "express-app",
+    name: 'express-app',
     dependencies: {
       cors: true,
       express: true,
@@ -65,30 +65,30 @@ export const runCli = async (): Promise<CliResults> => {
   const cliResults = defaultOptions;
   const program = new Command();
   program
-    .name("CREATE_SUPER_TURBO")
+    .name('CREATE_SUPER_TURBO')
     .description(
-      "CLI tool to setup TurboRepo with Apps and Packages blazingly fast",
+      'CLI tool to setup TurboRepo with Apps and Packages blazingly fast'
     )
     .argument(
-      "[dir]",
-      "The name of the application, as well as the name of the directory to create",
+      '[dir]',
+      'The name of the application, as well as the name of the directory to create'
     )
     .option(
-      "--noGit",
-      "Explicitly tell the CLI to not initialize a new git repo in the project",
-      false,
+      '--noGit',
+      'Explicitly tell the CLI to not initialize a new git repo in the project',
+      false
     )
     .option(
-      "--noInstall",
+      '--noInstall',
       "Explicitly tell the CLI to not run the package manager's install command",
-      false,
+      false
     )
     .option(
-      "-y, --default",
-      "Bypass the CLI and use all default options to bootstrap a new super-turbo-app",
-      false,
+      '-y, --default',
+      'Bypass the CLI and use all default options to bootstrap a new super-turbo-app',
+      false
     )
-    .version(getVersion(), "-v, --version", "Display the version number");
+    .version(getVersion(), '-v, --version', 'Display the version number');
 
   program.parse(process.argv);
 
@@ -106,23 +106,23 @@ export const runCli = async (): Promise<CliResults> => {
     ...(!cliProvidedName && {
       name: () =>
         p.text({
-          message: "What will your project be called?",
+          message: 'What will your project be called?',
           defaultValue: cliProvidedName,
           validate: validateAppName,
         }),
       language: () => {
         return p.select({
-          message: "Will you be using TypeScript or JavaScript?",
+          message: 'Will you be using TypeScript or JavaScript?',
           options: [
-            { value: "typescript", label: "TypeScript" },
-            { value: "javascript", label: "JavaScript" },
+            { value: 'typescript', label: 'TypeScript' },
+            { value: 'javascript', label: 'JavaScript' },
           ],
-          initialValue: "typescript",
+          initialValue: 'typescript',
         });
       },
       react: () => {
         return p.confirm({
-          message: "Do you want to add a React app in your Super Turbo?",
+          message: 'Do you want to add a React app in your Super Turbo?',
           initialValue: true,
         });
       },
@@ -130,21 +130,21 @@ export const runCli = async (): Promise<CliResults> => {
         results.react && {
           reactName: () =>
             p.text({
-              message: "What will your React App be called?",
-              defaultValue: "react-app",
+              message: 'What will your React App be called?',
+              defaultValue: 'react-app',
               validate: validateAppName,
             }),
           reactDependencies: () => {
             return p.select({
-              message: "Select the Dependencies you will be using in React App",
+              message: 'Select the Dependencies you will be using in React App',
               options: [
                 {
-                  value: "tanstackQuery",
-                  label: "tanstack Query (React Query)",
+                  value: 'tanstackQuery',
+                  label: 'tanstack Query (React Query)',
                 },
-                { value: "recoil", label: "Recoil" },
-                { value: "tailwindShadcn", label: "tailwind+Shadcn-ui" },
-                { value: "reactRouter", label: "Reactrouter" },
+                { value: 'recoil', label: 'Recoil' },
+                { value: 'tailwindShadcn', label: 'tailwind+Shadcn-ui' },
+                { value: 'reactRouter', label: 'Reactrouter' },
               ],
             });
           },
@@ -152,7 +152,7 @@ export const runCli = async (): Promise<CliResults> => {
       },
       next: () => {
         return p.confirm({
-          message: "Do you want to add a Next app in your Super Turbo?",
+          message: 'Do you want to add a Next app in your Super Turbo?',
           initialValue: true,
         });
       },
@@ -160,23 +160,23 @@ export const runCli = async (): Promise<CliResults> => {
         results.next && {
           nextName: () =>
             p.text({
-              message: "What will your Next App be called?",
-              defaultValue: "next-app",
+              message: 'What will your Next App be called?',
+              defaultValue: 'next-app',
               validate: validateAppName,
             }),
           nextDependencies: () => {
             return p.select({
-              message: "Select the Dependencies you will be using in Next App",
+              message: 'Select the Dependencies you will be using in Next App',
               options: [
-                { value: "nextAuth", label: "NextAuth" },
+                { value: 'nextAuth', label: 'NextAuth' },
                 {
-                  value: "tanstackQuery",
-                  label: "tanstack Query (React Query)",
+                  value: 'tanstackQuery',
+                  label: 'tanstack Query (React Query)',
                 },
-                { value: "recoil", label: "Recoil" },
-                { value: "tailwindShadcn", label: "tailwind+Shadcn-ui" },
-                { value: "reactRouter", label: "Reactrouter" },
-                { value: "prisma", label: "Prisma" },
+                { value: 'recoil', label: 'Recoil' },
+                { value: 'tailwindShadcn', label: 'tailwind+Shadcn-ui' },
+                { value: 'reactRouter', label: 'Reactrouter' },
+                { value: 'prisma', label: 'Prisma' },
               ],
             });
           },
@@ -184,7 +184,7 @@ export const runCli = async (): Promise<CliResults> => {
       },
       express: () => {
         return p.confirm({
-          message: "Do you want to add a Express app in your Super Turbo?",
+          message: 'Do you want to add a Express app in your Super Turbo?',
           initialValue: true,
         });
       },
@@ -192,18 +192,18 @@ export const runCli = async (): Promise<CliResults> => {
         results.express && {
           expressName: () =>
             p.text({
-              message: "What will your Express App be called?",
-              defaultValue: "express-app",
+              message: 'What will your Express App be called?',
+              defaultValue: 'express-app',
               validate: validateAppName,
             }),
           nextDependencies: () => {
             return p.select({
               message:
-                "Select the Dependencies you will be using in Express App",
+                'Select the Dependencies you will be using in Express App',
               options: [
-                { value: "express", label: "Express" },
-                { value: "prisma", label: "Prisma" },
-                { value: "cors", label: "CORS" },
+                { value: 'express', label: 'Express' },
+                { value: 'prisma', label: 'Prisma' },
+                { value: 'cors', label: 'CORS' },
               ],
             });
           },
