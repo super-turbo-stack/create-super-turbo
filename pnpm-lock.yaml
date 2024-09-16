@@ -32,6 +32,9 @@ importers:
       fs-extra:
         specifier: ^11.2.0
         version: 11.2.0
+      type-fest:
+        specifier: ^4.26.1
+        version: 4.26.1
     devDependencies:
       '@types/fs-extra':
         specifier: ^11.0.4
@@ -1139,6 +1142,10 @@ packages:
     resolution: {integrity: sha512-Jb0rbU4iHEVQ18An/YfakdIv9rKnd3zUfSE117EngrfWXFHo3RndVH96US3GsT8VHpwTncPePDBT2t06PaFLrw==}
     hasBin: true
 
+  type-fest@4.26.1:
+    resolution: {integrity: sha512-yOGpmOAL7CkKe/91I5O3gPICmJNLJ1G4zFYVAsRHg7M64biSnPtRj0WNQt++bRkjYOqjWXrhnUw1utzmVErAdg==}
+    engines: {node: '>=16'}
+
   typescript@5.4.5:
     resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
     engines: {node: '>=14.17'}
@@ -2112,6 +2119,8 @@ snapshots:
       turbo-linux-arm64: 2.1.2
       turbo-windows-64: 2.1.2
       turbo-windows-arm64: 2.1.2
+
+  type-fest@4.26.1: {}
 
   typescript@5.4.5: {}
 
