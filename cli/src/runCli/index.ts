@@ -93,6 +93,7 @@ export const runCli = async (): Promise<CliResults> => {
               { value: "tailwindShadcn", label: "tailwind+Shadcn-ui" },
               { value: "reactRouter", label: "Reactrouter" },
             ],
+            required: false,
           });
         },
         next: () => {
@@ -113,7 +114,8 @@ export const runCli = async (): Promise<CliResults> => {
         nextDependencies: ({ results }: { results: any }) => {
           if (results.next === false) return;
           return p.multiselect({
-            message: "Select the Dependencies you will be using in Next App",
+            message:
+              "Select the Dependencies you will be using in Next App (Press <space> to select)",
             options: [
               { value: "nextAuth", label: "NextAuth" },
               {
@@ -122,14 +124,15 @@ export const runCli = async (): Promise<CliResults> => {
               },
               { value: "recoil", label: "Recoil" },
               { value: "tailwindShadcn", label: "tailwind+Shadcn-ui" },
-              { value: "reactRouter", label: "Reactrouter" },
               { value: "prisma", label: "Prisma" },
             ],
+            required: false,
           });
         },
         express: () => {
           return p.confirm({
-            message: "Do you want to add a Express app in your Super Turbo?",
+            message:
+              "Do you want to add a Express app in your Super Turbo? (Press <space> to select)",
             initialValue: true,
           });
         },
@@ -145,16 +148,14 @@ export const runCli = async (): Promise<CliResults> => {
         expressDependencies: ({ results }: { results: any }) => {
           if (results.express === false) return;
           return p.multiselect({
-            message: "Select the Dependencies you will be using in Express App",
+            message:
+              "Select the Dependencies you will be using in Express App  (Press <space> to select)",
             options: [
-              {
-                value: "tanstackQuery",
-                label: "tanstack Query (React Query)",
-              },
               { value: "express", label: "Express" },
               { value: "prisma", label: "Prisma" },
               { value: "cors", label: "CORS" },
             ],
+            required: false,
           });
         },
       }),
