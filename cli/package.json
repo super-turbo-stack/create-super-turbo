@@ -23,6 +23,7 @@
   "dependencies": {
     "@clack/prompts": "^0.7.0",
     "@types/node": "^20.11.24",
+    "cfonts": "^3.3.0",
     "chalk": "^4.0.0",
     "commander": "^12.1.0",
     "fs-extra": "^11.2.0",
