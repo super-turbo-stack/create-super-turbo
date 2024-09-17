@@ -1,27 +1,35 @@
 {
-  "name": "cli",
+  "name": "create-super-turbo",
   "version": "1.0.0",
   "main": "index.js",
+  "description": "CLI tool to initialize a TurboRepo with Apps and Packages blazingly fast",
   "keywords": [],
-  "author": "",
   "license": "ISC",
+  "files": [
+    "build",
+    "LICENSE",
+    "readme.md",
+    "docs",
+    "bin"
+  ],
   "bin": {
     "create-super-turbo": "dist/index.js"
   },
   "scripts": {
-    "start": "node dist/index.js",
-    "dev": "tsup --watch --onSuccess \"node dist/index.js\"",
     "build": "tsup",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf ./dist",
+    "dev": "tsup --watch --onSuccess \"node dist/index.js\""
   },
   "dependencies": {
     "@clack/prompts": "^0.7.0",
     "@types/node": "^20.11.24",
+    "chalk": "^4.0.0",
     "commander": "^12.1.0",
-    "fs-extra": "^11.2.0"
+    "fs-extra": "^11.2.0",
+    "type-fest": "^4.26.1"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
-    "tsup": "^8.1.0"
+    "tsup": "^8.3.0"
   }
 }
