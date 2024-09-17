@@ -1,4 +1,4 @@
-import { removeTrailingSlash } from "./removeTrailingSlash";
+import { removeTrailingSlash } from "./removeTrailingSlash.js";
 
 const validationRegExp =
   /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/;
