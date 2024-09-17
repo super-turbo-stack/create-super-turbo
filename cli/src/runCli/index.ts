@@ -158,6 +158,19 @@ export const runCli = async (): Promise<CliResults> => {
             required: false,
           });
         },
+        git: () => {
+          return p.confirm({
+            message: "Do you want create a git repo in your Super Turbo?",
+            initialValue: true,
+          });
+        },
+        install: () => {
+          return p.confirm({
+            message:
+              "Do you want us to run the package manager's install command?",
+            initialValue: true,
+          });
+        },
       }),
     },
     {
