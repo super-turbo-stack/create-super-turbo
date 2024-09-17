@@ -1,7 +1,7 @@
 import { Command } from "commander";
 import * as p from "@clack/prompts";
 import { validateAppName } from "../utils/validateAppName";
-import { CliResults, defaultOptions } from "@/types/cli";
+import { CliResults, defaultOptions } from "../types/cli";
 
 export const runCli = async (): Promise<CliResults> => {
   const cliResults = defaultOptions;

@@ -1,39 +1,11 @@
 #!/usr/bin/env node
+import { Command } from "commander";
 import fs from "fs-extra";
 import path from "path";
-import { runCli } from "./runCli";
-import { logger } from "./utils/logger";
+import { runCli } from "@/utils/runCli";
 
-const main = async () => {
-  const {
-    turboRepoName,
-    isTS,
-    flags: { noGit, noInstall },
-    next,
-    react,
-    express,
-    packageManager,
-  } = await runCli();
-  console.log({
-    turboRepoName,
-    isTS,
-    flags: { noGit, noInstall },
-    next,
-    react,
-    express,
-    packageManager,
-  });
-};
+async function main() {
+  await runCli();
+}
 
-main().catch((err) => {
-  logger.error("Aborting installation...");
-  if (err instanceof Error) {
-    logger.error(err);
-  } else {
-    logger.error(
-      "An unknown error has occurred. Please open an issue on github with the below:",
-    );
-    console.log(err);
-  }
-  process.exit(1);
-});
+main();
