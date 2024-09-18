@@ -21,8 +21,8 @@ export const defaultOptions: CliResults = {
   packageManager: "pnpm",
   isTS: true,
   react: {
-    name: "react-app",
-    dependencies: {
+    reactName: "react-app",
+    reactDependencies: {
       reactRouter: true,
       recoil: true,
       tailwindShadcn: true,
@@ -30,8 +30,8 @@ export const defaultOptions: CliResults = {
     },
   },
   next: {
-    name: "next-app",
-    dependencies: {
+    nextName: "next-app",
+    nextDependencies: {
       tanstackQuery: true,
       recoil: true,
       tailwindShadcn: true,
@@ -40,8 +40,8 @@ export const defaultOptions: CliResults = {
     },
   },
   express: {
-    name: "express-app",
-    dependencies: {
+    expressName: "express-app",
+    expressDependencies: {
       cors: true,
       express: true,
       prisma: true,
