@@ -9,13 +9,24 @@ async function main() {
     renderTitle();
     const {
       turboRepoName,
-      flags: { noGit, noInstall, default: boolean },
-      isTS,
+      language,
       packageManager,
       next,
       react,
       express,
+      git,
+      install,
     } = await runCli();
+    console.log("in index", {
+      turboRepoName,
+      git,
+      install,
+      language,
+      packageManager,
+      next,
+      react,
+      express,
+    });
     // Your implementation here
   } catch (err) {
     logger.error("Aborting installation...");

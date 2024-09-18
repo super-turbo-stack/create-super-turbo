@@ -9,17 +9,18 @@ export interface CliFlags {
 export interface CliResults {
   turboRepoName: string;
   packageManager: "yarn" | "npm" | "pnpm";
-  isTS: boolean;
-  react: reactApp;
-  next: nextApp;
-  express: expressApp;
-  flags: CliFlags;
+  language: "typescript" | "javascript";
+  react: reactApp | null;
+  next: nextApp | null;
+  express: expressApp | null;
+  git: boolean;
+  install: boolean;
 }
 
 export const defaultOptions: CliResults = {
   turboRepoName: "my-super-turbo",
-  packageManager: "pnpm",
-  isTS: true,
+  packageManager: "npm",
+  language: "typescript",
   react: {
     reactName: "react-app",
     reactDependencies: {
@@ -47,9 +48,6 @@ export const defaultOptions: CliResults = {
       prisma: true,
     },
   },
-  flags: {
-    noGit: false,
-    noInstall: false,
-    default: false,
-  },
+  git: true,
+  install: true,
 };

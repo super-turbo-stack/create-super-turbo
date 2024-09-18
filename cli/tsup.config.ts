@@ -6,4 +6,3 @@ export default defineConfig((options: Options) => ({
   format: ["cjs"],
   ...options,
 }));
-
