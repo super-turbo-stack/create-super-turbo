@@ -29,7 +29,6 @@ interface nextAppDependencies {
 }
 
 interface expressAppDependencies {
-  express: boolean;
   prisma: boolean;
   cors: boolean;
 }

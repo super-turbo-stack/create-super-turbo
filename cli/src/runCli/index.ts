@@ -154,7 +154,6 @@ export const runCli = async (): Promise<CliResults> => {
           message:
             "Select the Dependencies you will be using in Express App  (Press <space> to select)",
           options: [
-            { value: "express", label: "Express" },
             { value: "prisma", label: "Prisma" },
             { value: "cors", label: "CORS" },
           ],
@@ -236,9 +235,6 @@ export const runCli = async (): Promise<CliResults> => {
       : {
           expressName: project.expressName,
           expressDependencies: {
-            express: project.expressDependencies.includes("express")
-              ? true
-              : false,
             prisma: project.expressDependencies.includes("prisma")
               ? true
               : false,

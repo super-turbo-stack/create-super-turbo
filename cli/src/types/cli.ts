@@ -44,7 +44,6 @@ export const defaultOptions: CliResults = {
     expressName: "express-app",
     expressDependencies: {
       cors: true,
-      express: true,
       prisma: true,
     },
   },
