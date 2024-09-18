@@ -9,7 +9,7 @@ export interface CliFlags {
 export interface CliResults {
   turboRepoName: string;
   packageManager: "yarn" | "npm" | "pnpm";
-  language: "typescript" | "javascript";
+  // language: "typescript" | "javascript";
   react: reactApp | null;
   next: nextApp | null;
   express: expressApp | null;
@@ -20,7 +20,7 @@ export interface CliResults {
 export const defaultOptions: CliResults = {
   turboRepoName: "my-super-turbo",
   packageManager: "npm",
-  language: "typescript",
+  // language: "typescript",
   react: {
     reactName: "react-app",
     reactDependencies: {

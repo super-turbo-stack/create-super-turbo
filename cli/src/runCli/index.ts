@@ -61,16 +61,16 @@ export const runCli = async (): Promise<CliResults> => {
             validate: validateAppName,
           }),
       }),
-      language: () => {
-        return p.select({
-          message: "Will you be using TypeScript or JavaScript?",
-          options: [
-            { value: "typescript", label: "TypeScript" },
-            { value: "javascript", label: "JavaScript" },
-          ],
-          initialValue: "typescript",
-        });
-      },
+      // language: () => {
+      //   return p.select({
+      //     message: "Will you be using TypeScript or JavaScript?",
+      //     options: [
+      //       { value: "typescript", label: "TypeScript" },
+      //       { value: "javascript", label: "JavaScript" },
+      //     ],
+      //     initialValue: "typescript",
+      //   });
+      // },
       react: () => {
         return p.confirm({
           message: "Do you want to add a React app in your Super Turbo?",
@@ -136,7 +136,7 @@ export const runCli = async (): Promise<CliResults> => {
       },
       express: () => {
         return p.confirm({
-          message: "Do you want to add a Express app in your Super Turbo? ",
+          message: "Do you want to add an Express app in your Super Turbo? ",
           initialValue: true,
         });
       },
@@ -192,7 +192,7 @@ export const runCli = async (): Promise<CliResults> => {
   return {
     turboRepoName: project.turboRepoName ?? cliResults.turboRepoName,
     packageManager: pkgManager as "yarn" | "npm" | "pnpm",
-    language: project.language as "typescript" | "javascript",
+    // language: project.language as "typescript" | "javascript",
     git: cliFlags.noGit ? false : (project.git as boolean),
     install: cliFlags.noInstall ? false : (project.install as boolean),
     react: !project.react
