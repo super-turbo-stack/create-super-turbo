@@ -3,12 +3,13 @@ import * as p from "@clack/prompts";
 import { validateAppName } from "@/utils/validateAppName";
 import { CliResults, defaultOptions } from "@/types/cli";
 import { logger } from "@/utils/logger";
+import { CREATE_SUPER_TURBO } from "@/const.ts";
 
 export const runCli = async (): Promise<CliResults> => {
   const cliResults = defaultOptions;
   const program = new Command();
   program
-    .name("CREATE_SUPER_TURBO")
+    .name(CREATE_SUPER_TURBO)
     .description(
       "CLI tool to setup TurboRepo with Apps and Packages blazingly fast",
     )

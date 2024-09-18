@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 import fs from "fs-extra";
-import path from "path";
 import { runCli } from "@/runCli";
 import { logger } from "@/utils/logger";
+import { renderTitle } from "@/utils/renderTitle";
 
 async function main() {
   try {
+    renderTitle();
     const {
       turboRepoName,
       flags: { noGit, noInstall, default: boolean },
