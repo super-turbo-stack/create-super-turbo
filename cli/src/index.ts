@@ -31,19 +31,7 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  logger.error("Aborting installation...");
-  if (err instanceof Error) {
-    logger.error(err);
-  } else {
-    logger.error(
-      "An unknown error has occurred. Please open an issue on github with the below:",
-    );
-    console.log(err);
-  }
-  process.exit(1);
-});
-
+main();
 // process.on("SIGINT", () => {
 //   logger.info("\nOperation canceled by user. Exiting...");
 //   process.exit(1);
