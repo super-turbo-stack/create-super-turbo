@@ -1,16 +1,16 @@
 export interface reactApp {
-  name: string;
-  dependencies: reactAppDependencies;
+  reactName: string;
+  reactDependencies: reactAppDependencies;
 }
 
 export interface nextApp {
-  name: string;
-  dependencies: nextAppDependencies;
+  nextName: string;
+  nextDependencies: nextAppDependencies;
 }
 
 export interface expressApp {
-  name: string;
-  dependencies: expressAppDependencies;
+  expressName: string;
+  expressDependencies: expressAppDependencies;
 }
 
 interface reactAppDependencies {

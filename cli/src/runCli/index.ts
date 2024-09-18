@@ -3,7 +3,8 @@ import * as p from "@clack/prompts";
 import { validateAppName } from "@/utils/validateAppName";
 import { CliResults, defaultOptions } from "@/types/cli";
 import { logger } from "@/utils/logger";
-import { CREATE_SUPER_TURBO } from "@/const.ts";
+import { CREATE_SUPER_TURBO } from "@/const";
+import { getUserPackageManager } from "@/utils/getUserPackageManager";
 
 export const runCli = async (): Promise<CliResults> => {
   const cliResults = defaultOptions;
@@ -36,140 +37,144 @@ export const runCli = async (): Promise<CliResults> => {
     .version("1.0.0", "-v, --version", "Display the version number");
 
   program.parse(process.argv);
-
   const cliProvidedName = program.args[0];
+
   if (cliProvidedName) {
     cliResults.turboRepoName = cliProvidedName;
   }
 
-  cliResults.flags = program.opts();
-  if (cliResults.flags.default) {
+  const cliFlags = program.opts();
+
+  if (cliFlags.default) {
     return cliResults;
   }
+
+  const pkgManager = getUserPackageManager();
 
   const project = await p.group(
     {
       ...(!cliProvidedName && {
-        name: () =>
+        turboRepoName: () =>
           p.text({
             message: "What will your project be called?",
             defaultValue: cliProvidedName,
             validate: validateAppName,
           }),
-        language: () => {
-          return p.select({
-            message: "Will you be using TypeScript or JavaScript?",
-            options: [
-              { value: "typescript", label: "TypeScript" },
-              { value: "javascript", label: "JavaScript" },
-            ],
-            initialValue: "typescript",
-          });
-        },
-        react: () => {
-          return p.confirm({
-            message: "Do you want to add a React app in your Super Turbo?",
-            initialValue: true,
-          });
-        },
-
-        reactName: ({ results }: { results: any }) =>
-          results.react
-            ? p.text({
-                message: "What will your React App be called?",
-                defaultValue: "react-app",
-                validate: validateAppName,
-              })
-            : p.note("Skipping React App"),
-        reactDependencies: ({ results }: { results: any }) => {
-          if (results.react === false) return;
-          return p.multiselect({
-            message: "Select the Dependencies you will be using in React App",
-            options: [
-              {
-                value: "tanstackQuery",
-                label: "tanstack Query (React Query)",
-              },
-              { value: "recoil", label: "Recoil" },
-              { value: "tailwindShadcn", label: "tailwind+Shadcn-ui" },
-              { value: "reactRouter", label: "Reactrouter" },
-            ],
-            required: false,
-          });
-        },
-        next: () => {
-          return p.confirm({
-            message: "Do you want to add a Next app in your Super Turbo?",
-            initialValue: true,
-          });
-        },
-
-        nextName: ({ results }: { results: any }) =>
-          results.next
-            ? p.text({
-                message: "What will your Next App be called?",
-                defaultValue: "next-app",
-                validate: validateAppName,
-              })
-            : p.note("Skipping Next App"),
-        nextDependencies: ({ results }: { results: any }) => {
-          if (results.next === false) return;
-          return p.multiselect({
-            message:
-              "Select the Dependencies you will be using in Next App (Press <space> to select)",
-            options: [
-              { value: "nextAuth", label: "NextAuth" },
-              {
-                value: "tanstackQuery",
-                label: "tanstack Query (React Query)",
-              },
-              { value: "recoil", label: "Recoil" },
-              { value: "tailwindShadcn", label: "tailwind+Shadcn-ui" },
-              { value: "prisma", label: "Prisma" },
-            ],
-            required: false,
-          });
-        },
-        express: () => {
-          return p.confirm({
-            message:
-              "Do you want to add a Express app in your Super Turbo? (Press <space> to select)",
-            initialValue: true,
-          });
-        },
-
-        expressName: ({ results }: { results: any }) =>
-          results.express
-            ? p.text({
-                message: "What will your Express App be called?",
-                defaultValue: "express-app",
-                validate: validateAppName,
-              })
-            : p.note("Skipping Express App"),
-        expressDependencies: ({ results }: { results: any }) => {
-          if (results.express === false) return;
-          return p.multiselect({
-            message:
-              "Select the Dependencies you will be using in Express App  (Press <space> to select)",
-            options: [
-              { value: "express", label: "Express" },
-              { value: "prisma", label: "Prisma" },
-              { value: "cors", label: "CORS" },
-            ],
-            required: false,
-          });
-        },
+      }),
+      language: () => {
+        return p.select({
+          message: "Will you be using TypeScript or JavaScript?",
+          options: [
+            { value: "typescript", label: "TypeScript" },
+            { value: "javascript", label: "JavaScript" },
+          ],
+          initialValue: "typescript",
+        });
+      },
+      react: () => {
+        return p.confirm({
+          message: "Do you want to add a React app in your Super Turbo?",
+          initialValue: true,
+        });
+      },
+      reactName: ({ results }: { results: any }) =>
+        results.react
+          ? p.text({
+              message: "What will your React App be called?",
+              defaultValue: "react-app",
+              validate: validateAppName,
+            })
+          : p.note("Skipping React App"),
+      reactDependencies: ({ results }: { results: any }) => {
+        if (results.react === false) return;
+        return p.multiselect({
+          message:
+            "Select the Dependencies you will be using in React App (Press <space> to select)",
+          options: [
+            {
+              value: "tanstackQuery",
+              label: "tanstack Query (React Query)",
+            },
+            { value: "recoil", label: "Recoil" },
+            { value: "tailwindShadcn", label: "tailwind+Shadcn-ui" },
+            { value: "reactRouter", label: "Reactrouter" },
+          ],
+          required: false,
+        });
+      },
+      next: () => {
+        return p.confirm({
+          message: "Do you want to add a Next app in your Super Turbo?",
+          initialValue: true,
+        });
+      },
+      nextName: ({ results }: { results: any }) =>
+        results.next
+          ? p.text({
+              message: "What will your Next App be called?",
+              defaultValue: "next-app",
+              validate: validateAppName,
+            })
+          : p.note("Skipping Next App"),
+      nextDependencies: ({ results }: { results: any }) => {
+        if (results.next === false) return;
+        return p.multiselect({
+          message:
+            "Select the Dependencies you will be using in Next App (Press <space> to select)",
+          options: [
+            { value: "nextAuth", label: "NextAuth" },
+            {
+              value: "tanstackQuery",
+              label: "tanstack Query (React Query)",
+            },
+            { value: "recoil", label: "Recoil" },
+            { value: "tailwindShadcn", label: "tailwind+Shadcn-ui" },
+            { value: "prisma", label: "Prisma" },
+          ],
+          required: false,
+        });
+      },
+      express: () => {
+        return p.confirm({
+          message: "Do you want to add a Express app in your Super Turbo? ",
+          initialValue: true,
+        });
+      },
+      expressName: ({ results }: { results: any }) =>
+        results.express
+          ? p.text({
+              message: "What will your Express App be called?",
+              defaultValue: "express-app",
+              validate: validateAppName,
+            })
+          : p.note("Skipping Express App"),
+      expressDependencies: ({ results }: { results: any }) => {
+        if (results.express === false) return;
+        return p.multiselect({
+          message:
+            "Select the Dependencies you will be using in Express App  (Press <space> to select)",
+          options: [
+            { value: "express", label: "Express" },
+            { value: "prisma", label: "Prisma" },
+            { value: "cors", label: "CORS" },
+          ],
+          required: false,
+        });
+      },
+      ...(!cliFlags.noGit && {
         git: () => {
           return p.confirm({
-            message: "Do you want create a git repo in your Super Turbo?",
-            initialValue: true,
+            message:
+              "Should we initialize a Git repository and stage the changes?",
           });
         },
+      }),
+      ...(!cliFlags.noInstall && {
         install: () => {
           return p.confirm({
             message:
-              "Do you want us to run the package manager's install command?",
-            initialValue: true,
+              `Should we run '${pkgManager}` +
+              (pkgManager === "yarn" ? `'?` : ` install' for you?`),
           });
         },
       }),
@@ -181,9 +186,64 @@ export const runCli = async (): Promise<CliResults> => {
       },
     },
   );
+  if (!project.reactDependencies) project.reactDependencies = [];
+  if (!project.nextDependencies) project.nextDependencies = [];
+  if (!project.expressDependencies) project.expressDependencies = [];
 
-  console.log(project);
   return {
-    ...cliResults,
+    turboRepoName: project.turboRepoName ?? cliResults.turboRepoName,
+    packageManager: pkgManager as "yarn" | "npm" | "pnpm",
+    language: project.language as "typescript" | "javascript",
+    git: cliFlags.noGit ? false : (project.git as boolean),
+    install: cliFlags.noInstall ? false : (project.install as boolean),
+    react: !project.react
+      ? null
+      : {
+          reactName: project.reactName,
+          reactDependencies: {
+            reactRouter: project.reactDependencies.includes("reactRouter")
+              ? true
+              : false,
+            tailwindShadcn: project.reactDependencies.includes("tailwindShadcn")
+              ? true
+              : false,
+            recoil: project.reactDependencies.includes("recoil") ? true : false,
+            tanstackQuery: project.reactDependencies.includes("tanstackQuery")
+              ? true
+              : false,
+          },
+        },
+    next: !project.next
+      ? null
+      : {
+          nextName: project.nextName,
+          nextDependencies: {
+            nextAuth: project.nextDependencies.includes("nextAuth")
+              ? true
+              : false,
+            tailwindShadcn: project.nextDependencies.includes("tailwindShadcn")
+              ? true
+              : false,
+            recoil: project.nextDependencies.includes("recoil") ? true : false,
+            tanstackQuery: project.nextDependencies.includes("tanstackQuery")
+              ? true
+              : false,
+            prisma: project.nextDependencies.includes("prisma") ? true : false,
+          },
+        },
+    express: !project.express
+      ? null
+      : {
+          expressName: project.expressName,
+          expressDependencies: {
+            express: project.expressDependencies.includes("express")
+              ? true
+              : false,
+            prisma: project.expressDependencies.includes("prisma")
+              ? true
+              : false,
+            cors: project.expressDependencies.includes("cors") ? true : false,
+          },
+        },
   };
 };
