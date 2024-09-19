@@ -21,8 +21,8 @@ async function main() {
     } = await runCli();
 
     const destDir = path.join(process.cwd(), turboRepoName);
-    await bootStrapTurbo({ destDir, packageManager, turboRepoName });
     //Copy the Turbo-base to user's dir
+    await bootStrapTurbo({ destDir, packageManager, turboRepoName });
 
     //git init if git is true
 
