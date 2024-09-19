@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-import fs from "fs-extra";
-import { runCli } from "@/runCli";
-import { logger } from "@/utils/logger";
-import { renderTitle } from "@/utils/renderTitle";
+import fs from 'fs-extra';
+import { runCli } from '@/runCli';
+import { logger } from '@/utils/logger';
+import { renderTitle } from '@/utils/renderTitle';
+import { bootStrapTurbo } from '@/helper/bootStrapTurbo';
 
 async function main() {
   try {
@@ -17,14 +18,14 @@ async function main() {
       install,
     } = await runCli();
 
-    // Your implementation here
+    await bootStrapTurbo();
   } catch (err) {
-    logger.error("Aborting installation...");
+    logger.error('Aborting installation...');
     if (err instanceof Error) {
       logger.error(err.message);
     } else {
       logger.error(
-        "An unknown error has occurred. Please open an issue on github with the below:",
+        'An unknown error has occurred. Please open an issue on github with the below:'
       );
       console.log(err);
     }
