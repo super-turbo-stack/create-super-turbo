@@ -109,5 +109,5 @@
     "skipLibCheck": true
   },
 
-  "exclude": ["node_modules", "dist", "tsup.config.ts", "/src  "]
+  "exclude": ["node_modules", "dist", "tsup.config.ts"]
 }
