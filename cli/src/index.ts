@@ -6,6 +6,7 @@ import { renderTitle } from "@/utils/renderTitle";
 import { bootStrapTurbo } from "@/helper/bootStrapTurbo";
 import path from "path";
 import { getUserPackageManager } from "./utils/getUserPackageManager";
+import { bootStrapApps } from "./helper/bootStrapApps";
 
 async function main() {
   try {
@@ -21,18 +22,47 @@ async function main() {
     } = await runCli();
 
     const destDir = path.join(process.cwd(), turboRepoName);
-    //Copy the Turbo-base to user's dir
-    await bootStrapTurbo({ destDir, packageManager, turboRepoName });
 
-    //git init if git is true
+    //Copy the Turbo-base to user's dir
+    const superTurboDir = await bootStrapTurbo({
+      destDir,
+      packageManager,
+      turboRepoName,
+    });
 
     //copy react app to /apps
+    if (react) {
+      await bootStrapApps({
+        turboRepoName,
+        superTurboDir,
+        type: "react",
+        app: react,
+      });
+    }
     //install react packages
 
     //copy next app to /apps
+    if (next) {
+      await bootStrapApps({
+        turboRepoName,
+        superTurboDir,
+        type: "next",
+        app: next,
+      });
+    }
+
     //install next packages
 
     //copy express app to /apps
+    if (express) {
+      await bootStrapApps({
+        turboRepoName,
+        superTurboDir,
+        type: "express",
+        app: express,
+      });
+    }
+    //git init if git is true
     //install express packages
   } catch (err) {
     logger.error("Aborting installation...");
