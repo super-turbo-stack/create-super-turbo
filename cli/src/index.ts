@@ -24,8 +24,6 @@ async function main() {
     //Copy the Turbo-base to user's dir
     await bootStrapTurbo({ destDir, packageManager, turboRepoName });
 
-    //git init if git is true
-
     //copy react app to /apps
     //install react packages
 
@@ -33,6 +31,7 @@ async function main() {
     //install next packages
 
     //copy express app to /apps
+    //git init if git is true
     //install express packages
   } catch (err) {
     logger.error("Aborting installation...");
