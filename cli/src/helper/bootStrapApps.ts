@@ -4,7 +4,6 @@ import chalk from "chalk";
 import { PKG_ROOT } from "@/const";
 import ora from "ora";
 import type { expressApp, nextApp, reactApp } from "@/types/packageTypes";
-import { logger } from "@/utils/logger";
 
 type Props = {
   turboRepoName: string;
@@ -27,7 +26,7 @@ export const bootStrapApps = ({
   else if (type === "react") appName = app.reactName;
   else throw new Error("Invalid type");
 
-  const srcDir = path.join(PKG_ROOT, "src/template/base/express");
+  const srcDir = path.join(PKG_ROOT, "src/template/base/", type);
   const destDir = path.join(superTurboDir, "apps", appName);
   const spinner = ora(`Adding ${appName} in ${turboRepoName}...\n`).start();
   fs.copySync(srcDir, destDir);
