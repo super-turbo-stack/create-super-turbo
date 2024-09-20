@@ -13,7 +13,7 @@ export async function bootStrapTurbo({
   destDir: string;
   packageManager: "yarn" | "npm" | "pnpm";
   turboRepoName: string;
-}) {
+}): Promise<string> {
   const srcDir = path.join(PKG_ROOT, "src/template/base/turbo");
   const spinner = ora(`Creating BoilerPlate in ${destDir}...\n`).start();
 
@@ -82,4 +82,6 @@ export async function bootStrapTurbo({
   const App = turboRepoName === "." ? "App" : chalk.cyan.bold(turboRepoName);
 
   spinner.succeed(`${App} ${chalk.green("Bootstraped successfully!")}\n`);
+
+  return destDir;
 }

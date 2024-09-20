@@ -6,6 +6,7 @@ import { renderTitle } from "@/utils/renderTitle";
 import { bootStrapTurbo } from "@/helper/bootStrapTurbo";
 import path from "path";
 import { getUserPackageManager } from "./utils/getUserPackageManager";
+import { bootStrapNext } from "./helper/bootStrapNext";
 
 async function main() {
   try {
@@ -21,13 +22,22 @@ async function main() {
     } = await runCli();
 
     const destDir = path.join(process.cwd(), turboRepoName);
+
     //Copy the Turbo-base to user's dir
-    await bootStrapTurbo({ destDir, packageManager, turboRepoName });
+    const superTurboDir = await bootStrapTurbo({
+      destDir,
+      packageManager,
+      turboRepoName,
+    });
 
     //copy react app to /apps
     //install react packages
 
     //copy next app to /apps
+    if (next) {
+      await bootStrapNext({ turboRepoName, superTurboDir, next });
+    }
+
     //install next packages
 
     //copy express app to /apps
