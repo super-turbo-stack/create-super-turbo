@@ -5,6 +5,7 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <Home /> },
       { path: "about", element: <About /> },
+      { path: "github", loader: githubInfoLoader, element: <Github /> },
     ],
   },
 ]);
