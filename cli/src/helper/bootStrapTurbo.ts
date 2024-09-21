@@ -5,14 +5,17 @@ import ora from "ora";
 import { logger } from "@/utils/logger";
 import chalk from "chalk";
 import * as p from "@clack/prompts";
+import { MoveAndCompileTemplate } from "./MoveAndCompileTemplate";
 
 export async function bootStrapTurbo({
   destDir,
   turboRepoName,
+  templateCompilationProps,
 }: {
   destDir: string;
   packageManager: "yarn" | "npm" | "pnpm";
   turboRepoName: string;
+  templateCompilationProps: any;
 }): Promise<string> {
   const srcDir = path.join(PKG_ROOT, "src/template/base/turbo");
   const spinner = ora(`Creating BoilerPlate in ${destDir}...\n`).start();
@@ -73,11 +76,7 @@ export async function bootStrapTurbo({
 
   spinner.start();
 
-  fs.copySync(srcDir, destDir);
-  fs.renameSync(
-    path.join(destDir, "_gitignore"),
-    path.join(destDir, ".gitignore")
-  );
+  await MoveAndCompileTemplate({ destDir, srcDir, templateCompilationProps });
 
   const App = turboRepoName === "." ? "App" : chalk.cyan.bold(turboRepoName);
 

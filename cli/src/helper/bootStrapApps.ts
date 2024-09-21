@@ -4,17 +4,19 @@ import chalk from "chalk";
 import { PKG_ROOT } from "@/const";
 import ora from "ora";
 import type { expressApp, nextApp, reactApp } from "@/types/packageTypes";
+import { MoveAndCompileTemplate } from "./MoveAndCompileTemplate";
 
 type Props = {
   turboRepoName: string;
   superTurboDir: string;
+  templateCompilationProps: any; //TODO: type this
 } & (
   | { type: "express"; app: expressApp }
   | { type: "next"; app: nextApp }
   | { type: "react"; app: reactApp }
 );
 
-export const bootStrapApps = ({
+export const bootStrapApps = async ({
   turboRepoName,
   superTurboDir,
   type,
@@ -29,7 +31,14 @@ export const bootStrapApps = ({
   const srcDir = path.join(PKG_ROOT, "src/template/base/", type);
   const destDir = path.join(superTurboDir, "apps", appName);
   const spinner = ora(`Adding ${appName} in ${turboRepoName}...\n`).start();
-  fs.copySync(srcDir, destDir);
 
-  spinner.succeed(` ${chalk.green(`Added ${appName} successfully!`)}\n`);
+  await MoveAndCompileTemplate({
+    destDir,
+    srcDir,
+    templateCompilationProps: {},
+  });
+
+  spinner.succeed(
+    ` ${chalk.green(`Added ${appName} ${type} app successfully!`)}\n`
+  );
 };
