@@ -28,6 +28,7 @@ async function main() {
       destDir,
       packageManager,
       turboRepoName,
+      templateCompilationProps: {},
     });
 
     //copy react app to /apps
@@ -37,6 +38,7 @@ async function main() {
         superTurboDir,
         type: "react",
         app: react,
+        templateCompilationProps: {},
       });
     }
     //install react packages
@@ -48,6 +50,7 @@ async function main() {
         superTurboDir,
         type: "next",
         app: next,
+        templateCompilationProps: {},
       });
     }
 
@@ -60,6 +63,7 @@ async function main() {
         superTurboDir,
         type: "express",
         app: express,
+        templateCompilationProps: {},
       });
     }
     //git init if git is true
