@@ -24,10 +24,13 @@ export const MoveAndCompileTemplate = async ({
   await compileTemplates(destDir, templateCompilationProps);
 };
 
-const compileTemplates = async (dir: string, templateCompilationProps: any) => {
+export const compileTemplates = async (
+  dir: string,
+  templateCompilationProps: any
+) => {
   try {
     const files = await fs.readdir(dir);
-   
+
     for (const file of files) {
       const filePath = path.join(dir, file);
       const stats = await fs.stat(filePath);
@@ -39,7 +42,7 @@ const compileTemplates = async (dir: string, templateCompilationProps: any) => {
           filePath,
           templateCompilationProps
         );
-        
+
         await fs.writeFile(filePath, compiledContent as string);
         fs.renameSync(filePath, filePath.replace(".ejs", ""));
       }
