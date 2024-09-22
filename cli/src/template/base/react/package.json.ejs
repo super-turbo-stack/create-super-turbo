@@ -18,6 +18,9 @@
     <% if(props.react.reactDependencies.recoil) { %>
     "recoil": "^0.7.7",
     <% } %> 
+    <% if(props.react.reactDependencies.tanstackQuery) { %>
+    "@tanstack/react-query": "^5.56.2",
+    <% } %> 
     <% if(props.packageManager === 'pnpm' && props.react.reactDependencies.recoil) { %>
       "@repo/store": "workspace:*"
     <% } %> 
