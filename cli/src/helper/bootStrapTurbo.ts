@@ -83,7 +83,7 @@ export async function bootStrapTurbo({
     console.log("first",path.join(destDir, 'pnpm-workspace.yaml'));
     fs.removeSync(path.join(destDir, 'pnpm-workspace.yaml'));
   }
-
+  fs.removeSync(path.join(destDir, '.gitkeep'));
   const App = turboRepoName === "." ? "App" : chalk.cyan.bold(turboRepoName);
 
   spinner.succeed(`${App} ${chalk.green("Bootstraped successfully!")}\n`);
