@@ -1,5 +1,5 @@
 {
-  "name": "next-app",
+  "name": "<%=props.next.nextName%>",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,13 +9,37 @@
     "lint": "next lint"
   },
   "dependencies": {
+    <% if(props.next.nextDependencies.nextAuth) { %>
+    "next-auth": "^4.24.7",
+    <% } %> 
+    <% if(props.next.nextDependencies.tanstackQuery) { %>
+    "@tanstack/react-query": "^5.56.2",
+    <% } %> 
+    <% if(props.packageManager === 'pnpm' && props.next.nextDependencies.prisma) { %>
+      "@repo/db": "workspace:*",
+    <% } %> 
+    <% if((props.packageManager === 'npm' || props.packageManager === 'yarn') && props.next.nextDependencies.prisma) { %>
+      "@repo/db": "*",
+    <% } %> 
+    <% if(props.packageManager === 'pnpm' && props.next.nextDependencies.recoil) { %>
+      "@repo/store": "workspace:*",
+    <% } %> 
+    <% if((props.packageManager === 'npm' || props.packageManager === 'yarn') && props.next.nextDependencies.recoil) { %>
+      "@repo/store": "*",
+    <% } %> 
     "next": "14.2.6",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
   "devDependencies": {
+    <% if(props.packageManager === 'npm' || props.packageManager === 'yarn') { %>
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
+    <% } %> 
+    <% if(props.packageManager === 'pnpm') { %>
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    <% } %> 
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

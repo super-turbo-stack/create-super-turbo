@@ -10,6 +10,7 @@ import { MoveAndCompileTemplate } from "./MoveAndCompileTemplate";
 export async function bootStrapTurbo({
   destDir,
   turboRepoName,
+  packageManager,
   templateCompilationProps,
 }: {
   destDir: string;
@@ -75,9 +76,12 @@ export async function bootStrapTurbo({
   }
 
   spinner.start();
-
-  await MoveAndCompileTemplate({ destDir, srcDir, templateCompilationProps });
-
+  
+  await MoveAndCompileTemplate({ destDir, srcDir, templateCompilationProps});
+  if(packageManager !== 'pnpm'){
+    fs.removeSync(path.join(destDir, 'pnpm-workspace.yaml'));
+  }
+ 
   const App = turboRepoName === "." ? "App" : chalk.cyan.bold(turboRepoName);
 
   spinner.succeed(`${App} ${chalk.green("Bootstraped successfully!")}\n`);

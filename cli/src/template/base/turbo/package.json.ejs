@@ -1,5 +1,5 @@
 {
-  "name": "base",
+  "name": "<%=props.turboRepoName%>",
   "private": true,
   "scripts": {
     "build": "turbo build",
@@ -9,16 +9,25 @@
   },
   "devDependencies": {
     "prettier": "^3.2.5",
-    "turbo": "^2.1.1",
+    "turbo": "^2.1.2",
     "typescript": "^5.4.5"
   },
   "engines": {
     "node": ">=18"
   },
- 
-  "packageManager": "yarn@1.22.22",
+  <% if(props.packageManager === 'pnpm') { %>
+    "packageManager": "pnpm@8.15.6"
+    <% } %>
+  <%if(props.packageManager === 'yarn') { %>
+    "packageManager": "yarn@1.22.22",
+    <% } %>
+  <%if(props.packageManager === 'npm') { %>
+    "packageManager": "npm@10.7.0",
+  <% } %> 
+  <% if(props.packageManager !== 'pnpm') { %>
   "workspaces": [
     "apps/*",
     "packages/*"
   ]
+   <% } %> 
 }

@@ -20,7 +20,7 @@ async function main() {
       git,
       install,
     } = await runCli();
-
+    
     const destDir = path.join(process.cwd(), turboRepoName);
 
     //Copy the Turbo-base to user's dir
@@ -28,9 +28,12 @@ async function main() {
       destDir,
       packageManager,
       turboRepoName,
-      templateCompilationProps: {},
+      templateCompilationProps: {props:{
+        turboRepoName,
+        packageManager,
+      }},
     });
-
+ 
     //copy react app to /apps
     if (react) {
       await bootStrapApps({
@@ -50,7 +53,12 @@ async function main() {
         superTurboDir,
         type: "next",
         app: next,
-        templateCompilationProps: {},
+        templateCompilationProps: {
+          props:{
+            packageManager,
+            next,
+          }
+        },
       });
     }
 
