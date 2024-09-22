@@ -13,7 +13,16 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     <% if(props.react.reactDependencies.reactRouter) { %>
-    "react-router-dom": "^6.26.2"
+    "react-router-dom": "^6.26.2",
+    <% } %> 
+    <% if(props.react.reactDependencies.recoil) { %>
+    "recoil": "^0.7.7",
+    <% } %> 
+    <% if(props.packageManager === 'pnpm' && props.react.reactDependencies.recoil) { %>
+      "@repo/store": "workspace:*"
+    <% } %> 
+    <% if((props.packageManager === 'npm' || props.packageManager === 'yarn') && props.react.reactDependencies.recoil) { %>
+      "@repo/store": "*"
     <% } %> 
   },
   "devDependencies": {

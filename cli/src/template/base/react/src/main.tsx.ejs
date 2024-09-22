@@ -2,6 +2,9 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
+<% if(props.react.reactDependencies.recoil) { %>
+import { RecoilRoot } from 'recoil';
+<% } %> 
 <% if(props.react.reactDependencies.reactRouter) { %>
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from './components/Home.tsx';
@@ -22,14 +25,19 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-<% if(props.react.reactDependencies.reactRouter) { %>
-          <RouterProvider router={router} />
-<% } %> 
-<% if(!props.react.reactDependencies.reactRouter
- && !props.react.reactDependencies.recoil
- && !props.react.reactDependencies.tailwindShadcn
- && !props.react.reactDependencies.tanstackQuery) { %>
-    <App />
-<% } %> 
+    <% if(props.react.reactDependencies.recoil) { %>
+        <RecoilRoot>
+    <% } %> 
+
+    <% if(props.react.reactDependencies.reactRouter) { %>
+        <RouterProvider router={router} />
+    <% } %> 
+    <% if(!props.react.reactDependencies.reactRouter) { %>
+        <App />
+    <% } %> 
+    <% if(props.react.reactDependencies.recoil) { %>
+        </RecoilRoot>
+    <% } %> 
+
   </StrictMode>,
 )
