@@ -18,13 +18,13 @@
     <% if(props.packageManager === 'pnpm' && props.next.nextDependencies.prisma) { %>
       "@repo/db": "workspace:*",
     <% } %> 
-    <% if(props.packageManager === 'npm' || props.packageManager === 'yarn' && props.next.nextDependencies.prisma) { %>
+    <% if((props.packageManager === 'npm' || props.packageManager === 'yarn') && props.next.nextDependencies.prisma) { %>
       "@repo/db": "*",
     <% } %> 
     <% if(props.packageManager === 'pnpm' && props.next.nextDependencies.recoil) { %>
       "@repo/store": "workspace:*",
     <% } %> 
-    <% if(props.packageManager === 'npm' || props.packageManager === 'yarn' && props.next.nextDependencies.recoil) { %>
+    <% if((props.packageManager === 'npm' || props.packageManager === 'yarn') && props.next.nextDependencies.recoil) { %>
       "@repo/store": "*",
     <% } %> 
     "next": "14.2.6",
