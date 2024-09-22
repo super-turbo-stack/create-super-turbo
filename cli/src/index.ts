@@ -7,6 +7,7 @@ import { bootStrapTurbo } from "@/helper/bootStrapTurbo";
 import path from "path";
 import { getUserPackageManager } from "./utils/getUserPackageManager";
 import { bootStrapApps } from "./helper/bootStrapApps";
+import { InstallPackages } from "./installer";
 
 async function main() {
   try {
@@ -20,7 +21,7 @@ async function main() {
       git,
       install,
     } = await runCli();
-    
+
     const destDir = path.join(process.cwd(), turboRepoName);
 
     //Copy the Turbo-base to user's dir
@@ -28,12 +29,14 @@ async function main() {
       destDir,
       packageManager,
       turboRepoName,
-      templateCompilationProps: {props:{
-        turboRepoName,
-        packageManager,
-      }},
+      templateCompilationProps: {
+        props: {
+          turboRepoName,
+          packageManager,
+        },
+      },
     });
- 
+
     //copy react app to /apps
     if (react) {
       await bootStrapApps({
@@ -54,10 +57,10 @@ async function main() {
         type: "next",
         app: next,
         templateCompilationProps: {
-          props:{
+          props: {
             packageManager,
             next,
-          }
+          },
         },
       });
     }
@@ -74,6 +77,9 @@ async function main() {
         templateCompilationProps: {},
       });
     }
+
+    await InstallPackages({ packageManager, next, react, express, destDir });
+
     //git init if git is true
     //install express packages
   } catch (err) {
