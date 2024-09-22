@@ -20,7 +20,7 @@ async function main() {
       git,
       install,
     } = await runCli();
-    
+
     const destDir = path.join(process.cwd(), turboRepoName);
 
     //Copy the Turbo-base to user's dir
@@ -28,12 +28,14 @@ async function main() {
       destDir,
       packageManager,
       turboRepoName,
-      templateCompilationProps: {props:{
-        turboRepoName,
-        packageManager,
-      }},
+      templateCompilationProps: {
+        props: {
+          turboRepoName,
+          packageManager,
+        },
+      },
     });
- 
+
     //copy react app to /apps
     if (react) {
       await bootStrapApps({
@@ -41,7 +43,12 @@ async function main() {
         superTurboDir,
         type: "react",
         app: react,
-        templateCompilationProps: {},
+        templateCompilationProps: {
+          props: {
+            packageManager,
+            react,
+          },
+        },
       });
     }
     //install react packages
@@ -54,10 +61,10 @@ async function main() {
         type: "next",
         app: next,
         templateCompilationProps: {
-          props:{
+          props: {
             packageManager,
             next,
-          }
+          },
         },
       });
     }
@@ -72,10 +79,10 @@ async function main() {
         type: "express",
         app: express,
         templateCompilationProps: {
-            props:{
-                packageManager,
-                express,
-            }
+          props: {
+            packageManager,
+            express,
+          },
         },
       });
     }
@@ -87,7 +94,7 @@ async function main() {
       logger.error(err.message);
     } else {
       logger.error(
-        "An unknown error has occurred. Please open an issue on github with the below:"
+        "An unknown error has occurred. Please open an issue on github with the below:",
       );
       console.log(err);
     }
