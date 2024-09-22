@@ -1,0 +1,20 @@
+"use client";
+<% if(props.next.nextDependencies.tanstackQuery) { %> 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+<% } %> 
+<% if(props.next.nextDependencies.tanstackQuery) { %>
+const queryClient = new QueryClient();
+<% } %> 
+const Providers = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <% if(props.next.nextDependencies.tanstackQuery) { %>
+    <QueryClientProvider client={queryClient}>
+    <% } %> 
+      {children}
+    <% if(props.next.nextDependencies.tanstackQuery) { %>
+    </QueryClientProvider>
+    <% } %> 
+  );
+};
+
+export default Providers;

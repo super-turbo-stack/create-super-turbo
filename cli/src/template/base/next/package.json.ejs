@@ -9,6 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    <% if(props.next.nextDependencies.nextAuth) { %>
+    "next-auth": "^4.24.7",
+    <% } %> 
+    <% if(props.next.nextDependencies.tanstackQuery) { %>
+    "@tanstack/react-query": "^5.56.2",
+    <% } %> 
     "next": "14.2.6",
     "react": "18.3.1",
     "react-dom": "18.3.1"
