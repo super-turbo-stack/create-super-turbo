@@ -7,6 +7,7 @@ import { bootStrapTurbo } from "@/helper/bootStrapTurbo";
 import path from "path";
 import { getUserPackageManager } from "./utils/getUserPackageManager";
 import { bootStrapApps } from "./helper/bootStrapApps";
+import { InstallPackages } from "./installer";
 
 async function main() {
   try {
@@ -86,6 +87,9 @@ async function main() {
         },
       });
     }
+
+    await InstallPackages({ packageManager, next, react, express, destDir });
+
     //git init if git is true
     //install express packages
   } catch (err) {
