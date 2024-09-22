@@ -14,12 +14,16 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    <% if(props.express.expressDependencies.cors) { %>
     "cors": "^2.8.5",
+    <% } %> 
     "dotenv": "^16.4.5",
     "express": "^4.21.0"
   },
   "devDependencies": {
+    <% if(props.express.expressDependencies.cors) { %>
     "@types/cors": "^2.8.17",
+    <% } %> 
     "@types/express": "^4.17.21",
     "tsup": "^8.1.0"
   }

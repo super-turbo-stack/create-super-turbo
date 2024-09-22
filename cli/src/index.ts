@@ -71,7 +71,12 @@ async function main() {
         superTurboDir,
         type: "express",
         app: express,
-        templateCompilationProps: {},
+        templateCompilationProps: {
+            props:{
+                packageManager,
+                express,
+            }
+        },
       });
     }
     //git init if git is true

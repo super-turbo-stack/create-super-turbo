@@ -1,5 +1,7 @@
 import express, { Request, Response } from "express";
+<% if(props.express.expressDependencies.cors) { %>
 import cors from "cors";
+<% } %> 
 import dotenv from "dotenv";
 
 dotenv.config({ path: "./env" });
@@ -8,7 +10,9 @@ const PORT = process.env.PORT || 6969;
 
 const app = express();
 
+<% if(props.express.expressDependencies.cors) { %>
 app.use(cors());
+<% } %> 
 
 app.get("/", (_req: Request, res: Response) => {
   res.status(200).json({
