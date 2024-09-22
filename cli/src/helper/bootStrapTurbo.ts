@@ -10,6 +10,7 @@ import { MoveAndCompileTemplate } from "./MoveAndCompileTemplate";
 export async function bootStrapTurbo({
   destDir,
   turboRepoName,
+  packageManager,
   templateCompilationProps,
 }: {
   destDir: string;
@@ -76,7 +77,14 @@ export async function bootStrapTurbo({
 
   spinner.start();
 
-  await MoveAndCompileTemplate({ destDir, srcDir, templateCompilationProps });
+  const ejsProps={
+    props:{
+      turboRepoName,
+      packageManager,
+    }
+  }
+
+  await MoveAndCompileTemplate({ destDir, srcDir, templateCompilationProps: ejsProps });
 
   const App = turboRepoName === "." ? "App" : chalk.cyan.bold(turboRepoName);
 

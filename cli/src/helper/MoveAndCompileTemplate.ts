@@ -26,9 +26,13 @@ export const MoveAndCompileTemplate = async ({
 const compileTemplates = async (dir: string, templateCompilationProps: any) => {
   try {
     const files = await fs.readdir(dir);
-
+   
     for (const file of files) {
       const filePath = path.join(dir, file);
+      if(filePath.endsWith('pnpm-workspace.yaml.ejs') && templateCompilationProps.props.packageManager !== 'pnpm') {
+        fs.removeSync(filePath);
+        continue;
+      }
       const stats = await fs.stat(filePath);
 
       if (stats.isDirectory()) {

@@ -14,8 +14,15 @@
     "react-dom": "18.3.1"
   },
   "devDependencies": {
+    <% if(props.packageManager === 'npm' || props.packageManager === 'yarn') { %>
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
+    <% } %> 
+    <% if(props.packageManager === 'pnpm') { %>
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+      <% } %> 
+
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

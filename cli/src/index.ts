@@ -20,7 +20,7 @@ async function main() {
       git,
       install,
     } = await runCli();
-
+    
     const destDir = path.join(process.cwd(), turboRepoName);
 
     //Copy the Turbo-base to user's dir
