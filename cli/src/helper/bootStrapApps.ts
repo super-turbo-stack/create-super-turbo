@@ -21,6 +21,7 @@ export const bootStrapApps = async ({
   superTurboDir,
   type,
   app,
+  templateCompilationProps,
 }: Props) => {
   let appName: string;
   if (type === "express") appName = app.expressName;
@@ -35,7 +36,7 @@ export const bootStrapApps = async ({
   await MoveAndCompileTemplate({
     destDir,
     srcDir,
-    templateCompilationProps: {},
+    templateCompilationProps,
   });
 
   spinner.succeed(

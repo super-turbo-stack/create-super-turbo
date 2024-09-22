@@ -77,14 +77,12 @@ export async function bootStrapTurbo({
 
   spinner.start();
 
-  const ejsProps={
-    props:{
-      turboRepoName,
-      packageManager,
-    }
+  
+  await MoveAndCompileTemplate({ destDir, srcDir, templateCompilationProps});
+  if(packageManager !== 'pnpm'){
+    console.log("first",path.join(destDir, 'pnpm-workspace.yaml'));
+    fs.removeSync(path.join(destDir, 'pnpm-workspace.yaml'));
   }
-
-  await MoveAndCompileTemplate({ destDir, srcDir, templateCompilationProps: ejsProps });
 
   const App = turboRepoName === "." ? "App" : chalk.cyan.bold(turboRepoName);
 

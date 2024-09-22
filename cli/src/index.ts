@@ -28,9 +28,12 @@ async function main() {
       destDir,
       packageManager,
       turboRepoName,
-      templateCompilationProps: {},
+      templateCompilationProps: {props:{
+        turboRepoName,
+        packageManager,
+      }},
     });
-
+ 
     //copy react app to /apps
     if (react) {
       await bootStrapApps({
@@ -50,7 +53,12 @@ async function main() {
         superTurboDir,
         type: "next",
         app: next,
-        templateCompilationProps: {},
+        templateCompilationProps: {
+          props:{
+            packageManager,
+            next,
+          }
+        },
       });
     }
 
