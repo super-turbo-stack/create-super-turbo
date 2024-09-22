@@ -17,6 +17,12 @@
     <% if(props.express.expressDependencies.cors) { %>
     "cors": "^2.8.5",
     <% } %> 
+    <% if(props.packageManager === 'pnpm' && props.express.expressDependencies.prisma) { %>
+      "@repo/db": "workspace:*",
+    <% } %> 
+    <% if((props.packageManager === 'npm' || props.packageManager === 'yarn') && props.express.expressDependencies.prisma) { %>
+      "@repo/db": "*",
+    <% } %> 
     "dotenv": "^16.4.5",
     "express": "^4.21.0"
   },
