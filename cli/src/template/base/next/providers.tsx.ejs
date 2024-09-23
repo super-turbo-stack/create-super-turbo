@@ -2,17 +2,35 @@
 <% if(props.next.nextDependencies.tanstackQuery) { %> 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 <% } %> 
+<% if(props.next.nextDependencies.recoil) { %>
+import { RecoilRoot } from 'recoil';
+<% } %> 
+<% if(props.next.nextDependencies.nextAuth) { %> 
+import { SessionProvider } from 'next-auth/react';
+<% } %> 
 <% if(props.next.nextDependencies.tanstackQuery) { %>
 const queryClient = new QueryClient();
 <% } %> 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
+    <% if(props.next.nextDependencies.nextAuth) { %>
+      <SessionProvider>
+    <% } %> 
     <% if(props.next.nextDependencies.tanstackQuery) { %>
-    <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+    <% } %> 
+    <% if(props.next.nextDependencies.recoil) { %>
+      <RecoilRoot>
     <% } %> 
       {children}
+    <% if(props.next.nextDependencies.recoil) { %>
+      </RecoilRoot>
+    <% } %> 
     <% if(props.next.nextDependencies.tanstackQuery) { %>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    <% } %> 
+    <% if(props.next.nextDependencies.nextAuth) { %>
+      </SessionProvider>
     <% } %> 
   );
 };

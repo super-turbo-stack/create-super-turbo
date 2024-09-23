@@ -7,7 +7,7 @@ import { compileTemplates } from "@/helper/MoveAndCompileTemplate";
 
 export const ReactRouterInstaller = async ({
   destDir,
-    appName
+  appName,
 }: {
   destDir: string;
   appName: string;
@@ -17,12 +17,12 @@ export const ReactRouterInstaller = async ({
     const srcDir = path.join(PKG_ROOT, "src/template/dependencies/reactRouter");
     fs.copySync(srcDir, path.join(destDir, `apps/${appName}/src`));
     await compileTemplates(path.join(destDir, `apps/${appName}/src`), {
-      props: {      },
+      props: {},
     });
-    spinner.succeed("Successfully installed react-router");
+    spinner.succeed("Successfully added react-router");
   } catch (error) {
     console.log(error);
-    logger.error("Error while installing react-router");
+    logger.error("Error while adding react-router");
     process.exit(1);
   }
 };
