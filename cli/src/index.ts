@@ -21,15 +21,6 @@ async function main() {
       git,
       install,
     } = await runCli();
-    console.log({
-      turboRepoName,
-      packageManager,
-      next,
-      react,
-      express,
-      git,
-      install,
-    });
 
     const destDir = path.join(process.cwd(), turboRepoName);
 
