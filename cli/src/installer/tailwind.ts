@@ -9,10 +9,12 @@ export const TailwindInstaller = async ({
   destDir,
   appName,
   isReact,
+  packageManager,
 }: {
   destDir: string;
   appName: string;
   isReact: boolean;
+  packageManager: "yarn" | "npm" | "pnpm";
 }) => {
   try {
     const spinner = ora("Adding Tailwind to your Super Turbo...").start();
@@ -38,7 +40,7 @@ export const TailwindInstaller = async ({
       props: {},
     });
     await compileTemplates(path.join(destDir, `packages/config-tailwind`), {
-      props: {},
+      props: {packageManager},
     });
     spinner.succeed("Successfully added TailwindCSS");
   } catch (error) {

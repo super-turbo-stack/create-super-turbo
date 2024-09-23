@@ -39,6 +39,6 @@ export const InstallPackages = async ({
     await RecoilInstaller({ destDir });
   }
   if (react?.reactDependencies.tailwind) {
-    await TailwindInstaller({ destDir, appName: react.reactName, isReact:true });
+    await TailwindInstaller({ destDir, appName: react.reactName, isReact:true, packageManager });
   }
 };

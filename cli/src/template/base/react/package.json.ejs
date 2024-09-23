@@ -10,8 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
     <% if(props.react.reactDependencies.reactRouter) { %>
     "react-router-dom": "^6.26.2",
     <% } %> 
@@ -22,11 +20,13 @@
     "@tanstack/react-query": "^5.56.2",
     <% } %> 
     <% if(props.packageManager === 'pnpm' && props.react.reactDependencies.recoil) { %>
-      "@repo/store": "workspace:*"
+      "@repo/store": "workspace:*",
     <% } %> 
     <% if((props.packageManager === 'npm' || props.packageManager === 'yarn') && props.react.reactDependencies.recoil) { %>
-      "@repo/store": "*"
+      "@repo/store": "*",
     <% } %> 
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     <% if(props.packageManager === 'npm' || props.packageManager === 'yarn') { %>
