@@ -21,10 +21,10 @@ export const PrismaInstaller = async ({
         packageManager,
       },
     });
-    spinner.succeed("Successfully installed prisma");
+    spinner.succeed("Successfully added prisma");
   } catch (error) {
     console.log(error);
-    logger.error("Error while installing prisma");
+    logger.error("Error while adding prisma");
     process.exit(1);
   }
 };

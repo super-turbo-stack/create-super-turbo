@@ -1,14 +1,13 @@
 #!/usr/bin/env node
-import fs from "fs-extra";
+import path from "path";
 import { runCli } from "@/runCli";
 import { logger } from "@/utils/logger";
 import { renderTitle } from "@/utils/renderTitle";
 import { bootStrapTurbo } from "@/helper/bootStrapTurbo";
-import path from "path";
-import { getUserPackageManager } from "./utils/getUserPackageManager";
 import { bootStrapApps } from "./helper/bootStrapApps";
 import { InstallPackages } from "./installer";
 import { createGitRepo } from "./helper/git";
+import { installDependencies } from "./helper/install";
 
 async function main() {
   try {
@@ -93,6 +92,7 @@ async function main() {
     }
 
     if (install) {
+      await installDependencies({ projectDir: destDir });
     }
   } catch (err) {
     logger.error("Aborting installation...");

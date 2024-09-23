@@ -13,10 +13,10 @@ export const RecoilInstaller = async ({ destDir }: { destDir: string }) => {
     await compileTemplates(path.join(destDir, "packages/store"), {
       props: {},
     });
-    spinner.succeed("Successfully installed recoil");
+    spinner.succeed("Successfully added recoil");
   } catch (error) {
     console.log(error);
-    logger.error("Error while installing recoil");
+    logger.error("Error while adding recoil");
     process.exit(1);
   }
 };
