@@ -44,7 +44,12 @@ async function main() {
         superTurboDir,
         type: "react",
         app: react,
-        templateCompilationProps: {},
+        templateCompilationProps: {
+          props: {
+            packageManager,
+            react,
+          },
+        },
       });
     }
     //install react packages
@@ -74,7 +79,12 @@ async function main() {
         superTurboDir,
         type: "express",
         app: express,
-        templateCompilationProps: {},
+        templateCompilationProps: {
+          props: {
+            packageManager,
+            express,
+          },
+        },
       });
     }
 
@@ -88,7 +98,7 @@ async function main() {
       logger.error(err.message);
     } else {
       logger.error(
-        "An unknown error has occurred. Please open an issue on github with the below:"
+        "An unknown error has occurred. Please open an issue on github with the below:",
       );
       console.log(err);
     }

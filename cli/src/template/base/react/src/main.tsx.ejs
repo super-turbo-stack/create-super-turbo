@@ -2,6 +2,13 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
+<% if(props.react.reactDependencies.tanstackQuery) { %> 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+<% } %> 
+<% if(props.react.reactDependencies.recoil) { %>
+import { RecoilRoot } from 'recoil';
+<% } %> 
+<% if(props.react.reactDependencies.reactRouter) { %>
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from './components/Home.tsx';
 import About from './components/About.tsx';
@@ -17,9 +24,32 @@ const router = createBrowserRouter([
     },
 ]);
 
+<% } %> 
+
+<% if(props.react.reactDependencies.tanstackQuery) { %>
+const queryClient = new QueryClient();
+<% } %> 
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-          <RouterProvider router={router} />
+    <% if(props.react.reactDependencies.tanstackQuery) { %>
+        <QueryClientProvider client={queryClient}>
+    <% } %> 
+    <% if(props.react.reactDependencies.recoil) { %>
+        <RecoilRoot>
+    <% } %> 
+
+    <% if(props.react.reactDependencies.reactRouter) { %>
+        <RouterProvider router={router} />
+    <% } %> 
+    <% if(!props.react.reactDependencies.reactRouter) { %>
+        <App />
+    <% } %> 
+    <% if(props.react.reactDependencies.recoil) { %>
+        </RecoilRoot>
+    <% } %> 
+    <% if(props.react.reactDependencies.tanstackQuery) { %>
+        </QueryClientProvider>
+    <% } %> 
   </StrictMode>,
 )
