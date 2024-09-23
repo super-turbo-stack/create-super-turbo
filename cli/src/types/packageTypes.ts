@@ -16,14 +16,16 @@ export interface expressApp {
 interface reactAppDependencies {
   tanstackQuery: boolean;
   recoil: boolean;
-  tailwindShadcn: boolean;
+  shadcnTailwind: boolean;
+  tailwind: boolean;
   reactRouter: boolean;
 }
 
 interface nextAppDependencies {
   tanstackQuery: boolean;
   recoil: boolean;
-  tailwindShadcn: boolean;
+  shadcnTailwind: boolean;
+  tailwind: boolean;
   nextAuth: boolean;
   prisma: boolean;
 }

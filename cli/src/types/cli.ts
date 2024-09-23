@@ -26,7 +26,8 @@ export const defaultOptions: CliResults = {
     reactDependencies: {
       reactRouter: true,
       recoil: true,
-      tailwindShadcn: true,
+      tailwind: true,
+      shadcnTailwind: true,
       tanstackQuery: true,
     },
   },
@@ -35,7 +36,8 @@ export const defaultOptions: CliResults = {
     nextDependencies: {
       tanstackQuery: true,
       recoil: true,
-      tailwindShadcn: true,
+      tailwind: true,
+      shadcnTailwind: true,
       nextAuth: true,
       prisma: true,
     },
