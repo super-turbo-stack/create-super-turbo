@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-import fs from "fs-extra";
+import path from "path";
 import { runCli } from "@/runCli";
 import { logger } from "@/utils/logger";
 import { renderTitle } from "@/utils/renderTitle";
 import { bootStrapTurbo } from "@/helper/bootStrapTurbo";
-import path from "path";
-import { getUserPackageManager } from "./utils/getUserPackageManager";
 import { bootStrapApps } from "./helper/bootStrapApps";
 import { InstallPackages } from "./installer";
+import { createGitRepo } from "./helper/git";
+import { installDependencies } from "./helper/install";
 
 async function main() {
   try {
@@ -52,7 +52,6 @@ async function main() {
         },
       });
     }
-    //install react packages
 
     //copy next app to /apps
     if (next) {
@@ -69,8 +68,6 @@ async function main() {
         },
       });
     }
-
-    //install next packages
 
     //copy express app to /apps
     if (express) {
@@ -90,15 +87,20 @@ async function main() {
 
     await InstallPackages({ packageManager, next, react, express, destDir });
 
-    //git init if git is true
-    //install express packages
+    if (git) {
+      await createGitRepo(destDir);
+    }
+
+    if (install) {
+      await installDependencies({ projectDir: destDir });
+    }
   } catch (err) {
     logger.error("Aborting installation...");
     if (err instanceof Error) {
       logger.error(err.message);
     } else {
       logger.error(
-        "An unknown error has occurred. Please open an issue on github with the below:",
+        "An unknown error has occurred. Please open an issue on github with the below:"
       );
       console.log(err);
     }

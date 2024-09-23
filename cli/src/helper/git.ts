@@ -5,7 +5,7 @@ import fs from "fs-extra";
 import ora from "ora";
 import { logger } from "@/utils/logger";
 import { exec, execSync } from "child_process";
-import { execa } from "execa";
+import { execa } from "@esm2cjs/execa";
 
 const isGitInstalled = (dir: string): boolean => {
   try {
@@ -95,7 +95,6 @@ export const createGitRepo = async (dir: string) => {
     }
   }
 
-  // We're good to go, initializing the git repo
   try {
     const branchName = getDefaultBranch();
 
@@ -103,9 +102,6 @@ export const createGitRepo = async (dir: string) => {
     const { major, minor } = getGitVersion();
     if (major < 2 || (major == 2 && minor < 28)) {
       await execa("git", ["init"], { cwd: dir });
-      // symbolic-ref is used here due to refs/heads/master not existing
-      // It is only created after the first commit
-      // https://superuser.com/a/1419674
       await execa("git", ["symbolic-ref", "HEAD", `refs/heads/${branchName}`], {
         cwd: dir,
       });
@@ -120,8 +116,7 @@ export const createGitRepo = async (dir: string) => {
         "git"
       )}\n`
     );
-  } catch {
-    // Safeguard, should be unreachable
+  } catch (error) {
     spinner.fail(
       `${chalk.bold.red(
         "Failed:"
