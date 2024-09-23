@@ -66,9 +66,6 @@ const runInstallCommand = async (
           spinner.text = data.toString();
         },
       });
-    // When using bun, the stdout stream is ignored and the spinner is shown
-    case "bun":
-      return execWithSpinner(projectDir, pkgManager, { stdout: "ignore" });
   }
 };
 

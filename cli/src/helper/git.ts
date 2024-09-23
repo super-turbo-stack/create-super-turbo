@@ -117,8 +117,6 @@ export const createGitRepo = async (dir: string) => {
       )}\n`
     );
   } catch (error) {
-    console.log(error);
-    // Safeguard, should be unreachable
     spinner.fail(
       `${chalk.bold.red(
         "Failed:"
