@@ -1,3 +1,9 @@
+<% if(props.next.nextDependencies.tailwind || props.next.nextDependencies.shadcnTailwind) { %>
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+<% } %> 
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
