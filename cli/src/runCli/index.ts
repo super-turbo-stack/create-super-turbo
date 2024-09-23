@@ -12,28 +12,27 @@ export const runCli = async (): Promise<CliResults> => {
   program
     .name(CREATE_SUPER_TURBO)
     .description(
-      "CLI tool to setup TurboRepo with Apps and Packages blazingly fast",
+      "CLI tool to setup TurboRepo with Apps and Packages blazingly fast"
     )
     .argument(
       "[dir]",
-      "The name of the application, as well as the name of the directory to create",
+      "The name of the application, as well as the name of the directory to create"
     )
     .option(
       "--noGit",
       "Explicitly tell the CLI to not initialize a new git repo in the project",
-      false,
+      false
     )
     .option(
       "--noInstall",
       "Explicitly tell the CLI to not run the package manager's install command",
-      false,
+      false
     )
     .option(
       "-y, --default",
       "Bypass the CLI and use all default options to bootstrap a new super-turbo-app",
-      false,
+      false
     )
-    //TODO:get Version from package.json
     .version("1.0.0", "-v, --version", "Display the version number");
 
   program.parse(process.argv);
@@ -96,7 +95,8 @@ export const runCli = async (): Promise<CliResults> => {
               label: "tanstack Query (React Query)",
             },
             { value: "recoil", label: "Recoil" },
-            { value: "tailwindShadcn", label: "tailwind+Shadcn-ui" },
+            { value: "shadcnTailwind", label: "Shadcn-ui(Tailwind included)" },
+            { value: "tailwind", label: "tailwind" },
             { value: "reactRouter", label: "Reactrouter" },
           ],
           required: false,
@@ -128,7 +128,8 @@ export const runCli = async (): Promise<CliResults> => {
               label: "tanstack Query (React Query)",
             },
             { value: "recoil", label: "Recoil" },
-            { value: "tailwindShadcn", label: "tailwind+Shadcn-ui" },
+            { value: "tailwind", label: "tailwind" },
+            { value: "shadcnTailwind", label: "Shadcn-ui(Tailwind included)" },
             { value: "prisma", label: "Prisma" },
           ],
           required: false,
@@ -183,7 +184,7 @@ export const runCli = async (): Promise<CliResults> => {
         logger.info("Operation cancelled.");
         process.exit(0);
       },
-    },
+    }
   );
   if (!project.reactDependencies) project.reactDependencies = [];
   if (!project.nextDependencies) project.nextDependencies = [];
@@ -203,7 +204,12 @@ export const runCli = async (): Promise<CliResults> => {
             reactRouter: project.reactDependencies.includes("reactRouter")
               ? true
               : false,
-            tailwindShadcn: project.reactDependencies.includes("tailwindShadcn")
+            tailwind:
+              project.reactDependencies.includes("tailwind") ||
+              project.reactDependencies.includes("shadcnTailwind")
+                ? true
+                : false,
+            shadcnTailwind: project.reactDependencies.includes("shadcnTailwind")
               ? true
               : false,
             recoil: project.reactDependencies.includes("recoil") ? true : false,
@@ -220,7 +226,12 @@ export const runCli = async (): Promise<CliResults> => {
             nextAuth: project.nextDependencies.includes("nextAuth")
               ? true
               : false,
-            tailwindShadcn: project.nextDependencies.includes("tailwindShadcn")
+            tailwind:
+              project.nextDependencies.includes("tailwind") ||
+              project.nextDependencies.includes("shadcnTailwind")
+                ? true
+                : false,
+            shadcnTailwind: project.nextDependencies.includes("shadcnTailwind")
               ? true
               : false,
             recoil: project.nextDependencies.includes("recoil") ? true : false,
