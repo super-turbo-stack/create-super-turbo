@@ -8,6 +8,7 @@ import path from "path";
 import { getUserPackageManager } from "./utils/getUserPackageManager";
 import { bootStrapApps } from "./helper/bootStrapApps";
 import { InstallPackages } from "./installer";
+import { createGitRepo } from "./helper/git";
 
 async function main() {
   try {
@@ -52,7 +53,6 @@ async function main() {
         },
       });
     }
-    //install react packages
 
     //copy next app to /apps
     if (next) {
@@ -69,8 +69,6 @@ async function main() {
         },
       });
     }
-
-    //install next packages
 
     //copy express app to /apps
     if (express) {
@@ -90,15 +88,19 @@ async function main() {
 
     await InstallPackages({ packageManager, next, react, express, destDir });
 
-    //git init if git is true
-    //install express packages
+    if (git) {
+      await createGitRepo(destDir);
+    }
+
+    if (install) {
+    }
   } catch (err) {
     logger.error("Aborting installation...");
     if (err instanceof Error) {
       logger.error(err.message);
     } else {
       logger.error(
-        "An unknown error has occurred. Please open an issue on github with the below:",
+        "An unknown error has occurred. Please open an issue on github with the below:"
       );
       console.log(err);
     }
