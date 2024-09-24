@@ -48,7 +48,7 @@ export const runCli = async (): Promise<CliResults> => {
     return cliResults;
   }
 
-  const pkgManager = getUserPackageManager();
+  const pkgManager = getUserPackageManager() as "yarn" | "npm" | "pnpm";
 
   const project = await p.group(
     {
@@ -60,6 +60,17 @@ export const runCli = async (): Promise<CliResults> => {
             validate: validateAppName,
           }),
       }),
+      packageManager: () => {
+        return p.select({
+          message: "Which package manager do you want to use?",
+          options: [
+            { value: "yarn", label: "Yarn" },
+            { value: "npm", label: "npm" },
+            { value: "pnpm", label: "pnpm" },
+          ],
+          initialValue: "pnpm",
+        });
+      },
       // language: () => {
       //   return p.select({
       //     message: "Will you be using TypeScript or JavaScript?",
@@ -170,11 +181,9 @@ export const runCli = async (): Promise<CliResults> => {
         },
       }),
       ...(!cliFlags.noInstall && {
-        install: () => {
+        install: ({ results }: { results: any }) => {
           return p.confirm({
-            message:
-              `Should we run '${pkgManager}` +
-              (pkgManager === "yarn" ? `'?` : ` install' for you?`),
+            message: `Should we run ${results.packageManager} installer`,
           });
         },
       }),
@@ -192,7 +201,7 @@ export const runCli = async (): Promise<CliResults> => {
 
   return {
     turboRepoName: project.turboRepoName ?? cliResults.turboRepoName,
-    packageManager: pkgManager as "yarn" | "npm" | "pnpm",
+    packageManager: project.packageManager as "yarn" | "npm" | "pnpm",
     // language: project.language as "typescript" | "javascript",
     git: cliFlags.noGit ? false : (project.git as boolean),
     install: cliFlags.noInstall ? false : (project.install as boolean),

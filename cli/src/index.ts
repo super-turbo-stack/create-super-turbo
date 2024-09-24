@@ -92,7 +92,7 @@ async function main() {
     }
 
     if (install) {
-      await installDependencies({ projectDir: destDir });
+      await installDependencies({ projectDir: destDir, packageManager });
     }
   } catch (err) {
     logger.error("Aborting installation...");

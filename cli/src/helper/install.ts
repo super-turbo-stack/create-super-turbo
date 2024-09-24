@@ -1,6 +1,8 @@
 import chalk from "chalk";
 import { execa, type StdioOption } from "@esm2cjs/execa";
 import ora, { type Ora } from "ora";
+import { exec, execSync } from "child_process";
+import * as p from "@clack/prompts";
 
 import {
   getUserPackageManager,
@@ -72,15 +74,37 @@ const runInstallCommand = async (
   }
 };
 
+const isPackageManagerInstalled = (pkgManager: PackageManager) => {
+  try {
+    execSync(`${pkgManager} --version`);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
 export const installDependencies = async ({
   projectDir,
+  packageManager,
 }: {
   projectDir: string;
+  packageManager: PackageManager;
 }) => {
-  logger.info("Installing dependencies...");
-  const pkgManager = getUserPackageManager();
+  if (!isPackageManagerInstalled(packageManager)) {
+    logger.error("Package manager is not installed");
+    const installPackageManager = await p.confirm({
+      message: "Do you want to use npm instead?",
+      initialValue: true,
+    });
 
-  const installSpinner = await runInstallCommand(pkgManager, projectDir);
+    if (installPackageManager) {
+      installDependencies({ projectDir, packageManager: "npm" });
+    }
+    return;
+  }
+  logger.info("Installing dependencies...");
+
+  const installSpinner = await runInstallCommand(packageManager, projectDir);
 
   // If the spinner was used to show the progress, use succeed method on it
   // If not, use the succeed on a new spinner
