@@ -30,7 +30,7 @@ export const InstallPackages = async ({
     });
   }
   if (next?.nextDependencies.tailwind) {
-    await TailwindInstaller({ destDir, appName: next.nextName, isReact:false });
+    await TailwindInstaller({ destDir, appName: next.nextName, isReact:false, packageManager });
   }
   if (react?.reactDependencies.reactRouter) {
     await ReactRouterInstaller({ destDir, appName: react.reactName });
