@@ -21,8 +21,8 @@ export const TailwindInstaller = async ({
     const srcDir = path.join(PKG_ROOT, "src/template/dependencies/tailwind");
     const pkgDir = path.join(PKG_ROOT, "src/template/packages/config-tailwind");
     fs.copyFileSync(
-      `${srcDir}/postcss.config.ts.ejs`,
-      path.join(destDir, `apps/${appName}/postcss.config.ts`),
+      `${srcDir}/postcss.config.js.ejs`,
+      path.join(destDir, `apps/${appName}/postcss.config.js`),
     );
     if (isReact) {
       fs.copyFileSync(
