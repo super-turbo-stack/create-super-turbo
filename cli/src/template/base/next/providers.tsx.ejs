@@ -13,6 +13,7 @@ const queryClient = new QueryClient();
 <% } %> 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
+      <>
     <% if(props.next.nextDependencies.nextAuth) { %>
       <SessionProvider>
     <% } %> 
@@ -32,6 +33,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     <% if(props.next.nextDependencies.nextAuth) { %>
       </SessionProvider>
     <% } %> 
+    </>
   );
 };
 

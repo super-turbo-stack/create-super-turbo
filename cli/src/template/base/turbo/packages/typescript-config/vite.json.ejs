@@ -1,17 +1,28 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "./base.json",
-  "Display": "Vite",
+  "extends": "./react-library.json",  
+  "display": "Vite",
   "compilerOptions": {
-    "allowJs": false,
-    "esModuleInterop": false,
-    "jsx": "react",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "module": "ESNext",
-    "noEmit": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": false,
-    "target": "ESNext",
-    "types": ["vite/client"]
-  }
+    "target": "ESNext",  
+    "useDefineForClassFields": true,  
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],  
+    "module": "ESNext",  
+    "moduleResolution": "bundler",  
+    "allowImportingTsExtensions": true,  
+    "isolatedModules": true,  
+    "moduleDetection": "force",  
+    "noEmit": true,  
+    "skipLibCheck": true,  
+    "strict": true,  
+    "noUnusedLocals": true,  
+    "noUnusedParameters": true,  
+    "noFallthroughCasesInSwitch": true,  
+    "resolveJsonModule": true  
+  },
+  "include": [
+    "src",  
+    "vite.config.ts"  
+  ]
 }
+
+

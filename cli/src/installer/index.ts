@@ -3,6 +3,7 @@ import { PrismaInstaller } from "./prisma";
 import { ReactRouterInstaller } from "./reactRouter";
 import { RecoilInstaller } from "./recoil";
 import { NextAuthInstaller } from "./nextAuth";
+import { TailwindInstaller } from "./tailwind";
 
 interface Props {
   packageManager: "yarn" | "npm" | "pnpm";
@@ -28,10 +29,16 @@ export const InstallPackages = async ({
       appName: next?.nextName,
     });
   }
+  if (next?.nextDependencies.tailwind) {
+    await TailwindInstaller({ destDir, appName: next.nextName, isReact:false, packageManager });
+  }
   if (react?.reactDependencies.reactRouter) {
     await ReactRouterInstaller({ destDir, appName: react.reactName });
   }
   if (react?.reactDependencies.recoil) {
     await RecoilInstaller({ destDir });
+  }
+  if (react?.reactDependencies.tailwind) {
+    await TailwindInstaller({ destDir, appName: react.reactName, isReact:true, packageManager });
   }
 };

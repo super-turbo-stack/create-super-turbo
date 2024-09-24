@@ -43,6 +43,23 @@
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     <% } %> 
+    <% if(
+        (props.next.nextDependencies.tailwind || props.next.nextDependencies.shadcnTailwind)
+        && (props.packageManager === 'npm' || props.packageManager === 'yarn')
+    ) { %>
+        "@repo/tailwind-config": "*",
+    <% } %> 
+    <% if(
+        (props.next.nextDependencies.tailwind || props.next.nextDependencies.shadcnTailwind)
+        && (props.packageManager === 'pnpm')
+    ) { %>
+        "@repo/tailwind-config": "workspace:*",
+    <% } %> 
+    <% if(props.next.nextDependencies.tailwind || props.next.nextDependencies.shadcnTailwind) { %>
+        "autoprefixer": "^10.4.18",
+        "postcss": "^8.4.35",
+        "tailwindcss": "^3.4.1",
+    <% } %> 
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

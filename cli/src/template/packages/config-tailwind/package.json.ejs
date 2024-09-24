@@ -1,0 +1,17 @@
+{
+  "name": "@repo/tailwind-config",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": "./tailwind.config.ts"
+  },
+  "devDependencies": {
+    <% if(props.packageManager === 'npm' || props.packageManager === 'yarn') { %>
+    "@repo/typescript-config": "*",
+    <% } %> 
+    <% if(props.packageManager === 'pnpm') { %>
+    "@repo/typescript-config": "workspace:*",
+    <% } %> 
+    "tailwindcss": "^3.4.1"
+  }
+}
