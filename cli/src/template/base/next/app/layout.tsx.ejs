@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+<% if(props.next.nextDependencies.shadcnTailwind) { %>
+import  "@repo/ui/styles.css";
+<% } %>
 import Providers from "../providers";
 
 const geistSans = localFont({
