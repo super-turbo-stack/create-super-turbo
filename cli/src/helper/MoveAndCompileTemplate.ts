@@ -41,7 +41,7 @@ export const compileTemplates = async (
 
       if (stats.isDirectory()) {
         await compileTemplates(filePath, templateCompilationProps);
-      } else if (file.endsWith(".d.ts.ejs")) {
+      } else if (file.endsWith(".d.ts.ejs") || file.endsWith("gitignore.ejs")) {
         fs.renameSync(filePath, filePath.replace(".ejs", ""));
       } else if (file.endsWith(".ejs")) {
         const compiledContent = await ejs.renderFile(
