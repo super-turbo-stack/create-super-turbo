@@ -5,6 +5,7 @@ import { CliResults, defaultOptions } from "@/types/cli";
 import { logger } from "@/utils/logger";
 import { CREATE_SUPER_TURBO } from "@/const";
 import { getUserPackageManager } from "@/utils/getUserPackageManager";
+import { checkConflictingAppNames } from "@/helper/checkConflictingAppNames";
 
 export const runCli = async (): Promise<CliResults> => {
   const cliResults = defaultOptions;
@@ -199,6 +200,12 @@ export const runCli = async (): Promise<CliResults> => {
   if (!project.nextDependencies) project.nextDependencies = [];
   if (!project.expressDependencies) project.expressDependencies = [];
 
+  const { expressName, nextName, reactName } = checkConflictingAppNames({
+    reactName: project.reactName,
+    expressName: project.expressName,
+    nextName: project.nextName,
+  });
+
   return {
     turboRepoName: project.turboRepoName ?? cliResults.turboRepoName,
     packageManager: project.packageManager as "yarn" | "npm" | "pnpm",
@@ -208,7 +215,7 @@ export const runCli = async (): Promise<CliResults> => {
     react: !project.react
       ? null
       : {
-          reactName: project.reactName,
+          reactName: reactName,
           reactDependencies: {
             reactRouter: project.reactDependencies.includes("reactRouter")
               ? true
@@ -230,7 +237,7 @@ export const runCli = async (): Promise<CliResults> => {
     next: !project.next
       ? null
       : {
-          nextName: project.nextName,
+          nextName: nextName,
           nextDependencies: {
             nextAuth: project.nextDependencies.includes("nextAuth")
               ? true
@@ -253,7 +260,7 @@ export const runCli = async (): Promise<CliResults> => {
     express: !project.express
       ? null
       : {
-          expressName: project.expressName,
+          expressName: expressName,
           expressDependencies: {
             prisma: project.expressDependencies.includes("prisma")
               ? true
