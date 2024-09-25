@@ -6,6 +6,7 @@ import { logger } from "@/utils/logger";
 import { CREATE_SUPER_TURBO } from "@/const";
 import { getUserPackageManager } from "@/utils/getUserPackageManager";
 import { checkConflictingAppNames } from "@/helper/checkConflictingAppNames";
+import { flagsHelper } from "@/helper/flagsHelper";
 
 export const runCli = async (): Promise<CliResults> => {
   const cliResults = defaultOptions;
@@ -30,6 +31,21 @@ export const runCli = async (): Promise<CliResults> => {
       false
     )
     .option(
+      "--react",
+      "Add React App with React's default options to your Super Turbo",
+      false
+    )
+    .option(
+      "--next",
+      "Add Next App with Next's default options to your Super Turbo",
+      false
+    )
+    .option(
+      "--express",
+      "Add Express App with Express's default options to your Super Turbo",
+      false
+    )
+    .option(
       "-y, --default",
       "Bypass the CLI and use all default options to bootstrap a new super-turbo-app",
       false
@@ -49,7 +65,17 @@ export const runCli = async (): Promise<CliResults> => {
     return cliResults;
   }
 
-  const pkgManager = getUserPackageManager() as "yarn" | "npm" | "pnpm";
+  if (cliFlags.react || cliFlags.next || cliFlags.express) {
+    const result = await flagsHelper({
+      cliName: cliProvidedName,
+      isReact: cliFlags.react,
+      isNext: cliFlags.next,
+      isExpress: cliFlags.express,
+      isGit: cliFlags.noGit ? false : true,
+      isInstall: cliFlags.noInstall ? false : true,
+    });
+    return result;
+  }
 
   const project = await p.group(
     {

@@ -4,6 +4,9 @@ export interface CliFlags {
   noGit: boolean;
   noInstall: boolean;
   default: boolean;
+  react: boolean;
+  express: boolean;
+  next: boolean;
 }
 
 export interface CliResults {
