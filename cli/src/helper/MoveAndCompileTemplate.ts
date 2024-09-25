@@ -33,6 +33,10 @@ export const compileTemplates = async (
 
     for (const file of files) {
       const filePath = path.join(dir, file);
+      if (file === ".gitKeep") {
+        fs.removeSync(filePath);
+        continue;
+      }
       const stats = await fs.stat(filePath);
 
       if (stats.isDirectory()) {

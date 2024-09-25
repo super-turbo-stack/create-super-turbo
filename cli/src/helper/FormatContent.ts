@@ -41,7 +41,6 @@ export async function formatContent(
     return formattedContent;
   } catch (error) {
     console.error("Error formatting content:", error);
-    console.log("file", file);
     return content;
   }
 }
