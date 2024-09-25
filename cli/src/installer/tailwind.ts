@@ -8,11 +8,13 @@ export const TailwindInstaller = async ({
   destDir,
   appName,
   isReact,
+  isShadcn,
   packageManager,
 }: {
   destDir: string;
   appName: string;
   isReact: boolean;
+  isShadcn: boolean;
   packageManager: "yarn" | "npm" | "pnpm";
 }) => {
   try {
@@ -38,7 +40,12 @@ export const TailwindInstaller = async ({
       props: {},
     });
     await compileTemplates(path.join(destDir, `packages/config-tailwind`), {
-      props: { packageManager },
+
+      props: {
+                packageManager,
+                isShadcn,
+            },
+
     });
   } catch (error) {
     logger.error("Error while adding TailwindCSS");

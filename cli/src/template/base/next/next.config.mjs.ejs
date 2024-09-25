@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+<% if(props.next.nextDependencies.shadcnTailwind) { %>
+  reactStrictMode: true,
+  transpilePackages: ["@repo/ui"],
+<% } %>
+};
 
 export default nextConfig;
