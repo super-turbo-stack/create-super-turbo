@@ -4,6 +4,7 @@ import { ReactRouterInstaller } from "./reactRouter";
 import { RecoilInstaller } from "./recoil";
 import { NextAuthInstaller } from "./nextAuth";
 import { TailwindInstaller } from "./tailwind";
+import { ShadcnInstaller } from "./shadcn";
 
 interface Props {
   packageManager: "yarn" | "npm" | "pnpm";
@@ -30,7 +31,15 @@ export const InstallPackages = async ({
     });
   }
   if (next?.nextDependencies.tailwind) {
-    await TailwindInstaller({ destDir, appName: next.nextName, isReact:false, packageManager });
+    await TailwindInstaller({
+      destDir,
+      appName: next.nextName,
+      isReact: false,
+      packageManager,
+    });
+  }
+  if (next?.nextDependencies.shadcnTailwind) {
+    await ShadcnInstaller({ destDir, packageManager });
   }
   if (react?.reactDependencies.reactRouter) {
     await ReactRouterInstaller({ destDir, appName: react.reactName });
@@ -39,6 +48,11 @@ export const InstallPackages = async ({
     await RecoilInstaller({ destDir });
   }
   if (react?.reactDependencies.tailwind) {
-    await TailwindInstaller({ destDir, appName: react.reactName, isReact:true, packageManager });
+    await TailwindInstaller({
+      destDir,
+      appName: react.reactName,
+      isReact: true,
+      packageManager,
+    });
   }
 };
