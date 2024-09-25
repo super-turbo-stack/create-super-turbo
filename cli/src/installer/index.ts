@@ -52,7 +52,7 @@ export const InstallPackages = async ({
   if (react?.reactDependencies.reactRouter) {
     await ReactRouterInstaller({ destDir, appName: react.reactName });
   }
-  if (react?.reactDependencies.recoil) {
+  if (react?.reactDependencies.recoil || next?.nextDependencies.recoil) {
     await RecoilInstaller({ destDir });
   }
   if (react?.reactDependencies.tailwind) {
