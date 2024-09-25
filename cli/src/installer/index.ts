@@ -30,15 +30,25 @@ export const InstallPackages = async ({
     });
   }
   if (next?.nextDependencies.tailwind) {
-    await TailwindInstaller({ destDir, appName: next.nextName, isReact:false, packageManager });
+    await TailwindInstaller({
+      destDir,
+      appName: next.nextName,
+      isReact: false,
+      packageManager,
+    });
   }
   if (react?.reactDependencies.reactRouter) {
     await ReactRouterInstaller({ destDir, appName: react.reactName });
   }
-  if (react?.reactDependencies.recoil) {
+  if (react?.reactDependencies.recoil || next?.nextDependencies.recoil) {
     await RecoilInstaller({ destDir });
   }
   if (react?.reactDependencies.tailwind) {
-    await TailwindInstaller({ destDir, appName: react.reactName, isReact:true, packageManager });
+    await TailwindInstaller({
+      destDir,
+      appName: react.reactName,
+      isReact: true,
+      packageManager,
+    });
   }
 };
