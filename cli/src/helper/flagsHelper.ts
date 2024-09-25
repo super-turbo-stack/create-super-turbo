@@ -7,11 +7,15 @@ export const flagsHelper = async ({
   isExpress,
   isNext,
   isReact,
+  isGit,
+  isInstall,
 }: {
   isReact: boolean;
   isNext: boolean;
   isExpress: boolean;
   cliName: string;
+  isGit: boolean;
+  isInstall: boolean;
 }): Promise<CliResults> => {
   const CliPackageManager = await p.select({
     message: "Which package manager do you want to use?",
@@ -28,7 +32,7 @@ export const flagsHelper = async ({
     react: isReact ? defaultOptions.react : null,
     next: isNext ? defaultOptions.next : null,
     express: isExpress ? defaultOptions.express : null,
-    git: true,
-    install: true,
+    git: isGit ? true : false,
+    install: isInstall ? true : false,
   };
 };

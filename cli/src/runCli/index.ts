@@ -71,6 +71,8 @@ export const runCli = async (): Promise<CliResults> => {
       isReact: cliFlags.react,
       isNext: cliFlags.next,
       isExpress: cliFlags.express,
+      isGit: cliFlags.noGit ? false : true,
+      isInstall: cliFlags.noInstall ? false : true,
     });
     return result;
   }
