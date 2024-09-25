@@ -30,6 +30,12 @@
     <% if((props.packageManager === 'npm' || props.packageManager === 'yarn') && props.next.nextDependencies.recoil) { %>
     "@repo/store": "*",
     <% } %> 
+    <% if(props.packageManager === 'pnpm' && props.next.nextDependencies.shadcnTailwind) { %>
+    "@repo/ui": "workspace:*",
+    <% } %> 
+    <% if((props.packageManager === 'npm' || props.packageManager === 'yarn') && props.next.nextDependencies.shadcnTailwind) { %>
+    "@repo/ui": "*",
+    <% } %> 
     "next": "14.2.6",
     "react": "18.3.1",
     "react-dom": "18.3.1"

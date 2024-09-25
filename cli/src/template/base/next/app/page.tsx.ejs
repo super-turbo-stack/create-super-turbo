@@ -1,7 +1,20 @@
 import React from "react";
+<% if(props.next.nextDependencies.shadcnTailwind) { %>
+import { Button } from "@repo/ui";
+<% } %>
 
 const page = () => {
-  return <div>page</div>;
+  return (
+      <% if(props.next.nextDependencies.tailwind || props.next.nextDependencies.shadcnTailwind) { %>
+    <div className="p-4 grid place-items-center gap-2">
+    <% } %>
+    <div>
+        This is Next APP
+          <% if(props.next.nextDependencies.shadcnTailwind) { %>
+        <Button variant="secondary">SUPER TURBO</Button>
+    <% } %>
+    </div>
+  );
 };
 
 export default page;
