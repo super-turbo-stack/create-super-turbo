@@ -8,7 +8,9 @@ const page = () => {
       <% if(props.next.nextDependencies.tailwind || props.next.nextDependencies.shadcnTailwind) { %>
     <div className="p-4 grid place-items-center gap-2">
     <% } %>
+  <% if(!props.next.nextDependencies.tailwind && !props.next.nextDependencies.shadcnTailwind) { %>
     <div>
+    <% } %>
         This is Next APP
           <% if(props.next.nextDependencies.shadcnTailwind) { %>
         <Button variant="secondary">SUPER TURBO</Button>
