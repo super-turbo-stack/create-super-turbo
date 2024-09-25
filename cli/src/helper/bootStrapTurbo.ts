@@ -76,15 +76,15 @@ export async function bootStrapTurbo({
   }
 
   spinner.start();
-  
-  await MoveAndCompileTemplate({ destDir, srcDir, templateCompilationProps});
-  if(packageManager !== 'pnpm'){
-    fs.removeSync(path.join(destDir, 'pnpm-workspace.yaml'));
+
+  await MoveAndCompileTemplate({ destDir, srcDir, templateCompilationProps });
+  if (packageManager !== "pnpm") {
+    fs.removeSync(path.join(destDir, "pnpm-workspace.yaml"));
   }
- 
+
   const App = turboRepoName === "." ? "App" : chalk.cyan.bold(turboRepoName);
 
-  spinner.succeed(`${App} ${chalk.green("Bootstraped successfully!")}\n`);
+  spinner.succeed();
 
   return destDir;
 }

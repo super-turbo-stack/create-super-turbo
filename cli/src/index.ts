@@ -8,6 +8,8 @@ import { bootStrapApps } from "./helper/bootStrapApps";
 import { InstallPackages } from "./installer";
 import { createGitRepo } from "./helper/git";
 import { installDependencies } from "./helper/install";
+import { BootStappedMessage } from "./helper/BootstrapedMessage";
+import { PackageInstallationLogs } from "./helper/PackageInstallationLogs";
 
 async function main() {
   try {
@@ -87,10 +89,22 @@ async function main() {
 
     await InstallPackages({ packageManager, next, react, express, destDir });
 
+    BootStappedMessage({
+      turboRepoName,
+      next: next ? true : false,
+      react: react ? true : false,
+      express: express ? true : false,
+    });
+
+    PackageInstallationLogs({
+      reactAppDependencies: react?.reactDependencies,
+      nextAppDependencies: next?.nextDependencies,
+      expressAppDependencies: express?.expressDependencies,
+    });
+    console.log(" ");
     if (git) {
       await createGitRepo(destDir);
     }
-
     if (install) {
       await installDependencies({ projectDir: destDir, packageManager });
     }
@@ -102,7 +116,6 @@ async function main() {
       logger.error(
         "An unknown error has occurred. Please open an issue on github with the below:"
       );
-      console.log(err);
     }
     process.exit(1);
   }

@@ -13,7 +13,7 @@ export interface expressApp {
   expressDependencies: expressAppDependencies;
 }
 
-interface reactAppDependencies {
+export interface reactAppDependencies {
   tanstackQuery: boolean;
   recoil: boolean;
   shadcnTailwind: boolean;
@@ -21,7 +21,7 @@ interface reactAppDependencies {
   reactRouter: boolean;
 }
 
-interface nextAppDependencies {
+export interface nextAppDependencies {
   tanstackQuery: boolean;
   recoil: boolean;
   shadcnTailwind: boolean;
@@ -30,7 +30,7 @@ interface nextAppDependencies {
   prisma: boolean;
 }
 
-interface expressAppDependencies {
+export interface expressAppDependencies {
   prisma: boolean;
   cors: boolean;
 }
