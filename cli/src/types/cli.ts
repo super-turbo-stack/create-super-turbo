@@ -22,7 +22,7 @@ export interface CliResults {
 
 export const defaultOptions: CliResults = {
   turboRepoName: "my-super-turbo",
-  packageManager: "npm",
+  packageManager: "pnpm",
   // language: "typescript",
   react: {
     reactName: "react-app",

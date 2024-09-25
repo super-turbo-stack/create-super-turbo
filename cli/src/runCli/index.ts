@@ -7,6 +7,7 @@ import { CREATE_SUPER_TURBO } from "@/const";
 import { getUserPackageManager } from "@/utils/getUserPackageManager";
 import { checkConflictingAppNames } from "@/helper/checkConflictingAppNames";
 import { flagsHelper } from "@/helper/flagsHelper";
+import chalk from "chalk";
 
 export const runCli = async (): Promise<CliResults> => {
   const cliResults = defaultOptions;
@@ -87,27 +88,28 @@ export const runCli = async (): Promise<CliResults> => {
             validate: validateAppName,
           }),
       }),
-      packageManager: () => {
-        return p.select({
-          message: "Which package manager do you want to use?",
+      packageManager: async ({ results }: { results: any }) => {
+        const result = await p.select({
+          message: "Which workspace do you want to use?",
           options: [
-            { value: "yarn", label: "Yarn" },
-            { value: "npm", label: "npm" },
-            { value: "pnpm", label: "pnpm" },
+            { value: "yarn", label: "yarn workspaces" },
+            { value: "npm", label: "npm workspaces" },
+            { value: "pnpm", label: "pnpm workspaces" },
           ],
           initialValue: "pnpm",
         });
+
+        if (result === "pnpm") {
+          p.log.success(
+            chalk.green(
+              "Great Choice! Installation will be Superrrr Fast! 🏎️💨"
+            )
+          );
+        }
+
+        return result;
       },
-      // language: () => {
-      //   return p.select({
-      //     message: "Will you be using TypeScript or JavaScript?",
-      //     options: [
-      //       { value: "typescript", label: "TypeScript" },
-      //       { value: "javascript", label: "JavaScript" },
-      //     ],
-      //     initialValue: "typescript",
-      //   });
-      // },
+
       react: () => {
         return p.confirm({
           message: "Do you want to add a React app in your Super Turbo?",
@@ -121,7 +123,8 @@ export const runCli = async (): Promise<CliResults> => {
               defaultValue: "react-app",
               validate: validateAppName,
             })
-          : p.note("Skipping React App"),
+          : p.log.info("Skipping React App"),
+
       reactDependencies: ({ results }: { results: any }) => {
         if (results.react === false) return;
         return p.multiselect({
@@ -153,7 +156,7 @@ export const runCli = async (): Promise<CliResults> => {
               defaultValue: "next-app",
               validate: validateAppName,
             })
-          : p.note("Skipping Next App"),
+          : p.log.info("Skipping Next App"),
       nextDependencies: ({ results }: { results: any }) => {
         if (results.next === false) return;
         return p.multiselect({
@@ -186,7 +189,7 @@ export const runCli = async (): Promise<CliResults> => {
               defaultValue: "express-app",
               validate: validateAppName,
             })
-          : p.note("Skipping Express App"),
+          : p.log.info("Skipping Express App"),
       expressDependencies: ({ results }: { results: any }) => {
         if (results.express === false) return;
         return p.multiselect({

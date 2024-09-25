@@ -1,6 +1,4 @@
 import path from "path";
-import fs from "fs-extra";
-import chalk from "chalk";
 import { PKG_ROOT } from "@/const";
 import ora from "ora";
 import type { expressApp, nextApp, reactApp } from "@/types/packageTypes";
@@ -39,7 +37,5 @@ export const bootStrapApps = async ({
     templateCompilationProps,
   });
 
-  spinner.succeed(
-    ` ${chalk.green(`Added ${appName} ${type} app successfully!`)}\n`
-  );
+  spinner.succeed();
 };

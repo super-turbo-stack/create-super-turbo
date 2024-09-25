@@ -1,9 +1,8 @@
-import ora from "ora";
+import { PKG_ROOT } from "@/const";
+import { compileTemplates } from "@/helper/MoveAndCompileTemplate";
+import { logger } from "@/utils/logger";
 import fs from "fs-extra";
 import path from "path";
-import { PKG_ROOT } from "@/const";
-import { logger } from "@/utils/logger";
-import { compileTemplates } from "@/helper/MoveAndCompileTemplate";
 
 export const PrismaInstaller = async ({
   destDir,
@@ -13,7 +12,6 @@ export const PrismaInstaller = async ({
   packageManager: "yarn" | "npm" | "pnpm";
 }) => {
   try {
-    const spinner = ora("Adding prisma to your Super Turbo...").start();
     const srcDir = path.join(PKG_ROOT, "src/template/packages/db");
     fs.copySync(srcDir, path.join(destDir, "packages/db"));
     await compileTemplates(path.join(destDir, "packages/db"), {
@@ -21,9 +19,7 @@ export const PrismaInstaller = async ({
         packageManager,
       },
     });
-    spinner.succeed("Successfully added prisma");
   } catch (error) {
-    console.log(error);
     logger.error("Error while adding prisma");
     process.exit(1);
   }
