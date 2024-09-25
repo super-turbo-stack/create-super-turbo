@@ -37,13 +37,19 @@ export const compileTemplates = async (
 
       if (stats.isDirectory()) {
         await compileTemplates(filePath, templateCompilationProps);
+      } else if (file.endsWith(".d.ts.ejs")) {
+        fs.renameSync(filePath, filePath.replace(".ejs", ""));
       } else if (file.endsWith(".ejs")) {
         const compiledContent = await ejs.renderFile(
           filePath,
           templateCompilationProps
         );
 
-        await fs.writeFile(filePath, compiledContent as string);
+        const formattedContent = await formatContent(
+          compiledContent as string,
+          file
+        );
+        await fs.writeFile(filePath, formattedContent as string);
         fs.renameSync(filePath, filePath.replace(".ejs", ""));
       }
     }
