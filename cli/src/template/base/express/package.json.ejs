@@ -30,6 +30,12 @@
     <% if(props.express.expressDependencies.cors) { %>
     "@types/cors": "^2.8.17",
     <% } %> 
+    <% if(props.packageManager === 'pnpm' && props.express.expressDependencies.prisma) { %>
+    "@repo/typescript-config": "workspace:*",
+    <% } %> 
+    <% if((props.packageManager === 'npm' || props.packageManager === 'yarn') && props.express.expressDependencies.prisma) { %>
+    "@repo/typescript-config": "*",
+    <% } %> 
     "@types/express": "^4.17.21",
     "tsup": "^8.1.0"
   }
