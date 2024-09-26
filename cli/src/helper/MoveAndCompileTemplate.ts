@@ -44,7 +44,8 @@ export const compileTemplates = async (
       } else if (
         file.endsWith(".d.ts.ejs") ||
         file === ".gitignore.ejs" ||
-        file === "pnpm-workspace.yaml.ejs"
+        file === "pnpm-workspace.yaml.ejs" ||
+        file === "next.config.mjs.ejs"
       ) {
         fs.renameSync(filePath, filePath.replace(".ejs", ""));
       } else if (file.endsWith(".ejs")) {
