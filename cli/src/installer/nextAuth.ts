@@ -21,8 +21,6 @@ export const NextAuthInstaller = async ({
       "src/template/dependencies/nextAuth/auth.ts.ejs"
     );
     fs.copySync(apiSrcDir, path.join(destDir, `apps/${appName}/src/app/api`));
-    console.log(path.join(destDir, `apps/${appName}/src/app/api`));
-    console.log(path.join(destDir, `apps/${appName}/utils/auth.ts.ejs`));
     fs.copyFileSync(
       utilsSrcDir,
       path.join(destDir, `apps/${appName}/src/utils/auth.ts.ejs`)
