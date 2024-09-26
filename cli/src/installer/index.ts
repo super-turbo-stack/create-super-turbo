@@ -39,14 +39,10 @@ export const InstallPackages = async ({
       packageManager,
     });
   }
-  if (next?.nextDependencies.shadcnTailwind) {
-    await TailwindInstaller({
-      destDir,
-      appName: next.nextName,
-      isReact: false,
-      isShadcn: true,
-      packageManager,
-    });
+  if (
+    next?.nextDependencies.shadcnTailwind ||
+    react?.reactDependencies.shadcnTailwind
+  ) {
     await ShadcnInstaller({ destDir, packageManager });
   }
   if (react?.reactDependencies.reactRouter) {
@@ -63,15 +59,5 @@ export const InstallPackages = async ({
       isReact: true,
       packageManager,
     });
-  }
-  if (react?.reactDependencies.shadcnTailwind) {
-    await TailwindInstaller({
-      destDir,
-      appName: react.reactName,
-      isReact: true,
-      isShadcn: true,
-      packageManager,
-    });
-    await ShadcnInstaller({ destDir, packageManager });
   }
 };
