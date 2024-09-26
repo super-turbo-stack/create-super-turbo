@@ -20,15 +20,17 @@ export const NextAuthInstaller = async ({
       PKG_ROOT,
       "src/template/dependencies/nextAuth/auth.ts.ejs"
     );
-    fs.copySync(apiSrcDir, path.join(destDir, `apps/${appName}/app/api`));
+    fs.copySync(apiSrcDir, path.join(destDir, `apps/${appName}/src/app/api`));
+    console.log(path.join(destDir, `apps/${appName}/src/app/api`));
+    console.log(path.join(destDir, `apps/${appName}/utils/auth.ts.ejs`));
     fs.copyFileSync(
       utilsSrcDir,
-      path.join(destDir, `apps/${appName}/utils/auth.ts.ejs`)
+      path.join(destDir, `apps/${appName}/src/utils/auth.ts.ejs`)
     );
-    await compileTemplates(path.join(destDir, `apps/${appName}/app/api`), {
+    await compileTemplates(path.join(destDir, `apps/${appName}/src/app/api`), {
       props: {},
     });
-    await compileTemplates(path.join(destDir, `apps/${appName}/utils`), {
+    await compileTemplates(path.join(destDir, `apps/${appName}/src/utils`), {
       props: {},
     });
   } catch (error) {
