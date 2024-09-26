@@ -1,4 +1,3 @@
-import ora from "ora";
 import fs from "fs-extra";
 import path from "path";
 import { PKG_ROOT } from "@/const";
@@ -13,7 +12,6 @@ export const ShadcnInstaller = async ({
   packageManager: "yarn" | "npm" | "pnpm";
 }) => {
   try {
-    const spinner = ora("Adding Shadcn to your Super Turbo...").start();
     const srcDir = path.join(PKG_ROOT, "src/template/packages/shadcnui");
     fs.copySync(srcDir, path.join(destDir, `packages/ui`));
     await compileTemplates(path.join(destDir, `packages/ui`), {
@@ -21,7 +19,6 @@ export const ShadcnInstaller = async ({
         packageManager,
       },
     });
-    spinner.succeed("Successfully added Shadcn");
   } catch (error) {
     console.log(error);
     logger.error("Error while adding Shadcn");

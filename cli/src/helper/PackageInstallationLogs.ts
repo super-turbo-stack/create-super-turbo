@@ -57,10 +57,16 @@ export const PackageInstallationLogs = ({
   if (expressAppDependencies?.prisma) {
     dependencies.add("prisma");
   }
+  if (
+    nextAppDependencies?.shadcnTailwind ||
+    reactAppDependencies?.shadcnTailwind
+  ) {
+    dependencies.add("shadcn-ui");
+  }
 
   const dependenciesArray = Array.from(dependencies) as string[];
   const tick = chalk.green.bold("✔");
   dependenciesArray.forEach((dependency) => {
-    logger.success(`${tick} successfully added ${dependency}`);
+    logger.success(`${tick} successfully added ${chalk.cyan.bold(dependency)}`);
   });
 };
