@@ -15,41 +15,41 @@ export const runCli = async (): Promise<CliResults> => {
   program
     .name(CREATE_SUPER_TURBO)
     .description(
-      "CLI tool to setup TurboRepo with Apps and Packages blazingly fast"
+      "CLI tool to setup TurboRepo with Apps and Packages blazingly fast",
     )
     .argument(
       "[dir]",
-      "The name of the application, as well as the name of the directory to create"
+      "The name of the application, as well as the name of the directory to create",
     )
     .option(
       "--noGit",
       "Explicitly tell the CLI to not initialize a new git repo in the project",
-      false
+      false,
     )
     .option(
       "--noInstall",
       "Explicitly tell the CLI to not run the package manager's install command",
-      false
+      false,
     )
     .option(
       "--react",
       "Add React App with React's default options to your Super Turbo",
-      false
+      false,
     )
     .option(
       "--next",
       "Add Next App with Next's default options to your Super Turbo",
-      false
+      false,
     )
     .option(
       "--express",
       "Add Express App with Express's default options to your Super Turbo",
-      false
+      false,
     )
     .option(
       "-y, --default",
       "Bypass the CLI and use all default options to bootstrap a new super-turbo-app",
-      false
+      false,
     )
     .version("1.0.0", "-v, --version", "Display the version number");
 
@@ -63,7 +63,11 @@ export const runCli = async (): Promise<CliResults> => {
   const cliFlags = program.opts();
 
   if (cliFlags.default) {
-    return cliResults;
+    return {
+      ...cliResults,
+      git: cliFlags.noGit ? false : defaultOptions.git,
+      install: cliFlags.noInstall ? false : defaultOptions.install,
+    };
   }
 
   if (cliFlags.react || cliFlags.next || cliFlags.express) {
@@ -102,8 +106,8 @@ export const runCli = async (): Promise<CliResults> => {
         if (result === "pnpm") {
           p.log.success(
             chalk.green(
-              "Great Choice! Installation will be Superrrr Fast! 🏎️💨"
-            )
+              "Great Choice! Installation will be Superrrr Fast! 🏎️💨",
+            ),
           );
         }
 
@@ -223,7 +227,7 @@ export const runCli = async (): Promise<CliResults> => {
         logger.info("Operation cancelled.");
         process.exit(0);
       },
-    }
+    },
   );
   if (!project.reactDependencies) project.reactDependencies = [];
   if (!project.nextDependencies) project.nextDependencies = [];
