@@ -10,6 +10,7 @@ import { createGitRepo } from "./helper/git";
 import { installDependencies } from "./helper/install";
 import { BootStappedMessage } from "./helper/BootstrapedMessage";
 import { PackageInstallationLogs } from "./helper/PackageInstallationLogs";
+import { getStartedMessage } from "./helper/getStarted";
 
 async function main() {
   try {
@@ -108,6 +109,9 @@ async function main() {
     if (install) {
       await installDependencies({ projectDir: destDir, packageManager });
     }
+
+    getStartedMessage({turboRepoName});
+
   } catch (err) {
     logger.error("Aborting installation...");
     if (err instanceof Error) {
