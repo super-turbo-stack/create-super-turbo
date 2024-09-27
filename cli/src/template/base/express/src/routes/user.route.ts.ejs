@@ -1,0 +1,37 @@
+import { Router } from "express";
+<% if(props.express.expressDependencies.prisma) { %>
+import { prisma } from "../db";
+<% }else{%>
+const users=[
+{"id":1,"name":"John Doe","email":"john@example.com"},
+{"id":2,"name":"Jane Doe","email":"jane@example.com"},
+]
+<% } %>
+const router: Router = Router();
+<% if(props.express.expressDependencies.prisma) { %>
+  router.get("/", async (req, res) => {
+    const users = await prisma.user.findMany();
+    res.status(200).json(users);
+  });
+  
+  router.get("/:id", async (req, res) => {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.status(200).json(user);
+  });
+<% } else{%>
+  router.get("/", async (req, res) => {
+    res.status(200).json(users);
+  });
+  
+  router.get("/:id", async (req, res) => {
+    const user=users.find((user) => user.id === req.params.id);
+    res.status(200).json(user);
+  });
+
+<% } %>
+
+export default router;

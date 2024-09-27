@@ -7,9 +7,13 @@ import path from "path";
 export const PrismaInstaller = async ({
   destDir,
   packageManager,
+  app,
+  name,
 }: {
   destDir: string;
   packageManager: "yarn" | "npm" | "pnpm";
+  app: "express" | "next";
+  name: string | undefined;
 }) => {
   try {
     const srcDir = path.join(PKG_ROOT, "src/template/packages/db");
@@ -19,6 +23,16 @@ export const PrismaInstaller = async ({
         packageManager,
       },
     });
+    if (app === "express" && name) {
+      console.log(
+        path.join(PKG_ROOT, "src/template/dependencies/prisma-express")
+      );
+      console.log(path.join(destDir, "apps", name, "src"));
+      fs.copySync(
+        path.join(PKG_ROOT, "src/template/dependencies/prisma-express"),
+        path.join(destDir, "apps", name, "src")
+      );
+    }
   } catch (error) {
     logger.error("Error while adding prisma");
     process.exit(1);

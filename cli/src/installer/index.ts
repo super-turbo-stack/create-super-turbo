@@ -22,8 +22,18 @@ export const InstallPackages = async ({
   express,
 }: Props) => {
   if (next?.nextDependencies.prisma || express?.expressDependencies.prisma) {
-    await PrismaInstaller({ destDir, packageManager });
+    let app: "express" | "next";
+    if (next) app = "next";
+    else app = "express";
+
+    await PrismaInstaller({
+      destDir,
+      packageManager,
+      app,
+      name: express?.expressName,
+    });
   }
+
   if (next?.nextDependencies.nextAuth) {
     await NextAuthInstaller({
       destDir,
