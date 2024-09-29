@@ -91,6 +91,7 @@ async function main() {
     await InstallPackages({ packageManager, next, react, express, destDir });
 
     BootStappedMessage({
+      destDir,
       turboRepoName,
       next: next ? true : false,
       react: react ? true : false,
@@ -110,8 +111,7 @@ async function main() {
       await installDependencies({ projectDir: destDir, packageManager });
     }
 
-    getStartedMessage({turboRepoName, install});
-
+    getStartedMessage({ turboRepoName, install, packageManager });
   } catch (err) {
     logger.error("Aborting installation...");
     if (err instanceof Error) {

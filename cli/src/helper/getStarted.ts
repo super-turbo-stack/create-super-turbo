@@ -1,9 +1,11 @@
 import { logger } from "@/utils/logger";
 
 export const getStartedMessage = ({
+  packageManager,
   turboRepoName,
   install,
 }: {
+  packageManager: "yarn" | "npm" | "pnpm";
   turboRepoName: string;
   install: boolean;
 }) => {
@@ -17,10 +19,14 @@ export const getStartedMessage = ({
   }
 
   if (!install) {
-    logger.info(`${step++}. pnpm install`);
+    if (packageManager === "pnpm" || packageManager === "npm")
+      logger.info(`${step++}. ${packageManager} install`);
+    else logger.info(`${step++}. yarn `);
   }
 
-  logger.info(`${step++}. pnpm run dev`);
+  if (packageManager === "pnpm" || packageManager === "npm")
+    logger.info(`${step++}. ${packageManager} run dev`);
+  else logger.info(`${step++}. yarn dev`);
 
   console.log();
 
