@@ -4,10 +4,7 @@ import ora, { type Ora } from "ora";
 import { exec, execSync } from "child_process";
 import * as p from "@clack/prompts";
 
-import {
-  getUserPackageManager,
-  type PackageManager,
-} from "@/utils/getUserPackageManager";
+import { type PackageManager } from "@/utils/getUserPackageManager";
 import { logger } from "@/utils/logger";
 
 const execWithSpinner = async (
@@ -74,7 +71,7 @@ const runInstallCommand = async (
   }
 };
 
-const isPackageManagerInstalled = (pkgManager: PackageManager) => {
+export const isPackageManagerInstalled = (pkgManager: PackageManager) => {
   try {
     execSync(`${pkgManager} --version`);
     return true;
@@ -91,15 +88,20 @@ export const installDependencies = async ({
   packageManager: PackageManager;
 }) => {
   if (!isPackageManagerInstalled(packageManager)) {
-    logger.error("Package manager is not installed");
-    const installPackageManager = await p.confirm({
-      message: "Do you want to use npm instead?",
-      initialValue: true,
-    });
+    logger.error(`${packageManager} is not installed`);
+    logger.info(
+      `To install ${packageManager} run: npm install -g ${packageManager}`
+    );
+    logger.info("Install the package manager and try again!");
+    process.exit(1);
+    // const installPackageManager = await p.confirm({
+    //   message: "Do you want to use npm instead?",
+    //   initialValue: true,
+    // });
 
-    if (installPackageManager) {
-      installDependencies({ projectDir, packageManager: "npm" });
-    }
+    // if (installPackageManager) {
+    //   installDependencies({ projectDir, packageManager: "npm" });
+    // }
     return;
   }
   logger.info("Installing dependencies...");
