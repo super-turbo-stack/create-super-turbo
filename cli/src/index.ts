@@ -36,6 +36,7 @@ async function main() {
         props: {
           turboRepoName,
           packageManager,
+          ui: react?.reactDependencies.shadcnTailwind || next?.nextDependencies.shadcnTailwind,
         },
       },
     });

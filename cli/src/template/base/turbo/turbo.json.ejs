@@ -13,6 +13,11 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    <% if(props.ui) { %>
+    "@repo/ui#dev":{
+      "outputs": ["dist/**"]
     }
+    <% } %>
   }
 }
