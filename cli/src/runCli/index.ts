@@ -4,10 +4,11 @@ import { validateAppName } from "@/utils/validateAppName";
 import { CliResults, defaultOptions } from "@/types/cli";
 import { logger } from "@/utils/logger";
 import { CREATE_SUPER_TURBO } from "@/const";
-import { getUserPackageManager } from "@/utils/getUserPackageManager";
+import { PackageManager } from "@/utils/getUserPackageManager";
 import { checkConflictingAppNames } from "@/helper/checkConflictingAppNames";
 import { flagsHelper } from "@/helper/flagsHelper";
 import chalk from "chalk";
+import { isPackageManagerInstalled } from "@/helper/install";
 
 export const runCli = async (): Promise<CliResults> => {
   const cliResults = defaultOptions;
@@ -103,6 +104,32 @@ export const runCli = async (): Promise<CliResults> => {
           initialValue: "pnpm",
         });
 
+        const ispkgManagerInstalled = await isPackageManagerInstalled(
+          result as PackageManager
+        );
+        if (!ispkgManagerInstalled) {
+          const installationResult = await p.select({
+            message: "Package manager is not installed",
+            options: [
+              { value: "npm", label: "Use npm Workspaces instead" },
+              {
+                value: "abort",
+                label: `Exit Setup (Install ${result.toString()} and then try again)`,
+              },
+            ],
+          });
+          if (installationResult === "npm") {
+            return "npm";
+          }
+          if (installationResult === "abort") {
+            logger.warn("Aborting installation...");
+            logger.info(
+              `To install ${result.toString()} run: npm install -g ${result.toString()}`
+            );
+            process.exit(1);
+          }
+        }
+
         if (result === "pnpm") {
           p.log.success(
             chalk.green(
@@ -110,7 +137,6 @@ export const runCli = async (): Promise<CliResults> => {
             )
           );
         }
-
         return result;
       },
 
