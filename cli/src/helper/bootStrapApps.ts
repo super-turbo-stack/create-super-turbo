@@ -1,3 +1,4 @@
+import fs from "fs-extra";
 import path from "path";
 import { PKG_ROOT } from "@/const";
 import ora from "ora";
@@ -37,5 +38,8 @@ export const bootStrapApps = async ({
     templateCompilationProps,
   });
 
+  if (templateCompilationProps.props.react?.reactDependencies?.tailwind || templateCompilationProps.props.react?.reactDependencies?.shadcnTailwind) {
+    fs.removeSync(path.join(destDir, `/apps/${appName}/src/App.css`));
+  }
   spinner.succeed();
 };

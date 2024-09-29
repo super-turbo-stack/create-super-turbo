@@ -14,7 +14,9 @@ import {useQuery} from "@tanstack/react-query";
 <% if(props.react.reactDependencies.shadcnTailwind) { %>
 import { Button } from "@repo/ui";
 <% } %>
+<% if(!props.react.reactDependencies.tailwind && !props.react.reactDependencies.shadcnTailwind) { %>
 import './App.css'
+<% } %>
 
 function App() {
     <% if(!props.react.reactDependencies.recoil) { %>
