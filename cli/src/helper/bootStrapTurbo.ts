@@ -6,6 +6,7 @@ import { logger } from "@/utils/logger";
 import chalk from "chalk";
 import * as p from "@clack/prompts";
 import { MoveAndCompileTemplate } from "./MoveAndCompileTemplate";
+import { start } from "repl";
 
 export async function bootStrapTurbo({
   destDir,
@@ -19,18 +20,20 @@ export async function bootStrapTurbo({
   templateCompilationProps: any;
 }): Promise<string> {
   const srcDir = path.join(PKG_ROOT, "src/template/base/turbo");
+    const isCurrentDir = turboRepoName === ".";
+    const displayPath = isCurrentDir ? "current directory" : destDir;
   const spinner = ora(`Creating BoilerPlate in ${destDir}...\n`).start();
 
   if (fs.existsSync(destDir)) {
     if (fs.readdirSync(destDir).length === 0) {
-      if (turboRepoName === ".") {
-        spinner.info(logger.info("Creating") as unknown as string);
+      if (isCurrentDir) {
+        spinner.info(logger.info("Creating in current directory") as unknown as string);
       }
     } else {
       spinner.stopAndPersist();
       const overwriteDir = await p.select({
         message: `${chalk.redBright.bold("Warning:")} ${chalk.cyan.bold(
-          turboRepoName
+          displayPath
         )} already exists and isn't empty. How would you like to proceed?`,
         options: [
           {
@@ -69,22 +72,22 @@ export async function bootStrapTurbo({
       }
 
       if (overwriteDir === "clear") {
-        spinner.info(`Emptying ${chalk.cyan.bold(turboRepoName)} \n`);
+        spinner.info(`Emptying ${chalk.cyan.bold(displayPath)} \n`);
         fs.emptyDirSync(destDir);
       }
     }
   }
-
-  spinner.start();
+    else if (!isCurrentDir){
+        fs.mkdirSync(destDir, {recursive:true})
+    }
 
   await MoveAndCompileTemplate({ destDir, srcDir, templateCompilationProps });
   if (packageManager !== "pnpm") {
     fs.removeSync(path.join(destDir, "pnpm-workspace.yaml"));
   }
 
-  const App = turboRepoName === "." ? "App" : chalk.cyan.bold(turboRepoName);
+  const App = isCurrentDir ? "App" : chalk.cyan.bold(turboRepoName);
 
   spinner.succeed();
-
   return destDir;
 }
