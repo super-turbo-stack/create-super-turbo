@@ -1,11 +1,28 @@
 import { logger } from "@/utils/logger";
-import chalk from "chalk";
 
 export const getStartedMessage = ({
   turboRepoName,
+  install,
 }: {
   turboRepoName: string;
+  install: boolean;
 }) => {
-    console.log(turboRepoName,'My  name is anothy');
-};
+  logger.success("Now, to get started");
+  console.log();
 
+  let step = 1;
+
+  if (turboRepoName !== ".") {
+    logger.info(`${step++}. cd ${turboRepoName}`);
+  }
+
+  if (!install) {
+    logger.info(`${step++}. pnpm install`);
+  }
+
+  logger.info(`${step++}. pnpm run dev`);
+
+  console.log();
+
+  logger.success("Happy coding!!");
+};

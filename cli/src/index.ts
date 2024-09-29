@@ -110,7 +110,7 @@ async function main() {
       await installDependencies({ projectDir: destDir, packageManager });
     }
 
-    getStartedMessage({turboRepoName});
+    getStartedMessage({turboRepoName, install});
 
   } catch (err) {
     logger.error("Aborting installation...");
