@@ -6,13 +6,23 @@ export const BootStappedMessage = ({
   next,
   react,
   turboRepoName,
+  destDir,
 }: {
   turboRepoName: string;
+  destDir: string;
   next: boolean;
   react: boolean;
   express: boolean;
 }) => {
-  const logName = chalk.cyan.bold(turboRepoName);
+  let logName = chalk.cyan.bold(turboRepoName);
+  if (turboRepoName === ".") {
+    const appName = destDir.split("/");
+    if (appName.length > 1) {
+      logName = chalk.cyan.bold(appName[appName.length - 1]);
+    } else {
+      logName = chalk.cyan.bold("Super Turbo");
+    }
+  }
   if (next && react && express) {
     logger.success(
       `🎉 Congratulations! You have successfully bootstrapped ${logName} with Next, React and Express apps.`
