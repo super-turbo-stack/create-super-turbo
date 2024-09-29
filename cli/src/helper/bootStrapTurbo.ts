@@ -20,14 +20,13 @@ export async function bootStrapTurbo({
   templateCompilationProps: any;
 }): Promise<string> {
   const srcDir = path.join(PKG_ROOT, "src/template/base/turbo");
-    const isCurrentDir = turboRepoName === ".";
-    const displayPath = isCurrentDir ? "current directory" : destDir;
+  console.log("first");
   const spinner = ora(`Creating BoilerPlate in ${destDir}...\n`).start();
 
   if (fs.existsSync(destDir)) {
     if (fs.readdirSync(destDir).length === 0) {
-      if (isCurrentDir) {
-        spinner.info(logger.info("Creating in current directory") as unknown as string);
+      if (turboRepoName === ".") {
+        spinner.info(logger.info("Creating") as unknown as string);
       }
     } else {
       spinner.stopAndPersist();
@@ -76,10 +75,11 @@ export async function bootStrapTurbo({
         fs.emptyDirSync(destDir);
       }
     }
+  } else if (!isCurrentDir) {
+    fs.mkdirSync(destDir, { recursive: true });
   }
-    else if (!isCurrentDir){
-        fs.mkdirSync(destDir, {recursive:true})
-    }
+
+  spinner.start();
 
   await MoveAndCompileTemplate({ destDir, srcDir, templateCompilationProps });
   if (packageManager !== "pnpm") {
