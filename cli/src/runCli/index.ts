@@ -50,7 +50,7 @@ export const runCli = async (): Promise<CliResults> => {
     .option(
       "--packageManager <packageManager>",
       "Specify which package manager(Workspaces) to use (pnpm, yarn, npm)",
-      "npm"
+      "Not Selected"
     )
     .option(
       "-y, --default",
@@ -69,37 +69,11 @@ export const runCli = async (): Promise<CliResults> => {
   const cliFlags = program.opts();
   let cliPackageManager = cliFlags.packageManager;
 
-  if (!["pnpm", "yarn", "npm"].includes(cliPackageManager)) {
+  if (!["pnpm", "yarn", "npm", "Not Selected"].includes(cliPackageManager)) {
     console.error(
       `Invalid package manager: ${cliPackageManager}. Choose between 'pnpm', 'yarn', or 'npm'.`
     );
     process.exit(1);
-  }
-  if (cliPackageManager) {
-    const ispkgManagerInstalled = await isPackageManagerInstalled(
-      cliPackageManager as PackageManager
-    );
-    if (!ispkgManagerInstalled) {
-      const installationResult = await p.select({
-        message: `${cliPackageManager} is not installed`,
-        options: [
-          { value: "npm", label: "Use npm Workspaces instead" },
-          {
-            value: "abort",
-            label: `Exit Setup (Install ${cliPackageManager} and then try again)`,
-          },
-        ],
-      });
-      if (installationResult === "npm") {
-        cliPackageManager = "npm";
-      } else {
-        logger.warn("Aborting installation...");
-        logger.info(
-          `To install ${cliPackageManager} run: npm install -g ${cliPackageManager}`
-        );
-        process.exit(1);
-      }
-    }
   }
 
   if (cliFlags.default) {
@@ -113,6 +87,7 @@ export const runCli = async (): Promise<CliResults> => {
 
   if (cliFlags.react || cliFlags.next || cliFlags.express) {
     const result = await flagsHelper({
+      cliPackageManager,
       cliName: cliProvidedName,
       isReact: cliFlags.react,
       isNext: cliFlags.next,
@@ -133,9 +108,11 @@ export const runCli = async (): Promise<CliResults> => {
             validate: validateAppName,
           }),
       }),
-      ...(!cliPackageManager && {
-        packageManager: async ({ results }: { results: any }) => {
-          const result = await p.select({
+
+      packageManager: async ({ results }: { results: any }) => {
+        let result;
+        if (cliPackageManager === "Not Selected") {
+          result = await p.select({
             message: "Which workspace do you want to use?",
             options: [
               { value: "yarn", label: "yarn workspaces" },
@@ -144,43 +121,44 @@ export const runCli = async (): Promise<CliResults> => {
             ],
             initialValue: "pnpm",
           });
-
-          const ispkgManagerInstalled = await isPackageManagerInstalled(
-            result as PackageManager
-          );
-          if (!ispkgManagerInstalled) {
-            const installationResult = await p.select({
-              message: `${result.toString()} is not installed`,
-              options: [
-                { value: "npm", label: "Use npm Workspaces instead" },
-                {
-                  value: "abort",
-                  label: `Exit Setup (Install ${result.toString()} and then try again)`,
-                },
-              ],
-            });
-            if (installationResult === "npm") {
-              return "npm";
-            }
-            if (installationResult === "abort") {
-              logger.warn("Aborting installation...");
-              logger.info(
-                `To install ${result.toString()} run: npm install -g ${result.toString()}`
-              );
-              process.exit(1);
-            }
+        } else {
+          result = cliPackageManager;
+        }
+        const ispkgManagerInstalled = await isPackageManagerInstalled(
+          result as PackageManager
+        );
+        if (!ispkgManagerInstalled) {
+          const installationResult = await p.select({
+            message: `${result.toString()} is not installed`,
+            options: [
+              { value: "npm", label: "Use npm Workspaces instead" },
+              {
+                value: "abort",
+                label: `Exit Setup (Install ${result.toString()} and then try again)`,
+              },
+            ],
+          });
+          if (installationResult === "npm") {
+            return "npm";
           }
-
-          if (result === "pnpm") {
-            p.log.success(
-              chalk.green(
-                "Great Choice! Installation will be Superrrr Fast! 🏎️💨"
-              )
+          if (installationResult === "abort") {
+            logger.warn("Aborting installation...");
+            logger.info(
+              `To install ${result.toString()} run: npm install -g ${result.toString()}`
             );
+            process.exit(1);
           }
-          return result;
-        },
-      }),
+        }
+
+        if (result === "pnpm") {
+          p.log.success(
+            chalk.green(
+              "Great Choice! Installation with pnpm will be Superrrr Fast! 🏎️💨"
+            )
+          );
+        }
+        return result;
+      },
 
       react: () => {
         return p.confirm({
@@ -285,7 +263,7 @@ export const runCli = async (): Promise<CliResults> => {
       ...(!cliFlags.noInstall && {
         install: ({ results }: { results: any }) => {
           return p.confirm({
-            message: `Should we run ${cliPackageManager ?? results.packageManager} installer`,
+            message: `Should we run ${results.packageManager} installer`,
           });
         },
       }),
@@ -309,8 +287,7 @@ export const runCli = async (): Promise<CliResults> => {
 
   return {
     turboRepoName: project.turboRepoName ?? cliResults.turboRepoName,
-    packageManager:
-      cliPackageManager ?? (project.packageManager as "yarn" | "npm" | "pnpm"),
+    packageManager: project.packageManager as "yarn" | "npm" | "pnpm",
     // language: project.language as "typescript" | "javascript",
     git: cliFlags.noGit ? false : (project.git as boolean),
     install: cliFlags.noInstall ? false : (project.install as boolean),
