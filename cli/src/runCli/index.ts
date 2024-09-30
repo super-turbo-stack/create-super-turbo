@@ -48,6 +48,11 @@ export const runCli = async (): Promise<CliResults> => {
       false
     )
     .option(
+      "--packageManager <packageManager>",
+      "Specify which package manager(Workspaces) to use (pnpm, yarn, npm)",
+      "Not Selected"
+    )
+    .option(
       "-y, --default",
       "Bypass the CLI and use all default options to bootstrap a new super-turbo-app",
       false
@@ -62,10 +67,19 @@ export const runCli = async (): Promise<CliResults> => {
   }
 
   const cliFlags = program.opts();
+  let cliPackageManager = cliFlags.packageManager;
+
+  if (!["pnpm", "yarn", "npm", "Not Selected"].includes(cliPackageManager)) {
+    console.error(
+      `Invalid package manager: ${cliPackageManager}. Choose between 'pnpm', 'yarn', or 'npm'.`
+    );
+    process.exit(1);
+  }
 
   if (cliFlags.default) {
     return {
       ...cliResults,
+      packageManager: cliPackageManager ?? "npm",
       git: cliFlags.noGit ? false : defaultOptions.git,
       install: cliFlags.noInstall ? false : defaultOptions.install,
     };
@@ -73,6 +87,7 @@ export const runCli = async (): Promise<CliResults> => {
 
   if (cliFlags.react || cliFlags.next || cliFlags.express) {
     const result = await flagsHelper({
+      cliPackageManager,
       cliName: cliProvidedName,
       isReact: cliFlags.react,
       isNext: cliFlags.next,
@@ -93,23 +108,28 @@ export const runCli = async (): Promise<CliResults> => {
             validate: validateAppName,
           }),
       }),
-      packageManager: async ({ results }: { results: any }) => {
-        const result = await p.select({
-          message: "Which workspace do you want to use?",
-          options: [
-            { value: "yarn", label: "yarn workspaces" },
-            { value: "npm", label: "npm workspaces" },
-            { value: "pnpm", label: "pnpm workspaces" },
-          ],
-          initialValue: "pnpm",
-        });
 
+      packageManager: async ({ results }: { results: any }) => {
+        let result;
+        if (cliPackageManager === "Not Selected") {
+          result = await p.select({
+            message: "Which workspace do you want to use?",
+            options: [
+              { value: "yarn", label: "yarn workspaces" },
+              { value: "npm", label: "npm workspaces" },
+              { value: "pnpm", label: "pnpm workspaces" },
+            ],
+            initialValue: "pnpm",
+          });
+        } else {
+          result = cliPackageManager;
+        }
         const ispkgManagerInstalled = await isPackageManagerInstalled(
           result as PackageManager
         );
         if (!ispkgManagerInstalled) {
           const installationResult = await p.select({
-            message: "Package manager is not installed",
+            message: `${result.toString()} is not installed`,
             options: [
               { value: "npm", label: "Use npm Workspaces instead" },
               {
@@ -133,7 +153,7 @@ export const runCli = async (): Promise<CliResults> => {
         if (result === "pnpm") {
           p.log.success(
             chalk.green(
-              "Great Choice! Installation will be Superrrr Fast! 🏎️💨"
+              "Great Choice! Installation with pnpm will be Superrrr Fast! 🏎️💨"
             )
           );
         }
