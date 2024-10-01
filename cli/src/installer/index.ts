@@ -45,7 +45,7 @@ export const InstallPackages = async ({
       destDir,
       appName: next.nextName,
       isReact: false,
-      isShadcn: false,
+      isShadcn: !!next.nextDependencies.shadcnTailwind,
       packageManager,
     });
   }
@@ -65,7 +65,7 @@ export const InstallPackages = async ({
     await TailwindInstaller({
       destDir,
       appName: react.reactName,
-      isShadcn: true,
+      isShadcn: !!react.reactDependencies.shadcnTailwind,
       isReact: true,
       packageManager,
     });

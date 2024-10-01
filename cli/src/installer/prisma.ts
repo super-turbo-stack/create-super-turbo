@@ -24,10 +24,6 @@ export const PrismaInstaller = async ({
       },
     });
     if (app === "express" && name) {
-      console.log(
-        path.join(PKG_ROOT, "src/template/dependencies/prisma-express")
-      );
-      console.log(path.join(destDir, "apps", name, "src"));
       fs.copySync(
         path.join(PKG_ROOT, "src/template/dependencies/prisma-express"),
         path.join(destDir, "apps", name, "src")
