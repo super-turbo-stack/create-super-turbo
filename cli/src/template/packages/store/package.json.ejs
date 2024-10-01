@@ -1,0 +1,23 @@
+{
+  "name": "@repo/store",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "recoil": "^0.7.7"
+  },
+    "devDependencies": {
+    <% if(props.packageManager === 'npm' || props.packageManager === 'yarn') { %>
+    "@repo/typescript-config": "*"
+    <% } %> 
+    <% if(props.packageManager === 'pnpm') { %>
+    "@repo/typescript-config": "workspace:*"
+    <% } %> 
+  }
+}
