@@ -1,0 +1,45 @@
+# Default Options
+
+The following options are used by default when you run the CLI with `-y` or `--default`:
+
+### TurboRepo Configuration
+
+- **TurboRepoName:** `my-super-turbo`
+
+  - This sets the name of the TurboRepo, which organizes multiple apps in a monorepo structure.
+
+- **Workspaces:** `npm`
+  - By default, `npm` is used to manage the dependencies across the project.
+
+### React App Configuration
+
+- **React App Name:** `react-app`
+- **React Dependencies:**
+  - **reactRouter:** `true` – Adds React Router for client-side routing.
+  - **recoil:** `true` – Enables Recoil for state management.
+  - **tailwind:** `true` – Integrates Tailwind CSS for utility-first CSS framework.
+  - **shadcnTailwind:** `true` – Adds ShadCN Tailwind components for pre-built UI elements.
+  - **tanstackQuery:** `true` – Uses TanStack Query (React Query) for fetching, caching, and synchronizing server state.
+
+### Next.js App Configuration
+
+- **Next.js App Name:** `next-app`
+- **Next.js Dependencies:**
+  - **tanstackQuery:** `true` – Uses TanStack Query for server state handling in Next.js.
+  - **recoil:** `true` – Includes Recoil for state management in Next.js.
+  - **tailwind:** `true` – Adds Tailwind CSS for styling.
+  - **shadcnTailwind:** `true` – Pre-built UI components using ShadCN Tailwind.
+  - **nextAuth:** `true` – Configures NextAuth.js for authentication.
+  - **prisma:** `true` – Integrates Prisma ORM for database interactions.
+
+### Express App Configuration
+
+- **Express App Name:** `express-app`
+- **Express Dependencies:**
+  - **cors:** `true` – Adds CORS middleware for handling cross-origin requests.
+  - **prisma:** `true` – Integrates Prisma ORM for database interactions.
+
+### Additional Configuration
+
+- **Git:** `true` – Automatically initializes a Git repository.
+- **Install:** `true` – Automatically installs all required dependencies after setup.
