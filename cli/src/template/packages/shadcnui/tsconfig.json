@@ -5,7 +5,7 @@
      "@/*": ["./src/*"]
     },
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": "./src"
   },
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"]

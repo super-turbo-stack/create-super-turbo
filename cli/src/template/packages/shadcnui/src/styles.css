@@ -42,7 +42,7 @@ body {
 
 @media (prefers-color-scheme : dark) {
   :root {
-    --background: 240 10% 3.9%;
+    --background: 240 11% 4%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -69,7 +69,7 @@ body {
   }
 }
   .dark {
-    --background: 240 10% 3.9%;
+    --background: 240 11% 4%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
