@@ -23,7 +23,7 @@ export const flagsHelper = async ({
   cliPackageManager: string | null;
 }): Promise<CliResults> => {
   let SelectedPackageManager;
-  if (cliPackageManager !== "Not Selected") {
+  if (cliPackageManager !== null) {
     const ispkgManagerInstalled = await isPackageManagerInstalled(
       cliPackageManager as PackageManager
     );
