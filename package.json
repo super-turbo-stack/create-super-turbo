@@ -1,5 +1,5 @@
 {
-  "name": "create-super-stack",
+  "name": "create-super-turbo",
   "private": true,
   "scripts": {
     "build": "turbo build",
