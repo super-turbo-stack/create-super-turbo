@@ -38,7 +38,10 @@ export const bootStrapApps = async ({
     templateCompilationProps,
   });
 
-  if (templateCompilationProps.props.react?.reactDependencies?.tailwind || templateCompilationProps.props.react?.reactDependencies?.shadcnTailwind) {
+  if (
+    templateCompilationProps.props.react?.reactDependencies?.tailwind ||
+    templateCompilationProps.props.react?.reactDependencies?.shadcnTailwind
+  ) {
     fs.removeSync(path.join(destDir, `/src/App.css`));
   }
   spinner.succeed();

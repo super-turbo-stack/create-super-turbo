@@ -52,11 +52,12 @@ export const compileTemplates = async (
           filePath,
           templateCompilationProps
         );
-        if (file === "next.config.mjs.ejs" || "env.ejs") {
+        if (file === "next.config.mjs.ejs" || file === "env.ejs") {
           await fs.writeFile(filePath, compiledContent as string);
           fs.renameSync(filePath, filePath.replace(".ejs", ""));
           continue;
         }
+
         const formattedContent = await formatContent(
           compiledContent as string,
           file
