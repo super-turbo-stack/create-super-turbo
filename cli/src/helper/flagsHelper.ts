@@ -20,7 +20,7 @@ export const flagsHelper = async ({
   cliName: string;
   isGit: boolean;
   isInstall: boolean;
-  cliPackageManager: string;
+  cliPackageManager: string | null;
 }): Promise<CliResults> => {
   let SelectedPackageManager;
   if (cliPackageManager !== "Not Selected") {
