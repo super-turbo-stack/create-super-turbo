@@ -47,11 +47,9 @@ export const runCli = async (): Promise<CliResults> => {
       "Add Express App with Express's default options to your Super Turbo",
       false
     )
-    .option(
-      "--packageManager <packageManager>",
-      "Specify which package manager(Workspaces) to use (pnpm, yarn, npm)",
-      "Not Selected"
-    )
+    .option("--pnpm", "Use pnpm Workspaces", false)
+    .option("--yarn", "Use yarn Workspaces", false)
+    .option("--npm", "Use npm Workspaces", false)
     .option(
       "-y, --default",
       "Bypass the CLI and use all default options to bootstrap a new super-turbo-app",
@@ -67,16 +65,50 @@ export const runCli = async (): Promise<CliResults> => {
   }
 
   const cliFlags = program.opts();
-  let cliPackageManager = cliFlags.packageManager;
-
-  if (!["pnpm", "yarn", "npm", "Not Selected"].includes(cliPackageManager)) {
-    console.error(
-      `Invalid package manager: ${cliPackageManager}. Choose between 'pnpm', 'yarn', or 'npm'.`
-    );
-    process.exit(1);
+  let cliPackageManager: "npm" | "yarn" | "pnpm" | null = null;
+  if (cliFlags.pnpm || cliFlags.yarn || cliFlags.npm) {
+    let selected = 0;
+    selected =
+      (cliFlags.pnpm === true ? 1 : 0) +
+      (cliFlags.yarn === true ? 1 : 0) +
+      (cliFlags.npm === true ? 1 : 0);
+    if (selected > 1) {
+      cliPackageManager = "npm";
+    } else {
+      cliPackageManager = cliFlags.pnpm
+        ? "pnpm"
+        : cliFlags.yarn
+          ? "yarn"
+          : "npm";
+    }
   }
 
   if (cliFlags.default) {
+    if (cliPackageManager !== null) {
+      const ispkgManagerInstalled = await isPackageManagerInstalled(
+        cliPackageManager as PackageManager
+      );
+      if (!ispkgManagerInstalled) {
+        const installationResult = await p.select({
+          message: `${cliPackageManager} is not installed`,
+          options: [
+            { value: "npm", label: "Use npm Workspaces instead" },
+            {
+              value: "abort",
+              label: `Exit Setup (Install ${cliPackageManager} and then try again)`,
+            },
+          ],
+        });
+        if (installationResult === "npm") cliPackageManager = "npm";
+        else {
+          logger.info(
+            `To install ${cliPackageManager} run: npm install -g ${cliPackageManager}`
+          );
+          logger.info("Install the package manager and try again!");
+          process.exit(1);
+        }
+      }
+    }
     return {
       ...cliResults,
       packageManager:
@@ -112,7 +144,7 @@ export const runCli = async (): Promise<CliResults> => {
 
       packageManager: async ({ results }: { results: any }) => {
         let result;
-        if (cliPackageManager === "Not Selected") {
+        if (cliPackageManager === null) {
           result = await p.select({
             message: "Which workspace do you want to use?",
             options: [
