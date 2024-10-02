@@ -3,6 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
+<% if(!props.react.reactDependencies.shadcnTailwind) { %>
 :root {
     --background: 0 0% 100%;
     --primary: 240 5.9% 10%;
@@ -24,6 +25,7 @@
   }
 }
 
+<% } %> 
 <% } else { %> 
 :root {
     font-family: 'Roboto', sans-serif;
