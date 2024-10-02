@@ -26,7 +26,7 @@ export const MoveAndCompileTemplate = async ({
 
 export const compileTemplates = async (
   dir: string,
-  templateCompilationProps: any,
+  templateCompilationProps: any
 ) => {
   try {
     const files = await fs.readdir(dir);
@@ -50,16 +50,16 @@ export const compileTemplates = async (
       } else if (file.endsWith(".ejs")) {
         const compiledContent = await ejs.renderFile(
           filePath,
-          templateCompilationProps,
+          templateCompilationProps
         );
-        if (file === "next.config.mjs.ejs") {
+        if (file === "next.config.mjs.ejs" || "env.ejs") {
           await fs.writeFile(filePath, compiledContent as string);
           fs.renameSync(filePath, filePath.replace(".ejs", ""));
           continue;
         }
         const formattedContent = await formatContent(
           compiledContent as string,
-          file,
+          file
         );
         await fs.writeFile(filePath, formattedContent as string);
         fs.renameSync(filePath, filePath.replace(".ejs", ""));
