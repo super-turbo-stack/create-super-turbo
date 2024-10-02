@@ -2,45 +2,207 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-<% } else { %> 
 
+<% if(!props.next.nextDependencies.shadcnTailwind) { %>
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: 0 0% 100%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme : dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 210 11% 4%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+  }
+}
+@layer base {
+  body {
+    @apply bg-background text-primary;
   }
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
+<% } %> 
+<% } else { %> 
+:root {
+    color-scheme: light dark;
+    --background: hsl(210, 11%, 4%);
+    --primary: hsl(0, 0%, 98%);
+    --secondary: hsl(240, 3.7%, 15.9%);
+    --primary-foreground: hsl(250, 5.9%, 10%);
 }
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
+}
+
+button {
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    border-radius: calc(0.5rem - 2px);
+    white-space: nowrap;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.25rem;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    cursor: pointer;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+img {
+    max-width: 100%;
+    vertical-align: middle;
 }
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --background: hsl(0, 0%, 100%);
+        --primary: hsl(240, 5.9%, 10%);
+        --primary-foreground: hsl(0, 0%, 98%);
+        --secondary: hsl(240, 4.8%, 95.9%);
+    }
+}
+.wrapper {
+    background-color: var(--background);
+    width: 100vw;
+    height: 100vh;
+    padding-bottom: 2rem;
+}
+
+.container {
+    max-width: 1024px;
+    width: 100%;
+    height: 100%;
+    margin-inline: auto;
+    padding-top: 10%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    font-family: "Roboto", sans-serif;
+    color: var(--primary);
+}
+
+h1.heading {
+    letter-spacing: -0.0325em;
+    line-height: 1.1;
+    text-transform: capitalize;
+    font-weight: 700;
+    font-size: 3rem;
+}
+
+.heading>span {
+    text-transform: uppercase;
+}
+
+.information {
+    font-weight: 500;
+    color: var(--primary);
+    opacity: 0.7;
+    letter-spacing: -0.37px;
+    line-height: 28px;
+    font-weight: 500;
+    font-size: 1.125rem;
+    margin-block: 0.5rem;
+}
+
+.getstartedlist {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    margin:0;
+    padding:0;
+    line-height: 1.5;
+    padding-left: 2rem;
+}
+
+.buttongroup{
+    display: flex;
+    gap: 1rem;
+    margin-block:1rem;
+}
+
+.docsbtn {
+    text-underline-offset: 4px;
+    gap:0.25rem;
+    background-color: transparent;
+    color: var(--primary);
+}
+
+.docsbtn:hover{
+    text-decoration: underline;
+}
+
+.docsbtn  .globe, .docsbtn  .arrow {
+    filter:invert(100%);
+    margin-right:0.25rem;
+    height: 1rem;
+}
+
+.docsbtn  .globe {
+    opacity: 0.5;
+}
+
+.githubstar {
+    background-color: transparent;
+    color: var(--primary);
+    gap: 0.25rem;
+    border: 1px solid hsl(240, 3.7%, 15.9%);
+    justify-self: end;
+}
+
+.githubstar > a{
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+.githubstar  span {
+    margin-left: 0.5rem;
+}
+
+.githubstar  img {
+    height: 1rem;
+    filter:invert(100%);
+}
+
+@media (prefers-color-scheme: light) {
+    .githubstar  img, .docsbtn  .globe, .docsbtn  .arrow {
+        filter:invert(0%);
+    }
+}
+.randomnumber {
+    display: grid;
+    place-items: center;
+    gap: 0.65rem;
+    grid-column:span 2;
+    align-self: start;
+}
+
+.randomnumber > button{
+    background-color: var(--secondary);
+    color: var(--primary);
+}
+
 <% } %> 
