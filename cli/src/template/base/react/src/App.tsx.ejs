@@ -1,16 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-<% if(props.react.reactDependencies.reactRouter) { %>
-import { Outlet } from 'react-router-dom'
-<% } %> 
+import globe from "./assets/globe.svg"
+import arrow from "./assets/arrow.svg"
+import github from "./assets/github.svg"
+
 <% if( props.react.reactDependencies.recoil) { %>
 import {useRecoilState} from 'recoil';
 import {countState} from '@repo/store';
+import { useEffect } from "react";
+<% } else { %> 
+    import { useState, useEffect } from 'react'
 <% } %> 
+
 <% if(props.react.reactDependencies.tanstackQuery) { %> 
 import {useQuery} from "@tanstack/react-query";
 <% } %> 
+
 <% if(props.react.reactDependencies.shadcnTailwind) { %>
 import { Button } from "@repo/ui";
 <% } %>
@@ -19,73 +22,219 @@ import './App.css'
 <% } %>
 
 function App() {
-    <% if(!props.react.reactDependencies.recoil) { %>
-  const [count, setCount] = useState(0)
-    <% } %> 
-    <% if(props.react.reactDependencies.recoil) { %>
-    const [count, setCount] = useRecoilState(countState);
-    <% } %> 
-
-        return (
-        <>
-                  <% if(props.react.reactDependencies.tailwind || props.react.reactDependencies.shadcnTailwind) { %>
-    <div className="p-4 grid place-items-center gap-2">
-    <% } %>
-  <% if(!props.react.reactDependencies.tailwind && !props.react.reactDependencies.shadcnTailwind) { %>
-    <div>
-    <% } %>
-                <a href="https://vitejs.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo" />
-                </a>
-                <a href="https://react.dev" target="_blank">
-                    <img src={reactLogo} className="logo react" alt="React logo" />
-                </a>
-              <% if(props.react.reactDependencies.shadcnTailwind) { %>
-        <Button variant="secondary">SUPER TURBO</Button>
-    <% } %>
+    return (
+<% if(props.react.reactDependencies.tailwind || props.react.reactDependencies.shadcnTailwind) { %>
+        <div className='bg-background w-screen h-svh pb-8'>
+            <div className='max-w-screen-lg w-full mx-auto h-full font-roboto grid grid-cols-2 pt-[10%]'>
+                <div>
+                    <h1 className='text-5xl font-bold text-primary capitalize tracking-[-.0325em] leading-[1.1]'>
+                        create <span className='uppercase'>super</span> stack
+                    </h1>
+                    <p className='text-lg text-foreground/70 leading-[28px] tracking-[-0.37px] font-medium my-2'>
+                        Kickstart your React project in a flash with Create Super Turbo!
+                    </p>
+                    <ol className='font-mono list-decimal pl-8'>
+                        <li>Get started by editing src/App.tsx.</li>
+                        <li>Save and see your changes instantly.</li>
+                    </ol>
+                    <div className='flex gap-4 my-4'>
+                        <% if(props.react.reactDependencies.shadcnTailwind) { %>
+                                <Button asChild>
+                                <a href="#">
+                                Start Building
+                                </a>
+                                </Button>
+                                <Button asChild variant={"link"} className='gap-1'>
+                                <a href="https://react.dev/" target="_blank">
+                                <img src={globe} alt='Globe' className='h-4 dark:invert opacity-50 mr-1' />
+                                Go to react.dev
+                                <img src={arrow} alt='Arrow right' className='h-4 dark:invert' />
+                                </a>
+                                </Button>
+                        <% } else { %> 
+                                <Button className="text-primary-foreground">
+                                <a href="#">
+                                Start Building
+                                </a>
+                                </Button>
+                                <Button className='bg-transparent text-primary hover:underline underline-offset-4 gap-1'>
+                                <a href="https://react.dev/" className="flex gap-1 items-center" target="_blank">
+                                <img src={globe} alt='Globe' className='h-4 dark:invert opacity-50 mr-1' />
+                                Go to react.dev
+                                <img src={arrow} alt='Arrow right' className='h-4 dark:invert' />
+                                </a>
+                                </Button>
+                        <% } %> 
+                    </div>
+                </div>
+                <% if(props.react.reactDependencies.tanstackQuery) { %>
+                <GithubStar />
+                <% } else { %> 
+                        <% if(props.react.reactDependencies.shadcnTailwind) { %>
+                                <Button asChild variant={"outline"} className="gap-1 justify-self-end">
+                                <a href="https://github.com/super-turbo-stack/create-super-stack" target="_blank">
+                                <img src={github} alt="Github" className="h-4 dark:invert"/>
+                                <strong>Github</strong>
+                                </a>
+                                </Button>
+                        <% } else { %> 
+                                <Button className="bg-transparent text-primary border border-[#27272a] gap-1 justify-self-end">
+                                <a href="https://github.com/super-turbo-stack/create-super-stack" className="flex gap-1 items-center" target="_blank">
+                                <img src={github} alt="Github" className="h-4 dark:invert"/>
+                                <strong>Github</strong>
+                                </a>
+                                </Button>
+                        <% } %> 
+                <% } %> 
+                <RandomNumberGenerator />
             </div>
-            <h1>Vite + React</h1>
-            <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>
-                    count is {count}
+        </div>
+    <% } else { %> 
+        <div className='wrapper'>
+            <div className='container'>
+                <div>
+                    <h1 className='heading'>
+                        create <span className='uppercase'>super</span> stack
+                    </h1>
+                    <p className='information'>
+                        Kickstart your React project in a flash with Create Super Turbo!
+                    </p>
+                    <ol className='getstartedlist'>
+                        <li>Get started by editing src/App.tsx.</li>
+                        <li>Save and see your changes instantly.</li>
+                    </ol>
+                    <div className='buttongroup'>
+                        <button>
+                            <a href="#">
+                                Start Building
+                            </a>
+                        </button>
+                        <button className='docsbtn'>
+                            <a href="https://react.dev/" target="_blank">
+                            <img src={globe} alt='Globe' className='globe' />
+                            Go to react.dev
+                            <img src={arrow} alt='Arrow right' className='arrow' />
+                            </a>
+                        </button>
+                    </div>
+                </div>
+                <% if(props.react.reactDependencies.tanstackQuery) { %>
+                <GithubStar />
+                <% } else { %> 
+                <button className="githubstar">
+                <a href="https://github.com/super-turbo-stack/create-super-stack" target="_blank">
+                  <img src={github} alt="Github" className="h-4 dark:invert"/>
+                  <strong>Github</strong>
+                  </a>
                 </button>
+                <% } %> 
+                <RandomNumberGenerator />
             </div>
-            <% if(props.react.reactDependencies.tanstackQuery) { %> 
-                <Example/>
-            <% } %> 
-
-            <% if(props.react.reactDependencies.reactRouter) { %>
-                <Outlet />
-            <% } %> 
-        </>
+        </div>
+    <% } %> 
     )
-
 }
 
-<% if(props.react.reactDependencies.tanstackQuery) { %> 
-function Example() {
+<% if(props.react.reactDependencies.tanstackQuery) { %>
+function GithubStar() {
   const { isPending, error, data } = useQuery({
     queryKey: ['repoData'],
     queryFn: () =>
-      fetch('https://api.github.com/repos/TanStack/query').then((res) =>
+      fetch('https://api.github.com/repos/ofcljaved/chess').then((res) =>
         res.json(),
       ),
   })
-
-  if (isPending) return 'Loading...'
-
+<% if(props.react.reactDependencies.tailwind || props.react.reactDependencies.shadcnTailwind) { %>
+    <% if(props.react.reactDependencies.shadcnTailwind) { %>
+        if (isPending) return <Button variant={"outline"} className="justify-self-end">Loading...</Button>
+    <% } else { %> 
+        if (isPending) return <Button className="bg-transparent text-primary border border-[#27272a] gap-1 justify-self-end">
+oading...</Button>
+    <% } %> 
+<% } else { %> 
+  if (isPending) return <button className="githubstar">Loading...</button>
+<% } %> 
   if (error) return 'An error has occurred: ' + error.message
-
   return (
-    <div>
-      <h1>{data.name}</h1>
-      <p>{data.description}</p>
-      <strong>👀 {data.subscribers_count}</strong>{' '}
-      <strong>✨ {data.stargazers_count}</strong>{' '}
-      <strong>🍴 {data.forks_count}</strong>
-    </div>
+<% if(props.react.reactDependencies.tailwind || props.react.reactDependencies.shadcnTailwind) { %>
+    <% if(props.react.reactDependencies.shadcnTailwind) { %>
+            <Button asChild variant={"outline"} className="gap-1 justify-self-end">
+            <a href="https://github.com/super-turbo-stack/create-super-stack" target="_blank">
+            <img src={github} alt="Github" className="h-4 dark:invert"/>
+            <strong>Star</strong>
+            <span className="ml-2">{data.stargazers_count}</span>
+            </a>
+            </Button>
+    <% } else { %> 
+            <Button className="bg-transparent text-primary border border-[#27272a] gap-1 justify-self-end">
+            <a href="https://github.com/super-turbo-stack/create-super-stack" className="flex gap-1 items-center" target="_blank">
+            <img src={github} alt="Github" className="h-4 dark:invert"/>
+            <strong>Star</strong>
+            <span className="ml-2">{data.stargazers_count}</span>
+            </a>
+            </Button>
+    <% } %> 
+<% } else { %> 
+    <button className="githubstar">
+    <a href="https://github.com/super-turbo-stack/create-super-stack" target="_blank">
+      <img src={github} alt="Github" />
+      <strong>Star</strong>
+      <span>{data.stargazers_count}</span>
+      </a>
+    </button>
+<% } %> 
   )
 }
 <% } %> 
 
+function RandomNumberGenerator() {
+    <% if(props.react.reactDependencies.recoil) { %>
+    const [count, setCount] = useRecoilState(countState);
+    <% } else { %> 
+      const [count, setCount] = useState(0)
+    <% } %> 
+    const generateRandomNumber = () => {
+        setCount(Math.floor(Math.random() * 1000));
+    };
+    useEffect(generateRandomNumber, [setCount]);
+    return (
+    <% if(props.react.reactDependencies.tailwind || props.react.reactDependencies.shadcnTailwind) { %>
+        <div className="grid place-items-center gap-2 col-span-2 self-start">
+            <span>{count}</span>
+    <% if(props.react.reactDependencies.shadcnTailwind) { %>
+            <Button variant={"secondary"} onClick={generateRandomNumber}>
+                Generate Random Number
+            </Button>
+    <% } else { %> 
+            <Button  className="bg-secondary text-primary" onClick={generateRandomNumber}>
+                Generate Random Number
+            </Button>
+    <% } %> 
+        </div>
+    <% } else { %> 
+        <div className="randomnumber">
+            <span>{count}</span>
+            <button onClick={generateRandomNumber}>
+                Generate Random Number
+            </button>
+        </div>
+    <% } %> 
+    )
+}
+
+<% if(props.react.reactDependencies.tailwind && !props.react.reactDependencies.shadcnTailwind) { %>
+function Button ({
+  children,
+  className = "",
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+    return (
+    <button
+      className={`bg-primary h-10 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${className}`}
+      {...props}>
+      {children}
+    </button>
+    )
+}
+<% } %> 
 export default App

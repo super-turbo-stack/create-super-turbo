@@ -1,42 +1,117 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.wrapper {
+    background-color: var(--background);
+    width: 100vw;
+    height: 100vh;
+    padding-bottom: 2rem;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.container {
+    max-width: 1024px;
+    width: 100%;
+    height: 100%;
+    margin-inline: auto;
+    padding-top: 10%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    font-family: "Roboto", sans-serif;
+    color: var(--primary);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+h1.heading {
+    letter-spacing: -0.0325em;
+    line-height: 1.1;
+    text-transform: capitalize;
+    font-weight: 700;
+    font-size: 3rem;
 }
 
-.card {
-  padding: 2em;
+.heading>span {
+    text-transform: uppercase;
 }
 
-.read-the-docs {
-  color: #888;
+.information {
+    font-weight: 500;
+    color: var(--primary);
+    opacity: 0.7;
+    letter-spacing: -0.37px;
+    line-height: 28px;
+    font-weight: 500;
+    font-size: 1.125rem;
+    margin-block: 0.5rem;
+}
+
+.getstartedlist {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    margin:0;
+    padding:0;
+    line-height: 1.5;
+    padding-left: 2rem;
+}
+
+.buttongroup{
+    display: flex;
+    gap: 1rem;
+    margin-block:1rem;
+}
+
+.docsbtn {
+    text-underline-offset: 4px;
+    gap:0.25rem;
+    background-color: transparent;
+    color: var(--primary);
+}
+
+.docsbtn:hover{
+    text-decoration: underline;
+}
+
+.docsbtn  .globe, .docsbtn  .arrow {
+    filter:invert(100%);
+    margin-right:0.25rem;
+    height: 1rem;
+}
+
+.docsbtn  .globe {
+    opacity: 0.5;
+}
+
+.githubstar {
+    background-color: transparent;
+    color: var(--primary);
+    gap: 0.25rem;
+    border: 1px solid hsl(240, 3.7%, 15.9%);
+    justify-self: end;
+}
+
+.githubstar > a{
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+.githubstar  span {
+    margin-left: 0.5rem;
+}
+
+.githubstar  img {
+    height: 1rem;
+    filter:invert(100%);
+}
+
+@media (prefers-color-scheme: light) {
+    .githubstar  img, .docsbtn  .globe, .docsbtn  .arrow {
+        filter:invert(0%);
+    }
+}
+.randomnumber {
+    display: grid;
+    place-items: center;
+    gap: 0.65rem;
+    grid-column:span 2;
+    align-self: start;
+}
+
+.randomnumber > button{
+    background-color: var(--secondary);
+    color: var(--primary);
 }

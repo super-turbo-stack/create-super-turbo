@@ -13,17 +13,11 @@ import { RecoilRoot } from 'recoil';
 <% } %> 
 <% if(props.react.reactDependencies.reactRouter) { %>
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Home from './components/Home.tsx';
-import About from './components/About.tsx';
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
-        children: [
-            { path: "", element: <Home/> },
-            { path: "about", element: <About/> },
-        ],
     },
 ]);
 
