@@ -111,8 +111,7 @@ export const runCli = async (): Promise<CliResults> => {
     }
     return {
       ...cliResults,
-      packageManager:
-        cliPackageManager !== "Not Selected" ? cliPackageManager : "npm",
+      packageManager: cliPackageManager ?? "npm",
       git: cliFlags.noGit ? false : defaultOptions.git,
       install: cliFlags.noInstall ? false : defaultOptions.install,
     };
