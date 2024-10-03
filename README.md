@@ -32,7 +32,8 @@ Each project is generated based on the results of the CLI, on a per-file basis. 
 
 ### Contributing
 
-[See this guide.](\https://github.com/super-turbo-stack/create-super-turbo/blob/main/contributing.md)
+[See this guide.](https://github.com/super-turbo-stack/create-super-turbo/blob/main/contributing.md)
+
 
 Contributions are welcome! Please open a pull request or an issue if you would like to contribute
 Please Star this Repo
