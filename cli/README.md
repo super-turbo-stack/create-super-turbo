@@ -8,7 +8,8 @@
 </h3>
 
 
-/*Add Video here after deploying*/
+![cli](https://github.com/user-attachments/assets/16eb4932-6cb0-471b-8992-b4505f781ebc)
+
 
 
 
