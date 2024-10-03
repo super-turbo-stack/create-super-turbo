@@ -6,11 +6,10 @@
   "keywords": [],
   "license": "ISC",
   "files": [
-    "build",
-    "LICENSE",
-    "readme.md",
-    "docs",
-    "bin"
+    "dist",
+    "src/template",
+    "README.md",
+    "package.json"
   ],
   "bin": {
     "create-super-turbo": "dist/index.js"
