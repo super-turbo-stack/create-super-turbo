@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
 import React, { useState } from "react";
 
-const page = () => {
+const Page = () => {
     return (
         <main className="w-screen min-h-screen bg-backgroundi grid grid-rows-[auto_1fr] p-8 gap-8">
             <header className="ml-auto w-fit flex gap-2 items-center">
@@ -46,4 +46,4 @@ function CopyCommand () {
     )
 }
 
-export default page;
+export default Page;
