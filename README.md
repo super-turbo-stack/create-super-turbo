@@ -7,6 +7,13 @@
   Get started by running <code>npx create-super-turbo@latest</code>
 </p>
 
+
+/*Add Video here after deploying*/
+
+
+
+
+
 ## Tech Stack
 
 Each project is generated based on the results of the CLI, on a per-file basis. This approach makes this CLI extremely extendable and easy to use.
@@ -25,7 +32,7 @@ Each project is generated based on the results of the CLI, on a per-file basis. 
 
 ### Contributing
 
-[See this guide.](https://github.com/create-super-stack/create-super-turbo/contributing.md)
+[See this guide.](\https://github.com/super-turbo-stack/create-super-turbo/blob/main/contributing.md)
 
 Contributions are welcome! Please open a pull request or an issue if you would like to contribute. There are existing feature requests labeled as `[FR]` in the issues section of this repo.
 
