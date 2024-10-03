@@ -6,12 +6,16 @@ import React, { useState } from "react";
 const page = () => {
     return (
         <main className="w-screen min-h-screen bg-background">
-            <header className="ml-auto w-fit flex gap-2 items-center">
+            <header className="ml-auto w-fit flex gap-2 items-center p-8">
                 <Button variant="ghost" className="rounded-full text-xl font-bold">Docs</Button>
                 <Button variant="ghost" size="icon" className="text-3xl rounded-full h-12 w-12 p-2.5"><Icon icon="github"/></Button>
             </header>
-            <div className="max-w-screen-md w-full mx-auto px-8 grid justify-items-center">
+            <div className="max-w-screen-md w-full mx-auto px-8 grid justify-items-center gap-8">
                 <CopyCommand/>
+                <p className="text-balance text-center leading-6 text-foreground/65 tracking-normal font-medium mt-4 text-lg">
+                    Skip the complicated Turborepo setup. With <span className="text-foreground">create super turbo</span>, you get a fully configured React, Next.js, and Express stack in seconds. 
+                    Tailored with the most popular tools, so you can focus on development, not setup.
+                </p>
             </div>
         </main>
     );
