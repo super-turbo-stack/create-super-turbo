@@ -3,8 +3,30 @@
   "version": "1.0.0",
   "main": "index.js",
   "description": "CLI tool to initialize a TurboRepo with Apps and Packages blazingly fast",
-  "keywords": [],
   "license": "ISC",
+  "author": ["rushikeshg25", "ofcljaved"],
+  "contributors": [
+    "Rushikesh <https://x.com/RushikeshG10>",
+    "Javed <https://x.com/ofcljaved>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/super-turbo-stack/create-super-turbo.git",
+    "directory": "cli"
+  },
+  "keywords": [
+    "create-super-turbo",
+    "react",
+    "next.js",
+    "super-turbo-stack",
+    "tailwind",
+    "shadcn",
+    "express",
+    "turbo",
+    "prisma",
+    "nextauth",
+    "typescript"
+  ],
   "files": [
     "dist",
     "src/template",
