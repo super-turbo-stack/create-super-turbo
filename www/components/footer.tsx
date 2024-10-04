@@ -1,7 +1,5 @@
+import { CommandIcon } from "lucide-react";
 import Link from "next/link";
-import React from "react";
-import { buttonVariants } from "./ui/button";
-import { CommandIcon, HeartIcon, TriangleIcon } from "lucide-react";
 
 export function Footer() {
   return (
@@ -23,7 +21,7 @@ export function Footer() {
               href="https://github.com/ofcljaved"
             >
               Javed
-            </Link>{" "}
+            </Link>
             . The source code is available on{" "}
             <Link
               className="px-1 underline underline-offset-2"
