@@ -1,11 +1,10 @@
 import { ModeToggle } from "@/components/theme-toggle";
-import { GithubIcon, TwitterIcon, CommandIcon } from "lucide-react";
-import Link from "next/link";
-import React from "react";
-import { buttonVariants } from "./ui/button";
-import Search from "./search";
-import { SheetLeftbar } from "./leftbar";
 import { cn } from "@/lib/utils";
+import { GithubIcon } from "lucide-react";
+import Link from "next/link";
+import { SheetLeftbar } from "./leftbar";
+import Search from "./search";
+import { buttonVariants } from "./ui/button";
 
 export function Navbar() {
   return (
@@ -21,15 +20,6 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-3">
-          <Link
-            href="/docs/getting-started/introduction"
-            className={cn(
-              buttonVariants({ variant: "ghost", size: "icon" }),
-              "px-8"
-            )}
-          >
-            Docs
-          </Link>
           <div className="flex items-center gap-2">
             <Search />
             <div className="flex ml-2.5 sm:ml-0">
@@ -52,8 +42,7 @@ export function Navbar() {
 export function Logo() {
   return (
     <Link href="/" className="flex items-center gap-2.5">
-      <CommandIcon className="w-6 h-6 text-muted-foreground" strokeWidth={2} />
-      <h2 className="text-md font-bold font-code">Super Turbo Stack</h2>
+      <h2 className="text-md font-bold font-code">Create Super Turbo</h2>
     </Link>
   );
 }
