@@ -1,6 +1,6 @@
 {
   "name": "create-super-turbo",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index.js",
   "description": "CLI tool to initialize a TurboRepo with Apps and Packages blazingly fast",
   "license": "ISC",
@@ -8,6 +8,7 @@
     "Rushikesh <https://x.com/RushikeshG10>",
     "Javed <https://x.com/ofcljaved>"
   ],
+  "homepage": "https://create-super-turbo.vercel.app/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/super-turbo-stack/create-super-turbo.git",
