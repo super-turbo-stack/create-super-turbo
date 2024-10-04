@@ -8,7 +8,7 @@ import React, { useState } from "react";
 
 const Page = () => {
     return (
-        <main className="w-screen min-h-screen bg-backgroundi grid grid-rows-[auto_auto_1fr] p-8 gap-8">
+        <main className="w-screen h-screen bg-background grid grid-rows-[auto_auto_1fr] p-8 gap-8">
             <header className="max-w-screen-xl mx-auto w-full flex gap-2 items-center justify-end">
                 <Link
                     href={"/docs/getting-started/introduction"}
@@ -39,7 +39,7 @@ const Page = () => {
                 </p>
             </div>
             <div className="terminalContainer relative p-1 self-start mt-4 md:mt-0 justify-self-center overflow-hidden rounded-xl max-w-screen-lg">
-                <Image src="/CLI.gif" alt="CLI demo" width={960} height={540} className="rounded-lg w-auto h-auto invert dark:invert-0" priority />
+                <Image src="/CLI.gif" alt="CLI demo" width={800} height={450} className="rounded-lg w-full h-auto invert dark:invert-0" priority />
             </div>
         </main>
     );
