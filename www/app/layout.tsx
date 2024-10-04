@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/contexts/theme-provider";
-import { Navbar } from "@/components/navbar";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { Footer } from "@/components/footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AriaDocs - Template",
-  metadataBase: new URL("https://ariadocs.vercel.app/"),
+  title: "CLI - Create Super Turbo",
+  metadataBase: new URL("https://cst.vercel.app/"),
   description:
-    "This comprehensive documentation template, crafted with Next.js and available as open-source, delivers a sleek and responsive design, tailored to meet all your project documentation requirements.",
+    "The create-super-turbo tool simplifies Turborepo setup, giving you a ready-made stack with React, Next.js, Express, and popular tools—all configured for immediate coding.",
 };
 
 export default function RootLayout({
@@ -30,11 +28,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <main className="sm:container mx-auto w-[90vw] h-auto">
             {children}
-          </main>
-          <Footer />
         </ThemeProvider>
       </body>
     </html>
