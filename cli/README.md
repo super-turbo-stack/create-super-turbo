@@ -8,7 +8,8 @@
 </h3>
 
 
-![cli](https://github.com/user-attachments/assets/16eb4932-6cb0-471b-8992-b4505f781ebc)
+![CLI](https://github.com/user-attachments/assets/6de7c416-8535-4266-b908-0f89f669fb2b)
+
 
 
 
