@@ -170,6 +170,7 @@ export const runCli = async (): Promise<CliResults> => {
               },
             ],
           });
+          if (p.isCancel(installationResult)) process.exit(0);
           if (installationResult === "npm") {
             return "npm";
           }
