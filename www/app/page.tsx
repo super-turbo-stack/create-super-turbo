@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { REPO } from "@repo/constant";
+import { COMMAND, REPO } from "@repo/constant";
 
 const Page = () => {
     return (
@@ -48,7 +48,6 @@ const Page = () => {
 
 function CopyCommand() {
     const [isCopied, setIsCopied] = useState(false);
-    const COMMAND = `npx create-super-turbo@latest`;
 
     const handleCopy = () => {
         if (isCopied) return;
