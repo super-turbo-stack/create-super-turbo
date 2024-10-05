@@ -1,3 +1,4 @@
+import { JAVED_GITHUB, REPO, RUSHIKESH_GITHUB } from "@repo/constant";
 import { CommandIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -11,21 +12,21 @@ export function Footer() {
             Build by{" "}
             <Link
               className="px-1 underline underline-offset-2"
-              href="https://github.com/rushikeshg25"
+              href={RUSHIKESH_GITHUB}
             >
               Rushikesh
             </Link>
             and{" "}
             <Link
               className="px-1 underline underline-offset-2"
-              href="https://github.com/ofcljaved"
+              href={JAVED_GITHUB}
             >
               Javed
             </Link>
             . The source code is available on{" "}
             <Link
               className="px-1 underline underline-offset-2"
-              href="https://github.com/super-turbo-stack/create-super-turbo"
+              href={REPO}
             >
               GitHub
             </Link>
