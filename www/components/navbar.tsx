@@ -5,6 +5,7 @@ import Link from "next/link";
 import { SheetLeftbar } from "./leftbar";
 import Search from "./search";
 import { buttonVariants } from "./ui/button";
+import { REPO } from "@repo/constant";
 
 export function Navbar() {
   return (
@@ -24,7 +25,7 @@ export function Navbar() {
             <Search />
             <div className="flex ml-2.5 sm:ml-0">
               <Link
-                href="https://github.com/super-turbo-stack/create-super-turbo"
+                href={REPO}
                 className={buttonVariants({ variant: "ghost", size: "icon" })}
               >
                 <GithubIcon className="h-[1.1rem] w-[1.1rem]" />
