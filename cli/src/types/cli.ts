@@ -14,6 +14,9 @@ export interface CliResults {
   packageManager: "yarn" | "npm" | "pnpm";
   // language: "typescript" | "javascript";
   react: reactApp | null;
+  numOfReactApp: number;
+  numOfNextApp: number;
+  numOfExpressApp: number;
   next: nextApp | null;
   express: expressApp | null;
   git: boolean;
@@ -34,6 +37,7 @@ export const defaultOptions: CliResults = {
       tanstackQuery: true,
     },
   },
+  numOfReactApp: 1,
   next: {
     nextName: "next-app",
     nextDependencies: {
@@ -45,6 +49,7 @@ export const defaultOptions: CliResults = {
       prisma: true,
     },
   },
+  numOfNextApp: 1,
   express: {
     expressName: "express-app",
     expressDependencies: {
@@ -52,6 +57,7 @@ export const defaultOptions: CliResults = {
       prisma: true,
     },
   },
+  numOfExpressApp: 1,
   git: true,
   install: true,
 };

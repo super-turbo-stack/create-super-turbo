@@ -8,15 +8,21 @@ import { logger } from "@/utils/logger";
 export const flagsHelper = async ({
   cliName,
   isExpress,
+  numOfExpressApp,
   isNext,
+  numOfNextApp,
   isReact,
+  numOfReactApp,
   isGit,
   isInstall,
   cliPackageManager,
 }: {
   isReact: boolean;
+  numOfReactApp: number;
   isNext: boolean;
+  numOfNextApp: number;
   isExpress: boolean;
+  numOfExpressApp: number;
   cliName: string;
   isGit: boolean;
   isInstall: boolean;
@@ -25,7 +31,7 @@ export const flagsHelper = async ({
   let SelectedPackageManager;
   if (cliPackageManager !== null) {
     const ispkgManagerInstalled = await isPackageManagerInstalled(
-      cliPackageManager as PackageManager
+      cliPackageManager as PackageManager,
     );
     if (!ispkgManagerInstalled) {
       const installationResult = await p.select({
@@ -43,7 +49,7 @@ export const flagsHelper = async ({
       } else {
         logger.warn("Aborting installation...");
         logger.info(
-          `To install ${cliPackageManager} run: npm install -g ${cliPackageManager}`
+          `To install ${cliPackageManager} run: npm install -g ${cliPackageManager}`,
         );
         process.exit(1);
       }
@@ -65,8 +71,11 @@ export const flagsHelper = async ({
       ? (cliPackageManager as "yarn" | "npm" | "pnpm")
       : (SelectedPackageManager as "yarn" | "npm" | "pnpm") ?? "npm",
     react: isReact ? defaultOptions.react : null,
+    numOfReactApp,
     next: isNext ? defaultOptions.next : null,
+    numOfNextApp,
     express: isExpress ? defaultOptions.express : null,
+    numOfExpressApp,
     git: isGit ? true : false,
     install: isInstall ? true : false,
   };
