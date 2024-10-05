@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import { REPO } from "@repo/constant";
 
 const Page = () => {
     return (
@@ -17,7 +18,7 @@ const Page = () => {
                     Docs
                 </Link>
                 <Link
-                    href={"https://github.com/super-turbo-stack/create-super-turbo.git"}
+                    href={REPO}
                     target="_blank"
                     className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "text-2xl md:text-3xl rounded-full h-12 w-12 p-2.5")}
                 >
