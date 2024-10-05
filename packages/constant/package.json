@@ -1,0 +1,9 @@
+{
+    "name": "@repo/constant",
+    "version": "1.0.0",
+    "description": "Constant values used throughout the projects",
+    "license": "ISC",
+    "exports": {
+        ".": "./src/index.ts"
+    }
+}
