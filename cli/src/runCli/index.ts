@@ -9,6 +9,7 @@ import { checkConflictingAppNames } from "@/helper/checkConflictingAppNames";
 import { flagsHelper } from "@/helper/flagsHelper";
 import chalk from "chalk";
 import { isPackageManagerInstalled } from "@/helper/install";
+import { parseAppOption } from "@/utils/parseAppOption";
 
 export const runCli = async (): Promise<CliResults> => {
   const cliResults = defaultOptions;
@@ -16,36 +17,39 @@ export const runCli = async (): Promise<CliResults> => {
   program
     .name(CREATE_SUPER_TURBO)
     .description(
-      "CLI tool to setup TurboRepo with Apps and Packages blazingly fast"
+      "CLI tool to setup TurboRepo with Apps and Packages blazingly fast",
     )
     .argument(
       "[dir]",
-      "The name of the application, as well as the name of the directory to create"
+      "The name of the application, as well as the name of the directory to create",
     )
     .option(
       "--noGit",
       "Explicitly tell the CLI to not initialize a new git repo in the project",
-      false
+      false,
     )
     .option(
       "--noInstall",
       "Explicitly tell the CLI to not run the package manager's install command",
-      false
+      false,
     )
     .option(
-      "--react",
+      "--react [number]",
       "Add React App with React's default options to your Super Turbo",
-      false
+      parseAppOption,
+      false,
     )
     .option(
-      "--next",
+      "--next [number]",
       "Add Next App with Next's default options to your Super Turbo",
-      false
+      parseAppOption,
+      false,
     )
     .option(
-      "--express",
+      "--express [number]",
       "Add Express App with Express's default options to your Super Turbo",
-      false
+      parseAppOption,
+      false,
     )
     .option("--pnpm", "Use pnpm Workspaces", false)
     .option("--yarn", "Use yarn Workspaces", false)
@@ -53,7 +57,7 @@ export const runCli = async (): Promise<CliResults> => {
     .option(
       "-y, --default",
       "Bypass the CLI and use all default options to bootstrap a new super-turbo-app",
-      false
+      false,
     )
     .version("1.0.0", "-v, --version", "Display the version number");
 
@@ -86,7 +90,7 @@ export const runCli = async (): Promise<CliResults> => {
   if (cliFlags.default) {
     if (cliPackageManager !== null) {
       const ispkgManagerInstalled = await isPackageManagerInstalled(
-        cliPackageManager as PackageManager
+        cliPackageManager as PackageManager,
       );
       if (!ispkgManagerInstalled) {
         const installationResult = await p.select({
@@ -102,7 +106,7 @@ export const runCli = async (): Promise<CliResults> => {
         if (installationResult === "npm") cliPackageManager = "npm";
         else {
           logger.info(
-            `To install ${cliPackageManager} run: npm install -g ${cliPackageManager}`
+            `To install ${cliPackageManager} run: npm install -g ${cliPackageManager}`,
           );
           logger.info("Install the package manager and try again!");
           process.exit(1);
@@ -121,12 +125,16 @@ export const runCli = async (): Promise<CliResults> => {
     const result = await flagsHelper({
       cliPackageManager,
       cliName: cliProvidedName,
-      isReact: cliFlags.react,
-      isNext: cliFlags.next,
-      isExpress: cliFlags.express,
+      isReact: cliFlags.react && cliFlags.react[0],
+      numOfReactApp: cliFlags.react ? cliFlags.react[1] : 0,
+      isNext: cliFlags.next && cliFlags.next[0],
+      numOfNextApp: cliFlags.next ? cliFlags.next[1] : 0,
+      isExpress: cliFlags.express && cliFlags.express[0],
+      numOfExpressApp: cliFlags.express ? cliFlags.express[1] : 0,
       isGit: cliFlags.noGit ? false : true,
       isInstall: cliFlags.noInstall ? false : true,
     });
+    console.log(result);
     return result;
   }
 
@@ -157,7 +165,7 @@ export const runCli = async (): Promise<CliResults> => {
           result = cliPackageManager;
         }
         const ispkgManagerInstalled = await isPackageManagerInstalled(
-          result as PackageManager
+          result as PackageManager,
         );
         if (!ispkgManagerInstalled) {
           const installationResult = await p.select({
@@ -177,7 +185,7 @@ export const runCli = async (): Promise<CliResults> => {
           if (installationResult === "abort") {
             logger.warn("Aborting installation...");
             logger.info(
-              `To install ${result.toString()} run: npm install -g ${result.toString()}`
+              `To install ${result.toString()} run: npm install -g ${result.toString()}`,
             );
             process.exit(1);
           }
@@ -186,8 +194,8 @@ export const runCli = async (): Promise<CliResults> => {
         if (result === "pnpm") {
           p.log.success(
             chalk.green(
-              "Great Choice! Installation with pnpm will be Superrrr Fast! 🏎️💨"
-            )
+              "Great Choice! Installation with pnpm will be Superrrr Fast! 🏎️💨",
+            ),
           );
         }
         return result;
@@ -306,7 +314,7 @@ export const runCli = async (): Promise<CliResults> => {
         logger.info("Operation cancelled.");
         process.exit(0);
       },
-    }
+    },
   );
   if (!project.reactDependencies) project.reactDependencies = [];
   if (!project.nextDependencies) project.nextDependencies = [];
