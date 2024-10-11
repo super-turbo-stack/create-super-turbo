@@ -111,7 +111,16 @@ async function main() {
       await installDependencies({ projectDir: destDir, packageManager });
     }
 
-    getStartedMessage({ turboRepoName, install, packageManager });
+    getStartedMessage({
+      turboRepoName,
+      install,
+      packageManager,
+      prisma: next?.nextDependencies.prisma
+        ? true
+        : express?.expressDependencies.prisma
+          ? true
+          : false,
+    });
   } catch (err) {
     logger.error("Aborting installation...");
     if (err instanceof Error) {
