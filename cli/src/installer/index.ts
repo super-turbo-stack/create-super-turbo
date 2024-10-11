@@ -29,7 +29,8 @@ export const InstallPackages = async ({
     await PrismaInstaller({
       destDir,
       packageManager,
-      app,
+      express: express ? true : false,
+      next: next ? true : false,
       name: express?.expressName,
     });
   }
@@ -59,7 +60,7 @@ export const InstallPackages = async ({
     await ReactRouterInstaller({ destDir, appName: react.reactName });
   }
   if (react?.reactDependencies.recoil || next?.nextDependencies.recoil) {
-    await RecoilInstaller({ destDir, packageManager});
+    await RecoilInstaller({ destDir, packageManager });
   }
   if (react?.reactDependencies.tailwind) {
     await TailwindInstaller({
