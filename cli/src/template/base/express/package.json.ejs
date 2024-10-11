@@ -18,22 +18,27 @@
     "cors": "^2.8.5",
     <% } %> 
     <% if(props.packageManager === 'pnpm' && props.express.expressDependencies.prisma) { %>
-      "@repo/db": "workspace:*",
+    "@repo/db": "workspace:*",
+    "@prisma/client": "5.19.1",
     <% } %> 
     <% if((props.packageManager === 'npm' || props.packageManager === 'yarn') && props.express.expressDependencies.prisma) { %>
-      "@repo/db": "*",
+    "@repo/db": "*",
+    "@prisma/client": "5.19.1",
     <% } %> 
     "dotenv": "^16.4.5",
     "express": "^4.21.0"
   },
   "devDependencies": {
+    <% if(props.express.expressDependencies.prisma) { %>
+    "prisma": "^5.19.1",
+    <% } %> 
     <% if(props.express.expressDependencies.cors) { %>
     "@types/cors": "^2.8.17",
     <% } %> 
-    <% if(props.packageManager === 'pnpm' && props.express.expressDependencies.prisma) { %>
+    <% if(props.packageManager === 'pnpm' ) { %>
     "@repo/typescript-config": "workspace:*",
     <% } %> 
-    <% if((props.packageManager === 'npm' || props.packageManager === 'yarn') && props.express.expressDependencies.prisma) { %>
+    <% if(props.packageManager === 'npm' || props.packageManager === 'yarn') { %>
     "@repo/typescript-config": "*",
     <% } %> 
     "@types/express": "^4.17.21",
