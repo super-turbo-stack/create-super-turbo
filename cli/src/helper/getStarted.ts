@@ -4,10 +4,12 @@ export const getStartedMessage = ({
   packageManager,
   turboRepoName,
   install,
+  prisma,
 }: {
   packageManager: "yarn" | "npm" | "pnpm";
   turboRepoName: string;
   install: boolean;
+  prisma: boolean;
 }) => {
   logger.success("Now, to get started");
   console.log();
@@ -22,6 +24,17 @@ export const getStartedMessage = ({
     if (packageManager === "pnpm" || packageManager === "npm")
       logger.info(`${step++}. ${packageManager} install`);
     else logger.info(`${step++}. yarn `);
+  }
+
+  if (prisma) {
+    logger.info(`${step++}. cd packages/db`);
+    logger.info(`${step++}. Add DATABASE_URL to .env`);
+
+    if (packageManager === "pnpm" || packageManager === "npm")
+      logger.info(`${step++}. ${packageManager} install`);
+    else logger.info(`${step++}. yarn `);
+
+    logger.info(`${step++}. npx prisma migrate dev`);
   }
 
   if (packageManager === "pnpm" || packageManager === "npm")

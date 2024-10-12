@@ -1,6 +1,6 @@
 import { Router } from "express";
 <% if(props.express.expressDependencies.prisma) { %>
-import prisma from "@repo/db/client";
+import prisma from "@/db/index";
 <% }else{%>
 const users=[
 {"id":1,"name":"John Doe","email":"john@example.com"},

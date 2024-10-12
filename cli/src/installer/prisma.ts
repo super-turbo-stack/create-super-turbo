@@ -7,12 +7,14 @@ import path from "path";
 export const PrismaInstaller = async ({
   destDir,
   packageManager,
-  app,
+  express,
+  next,
   name,
 }: {
   destDir: string;
   packageManager: "yarn" | "npm" | "pnpm";
-  app: "express" | "next";
+  express: boolean;
+  next: boolean;
   name: string | undefined;
 }) => {
   try {
@@ -23,10 +25,10 @@ export const PrismaInstaller = async ({
         packageManager,
       },
     });
-    if (app === "express" && name) {
+    if (express) {
       fs.copySync(
         path.join(PKG_ROOT, "src/template/dependencies/prisma-express"),
-        path.join(destDir, "apps", name, "src")
+        path.join(destDir, "apps", name as string, "src")
       );
     }
   } catch (error) {
