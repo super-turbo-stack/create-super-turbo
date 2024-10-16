@@ -43,6 +43,7 @@ export const InstallPackages = async ({
     if (reactApps > 0) {
       let reactNum = reactApps;
       await RecoilInstaller({ destDir, packageManager });
+      await ShadcnInstaller({ destDir, packageManager });
       while (reactNum--) {
         await TailwindInstaller({
           destDir,

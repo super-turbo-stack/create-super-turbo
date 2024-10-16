@@ -59,7 +59,10 @@ async function main() {
           templateCompilationProps: {
             props: {
               packageManager,
-              react,
+              react: {
+                ...defaultReact,
+                reactName: `react-app-${reactNum}`,
+              },
             },
           },
         });
@@ -94,7 +97,10 @@ async function main() {
           templateCompilationProps: {
             props: {
               packageManager,
-              next,
+              next: {
+                ...defaultNext,
+                nextName: `next-app-${nextNum}`,
+              },
             },
           },
         });
@@ -126,7 +132,10 @@ async function main() {
           templateCompilationProps: {
             props: {
               packageManager,
-              express,
+              express: {
+                ...defaultExpress,
+                expressName: `express-app-${expressNum}`,
+              },
             },
           },
         });
