@@ -30,7 +30,7 @@ export const InstallPackages = async ({
   if (expressApps > 0 || nextApps > 0 || reactApps > 0) {
     if (expressApps > 0) {
       let expressNum = expressApps;
-      while (--expressNum) {
+      while (expressNum--) {
         await PrismaInstaller({
           destDir,
           packageManager,
@@ -43,7 +43,7 @@ export const InstallPackages = async ({
     if (reactApps > 0) {
       let reactNum = reactApps;
       await RecoilInstaller({ destDir, packageManager });
-      while (--reactNum) {
+      while (reactNum--) {
         await TailwindInstaller({
           destDir,
           appName: `react-app-${reactNum}`,
@@ -62,7 +62,7 @@ export const InstallPackages = async ({
       let nextNum = nextApps;
       await RecoilInstaller({ destDir, packageManager });
       await ShadcnInstaller({ destDir, packageManager });
-      while (--nextNum) {
+      while (nextNum--) {
         await PrismaInstaller({
           destDir,
           packageManager,

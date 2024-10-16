@@ -47,7 +47,7 @@ async function main() {
     //copy react app to /apps
     if (reactApps > 0) {
       let reactNum = reactApps;
-      while (--reactNum) {
+      while (reactNum--) {
         await bootStrapApps({
           turboRepoName,
           superTurboDir,
@@ -82,7 +82,7 @@ async function main() {
     //copy next app to /apps
     if (nextApps > 0) {
       let nextNum = nextApps;
-      while (--nextNum) {
+      while (nextNum--) {
         await bootStrapApps({
           turboRepoName,
           superTurboDir,
@@ -117,7 +117,7 @@ async function main() {
     //copy express app to /apps
     if (expressApps > 0) {
       let expressNum = expressApps;
-      while (--expressNum) {
+      while (expressNum--) {
         await bootStrapApps({
           turboRepoName,
           superTurboDir,
