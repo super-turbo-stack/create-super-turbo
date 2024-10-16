@@ -9,6 +9,7 @@ import { checkConflictingAppNames } from "@/helper/checkConflictingAppNames";
 import { flagsHelper } from "@/helper/flagsHelper";
 import chalk from "chalk";
 import { isPackageManagerInstalled } from "@/helper/install";
+import { getCSTVersion } from "@/helper/getCSTVersion";
 
 export const runCli = async (): Promise<CliResults> => {
   const cliResults = defaultOptions;
@@ -55,7 +56,7 @@ export const runCli = async (): Promise<CliResults> => {
       "Bypass the CLI and use all default options to bootstrap a new super-turbo-app",
       false
     )
-    .version("1.0.0", "-v, --version", "Display the version number");
+    .version(getCSTVersion(), "-v, --version", "Display the version number");
 
   program.parse(process.argv);
   const cliProvidedName = program.args[0];
