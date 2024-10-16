@@ -175,12 +175,9 @@ async function main() {
     });
 
     PackageInstallationLogs({
-      reactAppDependencies:
-        react?.reactDependencies || defaultReact.reactDependencies,
-      nextAppDependencies:
-        next?.nextDependencies || defaultNext.nextDependencies,
-      expressAppDependencies:
-        express?.expressDependencies || defaultExpress.expressDependencies,
+      reactAppDependencies: react?.reactDependencies,
+      nextAppDependencies: next?.nextDependencies,
+      expressAppDependencies: express?.expressDependencies,
     });
     console.log(" ");
     if (git) {
