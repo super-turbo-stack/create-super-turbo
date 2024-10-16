@@ -33,18 +33,18 @@ export const runCli = async (): Promise<CliResults> => {
       false
     )
     .option(
-      "--react",
-      "Add React App with React's default options to your Super Turbo",
+      "--react [reactApps]",
+      "Add React App(s) to your Super Turbo. Use without a value for one app, or specify a number for multiple apps.",
       false
     )
     .option(
-      "--next",
-      "Add Next App with Next's default options to your Super Turbo",
+      "--next [nextApps]",
+      "Add Next App(s) to your Super Turbo. Use without a value for one app, or specify a number for multiple apps.",
       false
     )
     .option(
-      "--express",
-      "Add Express App with Express's default options to your Super Turbo",
+      "--express [expressApps]",
+      "Add Express App(s) to your Super Turbo. Use without a value for one app, or specify a number for multiple apps.",
       false
     )
     .option("--pnpm", "Use pnpm Workspaces", false)
@@ -324,6 +324,9 @@ export const runCli = async (): Promise<CliResults> => {
     // language: project.language as "typescript" | "javascript",
     git: cliFlags.noGit ? false : (project.git as boolean),
     install: cliFlags.noInstall ? false : (project.install as boolean),
+    reactApps: 0,
+    nextApps: 0,
+    expressApps: 0,
     react: !project.react
       ? null
       : {
