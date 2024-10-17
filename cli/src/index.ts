@@ -11,6 +11,7 @@ import { installDependencies } from "./helper/install";
 import { BootStappedMessage } from "./helper/BootstrapedMessage";
 import { PackageInstallationLogs } from "./helper/PackageInstallationLogs";
 import { getStartedMessage } from "./helper/getStarted";
+import { defaultExpress, defaultNext, defaultReact } from "./types/cli";
 
 async function main() {
   try {
@@ -23,6 +24,9 @@ async function main() {
       express,
       git,
       install,
+      reactApps,
+      nextApps,
+      expressApps,
     } = await runCli();
 
     const destDir = path.join(process.cwd(), turboRepoName);
@@ -41,7 +45,29 @@ async function main() {
     });
 
     //copy react app to /apps
-    if (react) {
+    if (reactApps > 0) {
+      let reactNum = reactApps;
+      while (reactNum--) {
+        await bootStrapApps({
+          turboRepoName,
+          superTurboDir,
+          type: "react",
+          app: {
+            ...defaultReact,
+            reactName: `react-app-${reactNum}`,
+          },
+          templateCompilationProps: {
+            props: {
+              packageManager,
+              react: {
+                ...defaultReact,
+                reactName: `react-app-${reactNum}`,
+              },
+            },
+          },
+        });
+      }
+    } else if (react) {
       await bootStrapApps({
         turboRepoName,
         superTurboDir,
@@ -57,7 +83,29 @@ async function main() {
     }
 
     //copy next app to /apps
-    if (next) {
+    if (nextApps > 0) {
+      let nextNum = nextApps;
+      while (nextNum--) {
+        await bootStrapApps({
+          turboRepoName,
+          superTurboDir,
+          type: "next",
+          app: {
+            ...defaultNext,
+            nextName: `next-app-${nextNum}`,
+          },
+          templateCompilationProps: {
+            props: {
+              packageManager,
+              next: {
+                ...defaultNext,
+                nextName: `next-app-${nextNum}`,
+              },
+            },
+          },
+        });
+      }
+    } else if (next) {
       await bootStrapApps({
         turboRepoName,
         superTurboDir,
@@ -73,7 +121,26 @@ async function main() {
     }
 
     //copy express app to /apps
-    if (express) {
+    if (expressApps > 0) {
+      let expressNum = expressApps;
+      while (expressNum--) {
+        await bootStrapApps({
+          turboRepoName,
+          superTurboDir,
+          type: "express",
+          app: { ...defaultExpress, expressName: `express-app-${expressNum}` },
+          templateCompilationProps: {
+            props: {
+              packageManager,
+              express: {
+                ...defaultExpress,
+                expressName: `express-app-${expressNum}`,
+              },
+            },
+          },
+        });
+      }
+    } else if (express) {
       await bootStrapApps({
         turboRepoName,
         superTurboDir,
@@ -88,7 +155,16 @@ async function main() {
       });
     }
 
-    await InstallPackages({ packageManager, next, react, express, destDir });
+    await InstallPackages({
+      packageManager,
+      next,
+      react,
+      express,
+      destDir,
+      nextApps,
+      expressApps,
+      reactApps,
+    });
 
     BootStappedMessage({
       destDir,

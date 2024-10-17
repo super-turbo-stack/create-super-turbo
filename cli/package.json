@@ -1,6 +1,6 @@
 {
   "name": "create-super-turbo",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "index.js",
   "description": "CLI tool to initialize a TurboRepo with Apps and Packages blazingly fast",
   "license": "ISC",

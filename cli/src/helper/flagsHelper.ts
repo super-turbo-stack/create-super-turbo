@@ -14,9 +14,9 @@ export const flagsHelper = async ({
   isInstall,
   cliPackageManager,
 }: {
-  isReact: boolean;
-  isNext: boolean;
-  isExpress: boolean;
+  isReact: boolean | string;
+  isNext: boolean | string;
+  isExpress: boolean | string;
   cliName: string;
   isGit: boolean;
   isInstall: boolean;
@@ -60,6 +60,15 @@ export const flagsHelper = async ({
     });
   }
   return {
+    ...defaultOptions,
+    reactApps:
+      typeof isReact === "string" && Number(isReact) > 0 ? Number(isReact) : 0,
+    nextApps:
+      typeof isNext === "string" && Number(isNext) > 0 ? Number(isNext) : 0,
+    expressApps:
+      typeof isExpress === "string" && Number(isExpress) > 0
+        ? Number(isExpress)
+        : 0,
     turboRepoName: cliName ?? defaultOptions.turboRepoName,
     packageManager: cliPackageManager
       ? (cliPackageManager as "yarn" | "npm" | "pnpm")
