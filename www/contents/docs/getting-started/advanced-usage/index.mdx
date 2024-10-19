@@ -1,23 +1,43 @@
 ## Advanced Usage
 
-#### Arguments
-
+### Arguments
 | Argument | Description                                                                 |
 | -------- | --------------------------------------------------------------------------- |
 | `dir`    | The name of the application, as well as the name of the directory to create |
 
-#### Options
+### Options
 
+#### Package Manager Options
+| Option          | Description                                    |
+| --------------- | ---------------------------------------------- |
+| `--pnpm`        | Use pnpm as the package manager                |
+| `--yarn`        | Use yarn as the package manager                |
+| `--npm`         | Use npm as the package manager                 |
+
+#### Framework Options
+| Option             | Description                                                                        |
+| ------------------ | ---------------------------------------------------------------------------------- |
+| `--react [number]` | Add React apps to your Super Turbo. If number is specified, creates that many apps |
+| `--next [number]`  | Add Next.js apps to your Super Turbo. If number is specified, creates that many apps |
+| `--express [number]`| Add Express apps to your Super Turbo. If number is specified, creates that many apps |
+
+#### General Options
 | Option          | Description                                                                   |
 | --------------- | ----------------------------------------------------------------------------- |
 | `-v, --version` | Display the version number                                                    |
 | `-h, --help`    | Display help for the command                                                  |
 | `--noGit`       | Explicitly tell the CLI to not initialize a new git repo in the project       |
 | `--noInstall`   | Explicitly tell the CLI to not run the package manager's install command      |
-| `--react`       | Add React App with React's default options to your Super Turbo                |
-| `--next`        | Add Next App with Next's default options to your Super Turbo                  |
-| `--express`     | Add Express App with Express's default options to your Super Turbo            |
-| `--pnpm`        | Use pnpm as the package manager                                               |
-| `--yarn`        | Use yarn as the package manager                                               |
-| `--npm`         | Use npm as the package manager                                                |
 | `-y, --default` | Bypass the CLI and use all default options to bootstrap a new super-turbo-app |
+
+### Examples
+```bash
+# Create a project with 3 React apps
+npx create-super-turbo my-app --react 3
+
+# Create a project with 2 Next.js apps and 1 Express app
+npx create-super-turbo my-app --next 2 --express 1
+
+# Create a project with default React setup using pnpm
+npx create-super-turbo my-app --react --pnpm
+```
