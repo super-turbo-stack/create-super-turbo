@@ -55,5 +55,9 @@ Each project is generated based on the results of the CLI, on a per-file basis. 
 </tr>
 </table>
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=super-turbo-stack/create-super-turbo&type=Timeline)](https://www.star-history.com/#super-turbo-stack/create-super-turbo&Timeline)
+
 Contributions are welcome! Please open a pull request or an issue if you would like to contribute
 Please Star this Repo
